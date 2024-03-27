@@ -1,0 +1,51 @@
+﻿@model IEnumerable<PugliaMia.Models.Ordini>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Utenti.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataOrdine)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StatoOrdine)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Totale)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Utenti.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataOrdine)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StatoOrdine)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Totale)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.OrdineID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.OrdineID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.OrdineID })
+        </td>
+    </tr>
+}
+
+</table>

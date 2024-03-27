@@ -1,0 +1,22 @@
+﻿@model List<PugliaMia.Models.Ordini>
+
+<h2>I tuoi ordini</h2>
+
+@if (Model.Any())
+{
+    <ul>
+        @foreach (var ordine in Model)
+        {
+            <li>
+                <h3>Ordine ID: @ordine.OrdineID</h3>
+                <p>Data Ordine: @ordine.DataOrdine</p>
+                <p>Totale: @ordine.Totale €</p>
+                <p>@Html.ActionLink("Dettagli", "RiepilogoOrdine", new { ordineId = ordine.OrdineID })</p>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>Non hai effettuato nessun ordine.</p>
+}

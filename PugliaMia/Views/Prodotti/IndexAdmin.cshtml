@@ -1,0 +1,63 @@
+﻿@model IEnumerable<PugliaMia.Models.Prodotti>
+
+@{
+    ViewBag.Title = "IndexAdmin";
+}
+
+<h2>IndexAdmin</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Categorie.NomeCategoria)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descrizione)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Prezzo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Immagine)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Disponibilita)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Categorie.NomeCategoria)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descrizione)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Prezzo)
+        </td>
+        <td>
+            <img src="@Url.Content(string.IsNullOrEmpty(item.Immagine) ? "~/Content/Images/hotel.jpg" : item.Immagine)" style="height:200px; width:600px" class="img-fluid" alt="...">
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Disponibilita)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ProdottoID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ProdottoID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ProdottoID })
+        </td>
+    </tr>
+}
+
+</table>

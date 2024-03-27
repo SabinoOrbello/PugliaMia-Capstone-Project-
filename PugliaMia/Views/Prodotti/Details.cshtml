@@ -1,0 +1,66 @@
+﻿@model PugliaMia.Models.Prodotti
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Prodotti</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Categorie.NomeCategoria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Categorie.NomeCategoria)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descrizione)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descrizione)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prezzo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prezzo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Immagine)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Immagine)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Disponibilita)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Disponibilita)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ProdottoID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,28 @@
+﻿@model List<PugliaMia.Models.Prodotti>
+
+<div class="container">
+    <h2>Prodotti</h2>
+
+    @if (Model.Any())
+    {
+
+        foreach (var prodotto in Model)
+        {
+            <div class="card" style="width: 18rem;">
+                <img src="@Url.Content(string.IsNullOrEmpty(prodotto.Immagine) ? "~/Content/Images/hotel.jpg" : prodotto.Immagine)" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@prodotto.Nome</h5>
+                    <p class="card-text">@prodotto.Prezzo</p>
+                    <!-- Aggiungi al carrello -->
+                    @Html.ActionLink("Aggiungi al carrello", "Aggiungi", "Carrello", new { prodottoId = prodotto.ProdottoID }, null)
+
+                </div>
+            </div>
+        }
+
+    }
+    else
+    {
+        <p>Nessun prodotto trovato per questa categoria.</p>
+    }
+</div>

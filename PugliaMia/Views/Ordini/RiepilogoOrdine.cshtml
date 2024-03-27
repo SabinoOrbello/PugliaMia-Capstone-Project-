@@ -1,0 +1,36 @@
+﻿@model PugliaMia.Models.RiepilogoOrdineViewModel
+
+<h2>Riepilogo dell'Ordine</h2>
+
+<h3>Dettagli dell'Ordine</h3>
+<p>ID Ordine: @Model.Ordine.OrdineID</p>
+<p>Data Ordine: @Model.Ordine.DataOrdine</p>
+<p>Totale: @Model.Ordine.Totale</p>
+<!-- Altri dettagli dell'ordine -->
+
+<h3>Dettagli della Spedizione</h3>
+<p>Indirizzo Spedizione: @Model.Spedizione.IndirizzoSpedizione</p>
+<p>Numero Tracciamento: @Model.Spedizione.NumeroTracciamento</p>
+<p>Stato Spedizione: @Model.Spedizione.StatoSpedizione</p>
+<!-- Altri dettagli della spedizione -->
+
+<h3>Dettagli del Pagamento</h3>
+<p>Metodo Pagamento: @Model.Pagamento.MetodoPagamento</p>
+<p>Totale Pagamento: @Model.Pagamento.TotalePagato €</p>
+<!-- Altri dettagli del pagamento -->
+
+<h3>Prodotti Ordinati</h3>
+@if (Model.DettagliOrdine.Any())
+{
+    <ul>
+        @foreach (var dettaglio in Model.DettagliOrdine)
+        {
+            <li>@dettaglio.Prodotti.Nome - Quantità: @dettaglio.Quantita - Prezzo: @dettaglio.Prezzo €</li>
+        }
+    </ul>
+}
+else
+{
+    <p>Non ci sono prodotti nell'ordine.</p>
+}
+<p>@Html.ActionLink("Torna al menù", "Index", "Categorie", new { area = "" }, new { @class = "nav-link" })</p>

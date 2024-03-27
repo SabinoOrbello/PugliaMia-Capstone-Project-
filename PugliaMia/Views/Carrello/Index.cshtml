@@ -1,0 +1,44 @@
+﻿@model List<PugliaMia.Models.Prodotti>
+
+<h2>Prodotti nel Carrello</h2>
+
+@if (Model.Any())
+{
+    using (Html.BeginForm("CreaOrdine", "Ordini", FormMethod.Post))
+    {
+    <ul>
+        @foreach (var prodotto in Model)
+        {
+            <li>
+                @prodotto.Nome - Prezzo: @prodotto.Prezzo €
+                <input type="number" name="quantita_@prodotto.ProdottoID" min="1" value="1">
+                <input type="hidden" name="prodottoID" value="@prodotto.ProdottoID" />
+            </li>
+            
+        }
+    </ul>
+
+    <h3>Conferma il tuo ordine</h3>
+
+        <div class="form-group">
+            <label for="indirizzoSpedizione">Indirizzo di spedizione</label>
+            <input type="text" class="form-control" id="indirizzoSpedizione" name="indirizzoSpedizione" required>
+        </div>
+
+        <div class="form-group">
+            <label for="metodoPagamento">Metodo di pagamento</label>
+            <select class="form-control" id="metodoPagamento" name="metodoPagamento" required>
+                <option value="">Seleziona un metodo di pagamento</option>
+                <option value="Carta di credito">Carta di credito</option>
+                <option value="PayPal">PayPal</option>
+                <!-- Aggiungi qui altri metodi di pagamento -->
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Conferma ordine</button>
+        <p>@Html.ActionLink("Continua gli Acquisti", "Index", "Categorie", new { area = "" }, new { @class = "btn btn-success" })</p>
+    }
+}
+else
+{
+    <p>Il carrello è vuoto.</p>
+}

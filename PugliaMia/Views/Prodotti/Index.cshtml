@@ -1,0 +1,30 @@
+﻿@model IEnumerable<PugliaMia.Models.Prodotti>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container">
+    <h2>Prodotti</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <img src="@Url.Content(string.IsNullOrEmpty(item.Immagine) ? "~/Content/Images/hotel.jpg" : item.Immagine)" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Nome)</h5>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.Prezzo)</p>
+                        <!-- Aggiungi al carrello -->
+                        @Html.ActionLink("Aggiungi al carrello", "Aggiungi", "Carrello", new { prodottoId = item.ProdottoID }, null)
+
+
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+

@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorie Prodotto</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .sidebar {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-right: 1px solid #dee2e6;
+        }
+
+        .categoriaButton {
+            margin-bottom: 10px;
+        }
+
+        #listaProdotti {
+            margin-left: 20px; /* Spazio per allineare il contenuto con la sidebar */
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 sidebar">
+                <h2>Categorie Prodotto</h2>
+                <ul>
+                    @foreach (var categoria in Model)
+                    {
+                       <li> <a href="#" class="categoriaButton link-secondary pe-auto" data-categoria-id="@categoria.CategoriaID">>@categoria.NomeCategoria</a></li>
+                }
+                <li> <a href="#"  class="link-secondary pe-auto" id="tutteCategorieButton">>Mostra tutti i Prodotti</a></li>
+                    </ul>
+                
+            </div>
+            <div class="col-md-9">
+                <div id="listaProdotti">
+                    <!-- Qui verrà inserita la lista dei prodotti tramite AJAX -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Carica tutti i prodotti di default
+            $.ajax({
+                url: '/Prodotti/Index',
+                type: 'GET',
+                success: function (data) {
+                    // Se la chiamata AJAX ha successo, aggiorna il contenuto della lista dei prodotti
+                    $('#listaProdotti').html(data);
+                },
+                error: function () {
+                    // Gestisci gli errori se la chiamata AJAX fallisce
+                    $('#listaProdotti').html('<p>Errore durante il recupero dei prodotti.</p>');
+                }
+            });
+
+            // Aggiungi un gestore di eventi clic per ogni bottone categoria
+            $('.categoriaButton').click(function () {
+                event.preventDefault();
+                var categoriaId = $(this).data('categoria-id'); // Ottieni l'ID della categoria selezionata
+
+                // Effettua una chiamata AJAX per ottenere i prodotti della categoria selezionata
+                $.ajax({
+                    url: '/Prodotti/GetProdottiByCategoria',
+                    type: 'GET',
+                    data: { categoriaId: categoriaId },
+                    success: function (data) {
+                        // Se la chiamata AJAX ha successo, aggiorna il contenuto della lista dei prodotti
+                        $('#listaProdotti').html(data);
+                    },
+                    error: function () {
+                        // Gestisci gli errori se la chiamata AJAX fallisce
+                        $('#listaProdotti').html('<p>Errore durante il recupero dei prodotti.</p>');
+                    }
+                });
+            });
+
+            // Aggiungi un gestore di eventi clic per il pulsante "Mostra tutte le categorie"
+            $('#tutteCategorieButton').click(function () {
+                event.preventDefault();
+                // Effettua una chiamata AJAX per ottenere tutti i prodotti di tutte le categorie
+                $.ajax({
+                    url: '/Prodotti/Index',
+                    type: 'GET',
+                    success: function (data) {
+                        // Se la chiamata AJAX ha successo, aggiorna il contenuto della lista dei prodotti
+                        $('#listaProdotti').html(data);
+                    },
+                    error: function () {
+                        // Gestisci gli errori se la chiamata AJAX fallisce
+                        $('#listaProdotti').html('<p>Errore durante il recupero dei prodotti.</p>');
+                    }
+                });
+            });
+        });
+
+    </script>
+</body>
+</html>
+
