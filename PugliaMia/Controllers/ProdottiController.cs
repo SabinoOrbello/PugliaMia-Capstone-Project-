@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using PugliaMia.Models;
@@ -16,11 +17,12 @@ namespace PugliaMia.Controllers
         private ModelDbContext db = new ModelDbContext();
 
         // GET: Prodotti
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var prodotti = db.Prodotti.Include(p => p.Categorie);
-            return PartialView(prodotti.ToList());
+            var prodotti = await db.Prodotti.Include(p => p.Categorie).ToListAsync();
+            return PartialView(prodotti);
         }
+
         public ActionResult IndexAdmin()
         {
             var prodotti = db.Prodotti.Include(p => p.Categorie);
@@ -149,11 +151,12 @@ namespace PugliaMia.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult GetProdottiByCategoria(int categoriaId)
+        public async Task<ActionResult> GetProdottiByCategoria(int categoriaId)
         {
-            var prodotti = db.Prodotti.Where(p => p.CategoriaID == categoriaId).ToList();
+            var prodotti = await db.Prodotti.Where(p => p.CategoriaID == categoriaId).ToListAsync();
             return PartialView("indexProdotti", prodotti);
         }
+
 
     }
 }

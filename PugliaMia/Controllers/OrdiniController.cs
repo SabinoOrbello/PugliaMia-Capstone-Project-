@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using PugliaMia.Models;
@@ -72,7 +73,7 @@ namespace PugliaMia.Controllers
 
 
         [HttpPost]
-        public ActionResult CreaOrdine(string indirizzoSpedizione, string metodoPagamento)
+        public async Task<ActionResult> CreaOrdine(string indirizzoSpedizione, string metodoPagamento, string corriere)
         {
             // Verifica se l'utente è autenticato
             if (User.Identity.IsAuthenticated)
@@ -81,7 +82,7 @@ namespace PugliaMia.Controllers
                 {
                     // Ottieni l'utente autenticato dal database
                     string currentUsername = User.Identity.Name;
-                    Utenti currentUser = db.Utenti.FirstOrDefault(u => u.Nome == currentUsername);
+                    Utenti currentUser = await db.Utenti.FirstOrDefaultAsync(u => u.Nome == currentUsername);
 
                     // Verifica se l'utente esiste nel database
                     if (currentUser == null)
@@ -100,12 +101,13 @@ namespace PugliaMia.Controllers
 
                     // Aggiungi l'ordine al database
                     db.Ordini.Add(ordine);
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
 
                     // Crea una nuova spedizione associata all'ordine
                     Spedizioni spedizione = new Spedizioni
                     {
                         IndirizzoSpedizione = indirizzoSpedizione,
+                        Corriere = corriere,
                         DataSpedizione = DateTime.Now,
                         StatoSpedizione = "In transito",
                         OrdineID = ordine.OrdineID
@@ -155,7 +157,6 @@ namespace PugliaMia.Controllers
                         }
                     }
 
-
                     // Assegna il totale del pagamento al record dei pagamenti
                     pagamento.TotalePagato = totalePagamento;
 
@@ -171,7 +172,7 @@ namespace PugliaMia.Controllers
                     db.Carrello.RemoveRange(carrelloItems);
 
                     // Salva i cambiamenti nel database
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
 
                     // Reindirizza alla pagina dei prodotti o al carrello
                     return RedirectToAction("RiepilogoOrdine", new { ordineId = ordine.OrdineID });
@@ -189,6 +190,7 @@ namespace PugliaMia.Controllers
                 return RedirectToAction("Login", "Utenti");
             }
         }
+
 
 
 

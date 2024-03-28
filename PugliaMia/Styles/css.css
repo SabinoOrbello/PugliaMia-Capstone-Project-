@@ -1,0 +1,13 @@
+﻿.sidebar {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-right: 1px solid #dee2e6;
+}
+
+.categoriaButton {
+    margin-bottom: 10px;
+}
+
+#listaProdotti {
+    margin-left: 20px; /* Spazio per allineare il contenuto con la sidebar */
+}
