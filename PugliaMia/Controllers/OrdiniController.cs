@@ -73,7 +73,7 @@ namespace PugliaMia.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> CreaOrdine(string indirizzoSpedizione, string metodoPagamento, string corriere)
+        public async Task<ActionResult> CreaOrdine(string indirizzoSpedizione, string metodoPagamento, string corriere, FormCollection form)
         {
             // Verifica se l'utente è autenticato
             if (User.Identity.IsAuthenticated)
@@ -91,6 +91,7 @@ namespace PugliaMia.Controllers
                         return RedirectToAction("Error", "Home");
                     }
 
+                    string dataScadenzaCarta = form["dataScadenzaCarta"];
                     // Crea un nuovo ordine
                     Ordini ordine = new Ordini
                     {
@@ -294,7 +295,7 @@ namespace PugliaMia.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "OrdineID,UserID,DataOrdine,StatoOrdine,Totale")] Ordini ordini)
+        public ActionResult Edit([Bind(Include = "OrdineID,UserID,DataOrdine,StatoOrdine,Totale,")] Ordini ordini)
         {
             if (ModelState.IsValid)
             {
@@ -352,5 +353,14 @@ namespace PugliaMia.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+
+
+
+
+
+
+
     }
 }

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<PugliaMia.Models.Recensioni>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Recensioni Prodotto</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Utenti.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Punteggio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Commento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataRecensione)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Utenti.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Punteggio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Commento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataRecensione)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.RecensioneID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.RecensioneID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.RecensioneID })
+            </td>
+
+        </tr>
+    }
+
+</table>

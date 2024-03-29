@@ -1,0 +1,58 @@
+﻿@model PugliaMia.Models.Recensioni
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Recensioni</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Prodotti.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prodotti.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Utenti.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Utenti.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Punteggio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Punteggio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Commento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Commento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataRecensione)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataRecensione)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RecensioneID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

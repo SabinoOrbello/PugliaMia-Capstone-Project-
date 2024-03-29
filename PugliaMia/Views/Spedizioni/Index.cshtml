@@ -1,0 +1,63 @@
+﻿@model IEnumerable<PugliaMia.Models.Spedizioni>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Ordini.StatoOrdine)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IndirizzoSpedizione)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Corriere)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataSpedizione)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumeroTracciamento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StatoSpedizione)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ordini.StatoOrdine)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IndirizzoSpedizione)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Corriere)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataSpedizione)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumeroTracciamento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StatoSpedizione)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SpedizioneID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SpedizioneID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SpedizioneID })
+        </td>
+    </tr>
+}
+
+</table>

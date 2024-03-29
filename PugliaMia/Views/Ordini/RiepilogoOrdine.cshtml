@@ -12,11 +12,14 @@
 <p>Indirizzo Spedizione: @Model.Spedizione.IndirizzoSpedizione</p>
 <p>Numero Tracciamento: @Model.Spedizione.NumeroTracciamento</p>
 <p>Stato Spedizione: @Model.Spedizione.StatoSpedizione</p>
+
 <!-- Altri dettagli della spedizione -->
 
 <h3>Dettagli del Pagamento</h3>
 <p>Metodo Pagamento: @Model.Pagamento.MetodoPagamento</p>
 <p>Totale Pagamento: @Model.Pagamento.TotalePagato €</p>
+
+
 <!-- Altri dettagli del pagamento -->
 
 <h3>Prodotti Ordinati</h3>
@@ -26,8 +29,14 @@
         @foreach (var dettaglio in Model.DettagliOrdine)
         {
             <li>@dettaglio.Prodotti.Nome - Quantità: @dettaglio.Quantita - Prezzo: @dettaglio.Prezzo €</li>
+
+
+
         }
     </ul>
+
+    
+
 }
 else
 {

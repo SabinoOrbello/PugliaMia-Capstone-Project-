@@ -278,6 +278,35 @@ namespace PugliaMia.Controllers
         }
 
 
+        [HttpPost]
+        public async Task<ActionResult> Rimuovi(int prodottoId)
+        {
+            // Verifica se l'utente è autenticato
+            if (User.Identity.IsAuthenticated)
+            {
+                // Ottieni l'utente autenticato dal database
+                string currentUsername = User.Identity.Name;
+                Utenti currentUser = await db.Utenti.FirstOrDefaultAsync(u => u.Nome == currentUsername);
+
+                // Verifica se l'utente esiste nel database
+                if (currentUser != null)
+                {
+                    // Trova il prodotto nel carrello dell'utente
+                    Carrello carrelloItem = await db.Carrello.FirstOrDefaultAsync(c => c.UserID == currentUser.UserID && c.ProdottoID == prodottoId);
+
+                    if (carrelloItem != null)
+                    {
+                        // Rimuovi il prodotto dal carrello
+                        db.Carrello.Remove(carrelloItem);
+                        await db.SaveChangesAsync();
+                    }
+                }
+            }
+
+            // Reindirizza alla pagina del carrello dopo aver rimosso il prodotto
+            return RedirectToAction("Index", "Carrello");
+        }
+
 
     }
 }

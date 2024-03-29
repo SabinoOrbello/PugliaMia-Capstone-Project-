@@ -13,6 +13,9 @@
                     @prodotto.Nome - Prezzo: @prodotto.Prezzo €
                     <input type="number" name="quantita_@prodotto.ProdottoID" min="1" value="1" data-prezzo="@prodotto.Prezzo" class="quantita-prodotto">
                     <input type="hidden" name="prodottoID" value="@prodotto.ProdottoID" />
+                    <button type="button" class="btn btn-danger" onclick="rimuoviProdotto(@prodotto.ProdottoID)">Elimina</button>
+                    <button type="button" class="btn btn-success btnVediRecensioni">Vedi Recensioni</button>
+                    <p>@Html.ActionLink("Aggiungi Recensione", "Create", "Recensioni", new { prodottoId = prodotto.ProdottoID }, new { @class = "btn btn-primary" })</p>
                 </li>
             }
         </ul>
@@ -62,6 +65,13 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="dataScadenzaCarta">Data di scadenza della carta (MM/AA)</label>
+                        <input type="text" class="form-control" id="dataScadenzaCarta" name="dataScadenzaCarta" placeholder="MM/AA" required>
+                        <small class="form-text text-muted">Formato richiesto: MM/AA</small>
+                    </div>
+
+
+                    <div class="form-group">
                         <label for="cvv">CVV</label>
                         <input type="text" class="form-control" id="cvv" name="cvv" placeholder="Inserisci il CVV" required>
                     </div>
@@ -72,11 +82,67 @@
             <button type="submit" class="btn btn-primary">Conferma ordine</button>
         </div>
 
+        <div id="recensioniContainer"></div>
+
+
         <script>
             function mostraForm() {
                 document.getElementById("formSpedizione").style.display = "block";
                 document.getElementById("formFatturazione").style.display = "block";
             }
+             function rimuoviProdotto(prodottoId) {
+        // Fai una richiesta AJAX per rimuovere il prodotto dal carrello
+        $.ajax({
+            url: '@Url.Action("Rimuovi", "Carrello")',
+            type: 'POST',
+            data: { prodottoId: prodottoId },
+            success: function (response) {
+                // Se la rimozione è avvenuta con successo, aggiorna la pagina del carrello
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+                // Se si verifica un errore durante la rimozione, visualizza un messaggio di errore
+                console.error(error);
+                alert('Si è verificato un errore durante la rimozione del prodotto dal carrello.');
+            }
+        });
+    }
+            document.getElementById("dataScadenzaCarta").addEventListener("blur", function () {
+                var inputDate = this.value;
+                var pattern = /^(0[1-9]|1[0-2])\/\d{2}$/; // Formato MM/AA
+                if (!pattern.test(inputDate)) {
+                    alert("Formato data non valido. Inserisci la data nel formato MM/AA.");
+                    this.value = ""; // Cancella il campo
+                }
+            });
+            $(document).ready(function () {
+    // Gestisci il clic sul pulsante "Vedi Recensioni"
+    $(".btnVediRecensioni").click(function () {
+        // Ottieni l'ID del prodotto corrente
+        var prodottoID = $(this).closest('li').find('input[name="prodottoID"]').val();
+
+        // Esegui una richiesta AJAX per ottenere le recensioni del prodotto
+        $.ajax({
+            url: '@Url.Action("Index", "Recensioni")',
+            type: 'GET',
+            data: { id: prodottoID },
+            success: function (response) {
+                // Aggiungi le recensioni al div delle recensioni
+                $("#recensioniContainer").html(response);
+
+                // Esegui lo scroll verso il div delle recensioni
+                $('html, body').animate({
+                    scrollTop: $("#recensioniContainer").offset().top
+                }, 1000); // Tempo (in millisecondi) per raggiungere il div delle recensioni
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+                alert('Si è verificato un errore durante il recupero delle recensioni.');
+            }
+        });
+    });
+});
+
 
             $(document).ready(function () {
                 // Aggiungi un gestore di eventi per rilevare le modifiche alla quantità dei prodotti

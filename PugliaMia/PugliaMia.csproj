@@ -165,9 +165,13 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\CarrelloController.cs" />
     <Compile Include="Controllers\CategorieController.cs" />
+    <Compile Include="Controllers\DettagliOrdineController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrdiniController.cs" />
+    <Compile Include="Controllers\PagamentiController.cs" />
     <Compile Include="Controllers\ProdottiController.cs" />
+    <Compile Include="Controllers\RecensioniController.cs" />
+    <Compile Include="Controllers\SpedizioniController.cs" />
     <Compile Include="Controllers\UtentiController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -289,6 +293,26 @@
     <Content Include="Views\Ordini\ConfermaOrdine.cshtml" />
     <Content Include="Views\Ordini\RiepilogoOrdine.cshtml" />
     <Content Include="Views\Ordini\OrdiniUtente.cshtml" />
+    <Content Include="Views\DettagliOrdine\Create.cshtml" />
+    <Content Include="Views\DettagliOrdine\Delete.cshtml" />
+    <Content Include="Views\DettagliOrdine\Details.cshtml" />
+    <Content Include="Views\DettagliOrdine\Edit.cshtml" />
+    <Content Include="Views\DettagliOrdine\Index.cshtml" />
+    <Content Include="Views\Pagamenti\Create.cshtml" />
+    <Content Include="Views\Pagamenti\Delete.cshtml" />
+    <Content Include="Views\Pagamenti\Details.cshtml" />
+    <Content Include="Views\Pagamenti\Edit.cshtml" />
+    <Content Include="Views\Pagamenti\Index.cshtml" />
+    <Content Include="Views\Spedizioni\Create.cshtml" />
+    <Content Include="Views\Spedizioni\Delete.cshtml" />
+    <Content Include="Views\Spedizioni\Details.cshtml" />
+    <Content Include="Views\Spedizioni\Edit.cshtml" />
+    <Content Include="Views\Spedizioni\Index.cshtml" />
+    <Content Include="Views\Recensioni\Create.cshtml" />
+    <Content Include="Views\Recensioni\Delete.cshtml" />
+    <Content Include="Views\Recensioni\Details.cshtml" />
+    <Content Include="Views\Recensioni\Edit.cshtml" />
+    <Content Include="Views\Recensioni\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

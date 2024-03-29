@@ -25,5 +25,7 @@ namespace PugliaMia.Models
         public virtual Prodotti Prodotti { get; set; }
 
         public virtual Utenti Utenti { get; set; }
+
+
     }
 }

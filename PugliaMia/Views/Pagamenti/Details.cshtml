@@ -1,0 +1,58 @@
+﻿@model PugliaMia.Models.Pagamenti
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Pagamenti</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Ordini.StatoOrdine)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ordini.StatoOrdine)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MetodoPagamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MetodoPagamento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalePagato)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalePagato)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataPagamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataPagamento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StatoPagamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StatoPagamento)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PagamentoID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
