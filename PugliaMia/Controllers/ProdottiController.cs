@@ -69,7 +69,7 @@ namespace PugliaMia.Controllers
             {
                 db.Prodotti.Add(prodotti);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("IndexAdmin");
             }
 
             ViewBag.CategoriaID = new SelectList(db.Categorie, "CategoriaID", "NomeCategoria", prodotti.CategoriaID);

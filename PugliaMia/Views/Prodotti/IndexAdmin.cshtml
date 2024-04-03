@@ -16,7 +16,7 @@
         @foreach (var item in Model)
         {
             <div class="col">
-                <div class="card border-0 bg-dark" style="width: 18rem;">
+                <div class="product" style="width: 18rem;">
                     <img src="@Url.Content(string.IsNullOrEmpty(item.Immagine) ? "~/Content/Images/hotel.jpg" : item.Immagine)" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">@Html.DisplayFor(modelItem => item.Nome)</h5>
