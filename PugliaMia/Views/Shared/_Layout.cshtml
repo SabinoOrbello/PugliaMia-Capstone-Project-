@@ -4,15 +4,17 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/Styles/css.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <title>@ViewBag.Title - Applicazione ASP.NET</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark fixed-top">
         <div class="container">
             @Html.ActionLink("Nome dell'applicazione", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Attiva/Disattiva spostamento" aria-controls="navbarSupportedContent"
@@ -50,13 +52,31 @@
             </div>
         </div>
     </nav>
-    <div class="p-2">
+    <div>
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Applicazione ASP.NET</p>
-        </footer>
+
     </div>
+    <script>
+        $(document).ready(function () {
+            var navbar = $('.navbar');
+            var scrolled = false;
+
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 10) { // Quando si scorre verso il basso più di 50px
+                    if (!scrolled) { // Se non è ancora stato eseguito lo scrolling
+                        navbar.addClass('navbar-transparent'); // Aggiungi la classe per rendere la navbar trasparente
+                        scrolled = true;
+                    }
+                } else { // Quando si scorre verso l'alto
+                    if (scrolled) { // Se è stato eseguito lo scrolling
+                        navbar.removeClass('navbar-transparent'); // Rimuovi la classe per ripristinare il colore originale della navbar
+                        scrolled = false;
+                    }
+                }
+            });
+        });
+
+    </script>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

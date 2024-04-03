@@ -1,6 +1,6 @@
 ﻿@model List<PugliaMia.Models.Prodotti>
 
-<div class="container">
+<div class="container pt-4">
     <h2>Prodotti</h2>
 
     @if (Model.Any())
@@ -8,21 +8,27 @@
 
         foreach (var prodotto in Model)
         {
-            <div class="card" style="width: 18rem;">
-                <img src="@Url.Content(string.IsNullOrEmpty(prodotto.Immagine) ? "~/Content/Images/hotel.jpg" : prodotto.Immagine)" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">@prodotto.Nome</h5>
-                    <p class="card-text">@prodotto.Prezzo</p>
-                    <!-- Aggiungi al carrello -->
-                    @Html.ActionLink("Aggiungi al carrello", "Aggiungi", "Carrello", new { prodottoId = prodotto.ProdottoID }, null)
+            <a href="@Url.Action("Details", "Prodotti", new { id = prodotto.ProdottoID })" class="text-decoration-none">
+                <div class="product" style="width: 18rem;">
+                    <img src="@Url.Content(string.IsNullOrEmpty(prodotto.Immagine) ? "~/Content/Images/hotel.jpg" : prodotto.Immagine)" class="card-img-top" alt="...">
+                    <div class="card-body text-center">
+                        <h5 class="card-title txCard">@prodotto.Nome</h5>
+                        <p class="card-text txCard">@prodotto.Prezzo</p>
+                        <!-- Aggiungi al carrello -->
+                        <div class="d-flex g-3">
+                            @Html.ActionLink("Aggiungi al carrello", "Aggiungi", "Carrello", new { prodottoId = prodotto.ProdottoID }, new { @class = "bottone1 mt-2" })
 
+
+                        </div>
+
+                    </div>
                 </div>
-            </div>
-        }
+                </a>
+                }
 
-    }
-    else
-    {
-        <p>Nessun prodotto trovato per questa categoria.</p>
-    }
-</div>
+                }
+                else
+                {
+                <p>Nessun prodotto trovato per questa categoria.</p>
+                }
+        </div>

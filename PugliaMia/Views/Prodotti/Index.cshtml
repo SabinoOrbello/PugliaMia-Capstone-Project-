@@ -4,27 +4,29 @@
     ViewBag.Title = "Index";
 }
 
-<div class="container">
+<div class="container pt-4">
     <h2>Prodotti</h2>
     <div class="row row-cols-1 row-cols-md-3 g-4">
 
         @foreach (var item in Model)
         {
             <div class="col">
-                <div class="card" style="width: 18rem;">
-                    <img src="@Url.Content(string.IsNullOrEmpty(item.Immagine) ? "~/Content/Images/hotel.jpg" : item.Immagine)" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Nome)</h5>
-                        <p class="card-text">@Html.DisplayFor(modelItem => item.Prezzo)</p>
-                        <!-- Aggiungi al carrello -->
-                        @Html.ActionLink("Aggiungi al carrello", "Aggiungi", "Carrello", new { prodottoId = item.ProdottoID }, null)
+                <a href="@Url.Action("Details", "Prodotti", new { id = item.ProdottoID })" class="text-decoration-none">
+                    <div class="product" style="width: 18rem;">
+                        <div class=" product" style="width: 18rem;">
+                            <img src="@Url.Content(string.IsNullOrEmpty(item.Immagine) ? "~/Content/Images/hotel.jpg" : item.Immagine)" class="card-img-top" alt="...">
+                            <div class="card-body text-center">
+                                <h5 class="card-title txCard">@Html.DisplayFor(modelItem => item.Nome)</h5>
+                                <p class="card-text txCard">€@Html.DisplayFor(modelItem => item.Prezzo)</p>
+                                <!-- Aggiungi al carrello -->
 
-
+                                @Html.ActionLink("Aggiungi al carrello", "Aggiungi", "Carrello", new { prodottoId = item.ProdottoID }, new { @class = "bottone1 mt-2" })
+                            </div>                          
+                        </div>                        
                     </div>
+                    </a>
                 </div>
+                    }
             </div>
-        }
-
-    </div>
 </div>
 

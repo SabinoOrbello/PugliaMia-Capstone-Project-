@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿﻿
+<!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -7,18 +8,18 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid pt-4">
         <div class="row">
             <div class="col-md-3 sidebar">
                 <h2>Categorie Prodotto</h2>
                 <ul>
                     @foreach (var categoria in Model)
                     {
-                       <li> <a href="#" class="categoriaButton link-secondary pe-auto" data-categoria-id="@categoria.CategoriaID">>@categoria.NomeCategoria</a></li>
-                }
-                <li> <a href="#"  class="link-secondary pe-auto" id="tutteCategorieButton">>Mostra tutti i Prodotti</a></li>
-                    </ul>
-                
+                        <li> <a href="#" class="categoriaButton link-secondary pe-auto" data-categoria-id="@categoria.CategoriaID">>@categoria.NomeCategoria</a></li>
+                    }
+                    <li> <a href="#" class="link-secondary pe-auto" id="tutteCategorieButton">>Mostra tutti i Prodotti</a></li>
+                </ul>
+
             </div>
             <div class="col-md-9">
                 <div id="listaProdotti">
@@ -47,7 +48,7 @@
             });
 
             // Aggiungi un gestore di eventi clic per ogni bottone categoria
-            $('.categoriaButton').click(function () {
+            $('.categoriaButton').click(function (event) {
                 event.preventDefault();
                 var categoriaId = $(this).data('categoria-id'); // Ottieni l'ID della categoria selezionata
 
@@ -68,7 +69,7 @@
             });
 
             // Aggiungi un gestore di eventi clic per il pulsante "Mostra tutte le categorie"
-            $('#tutteCategorieButton').click(function () {
+            $('#tutteCategorieButton').click(function (event) {
                 event.preventDefault();
                 // Effettua una chiamata AJAX per ottenere tutti i prodotti di tutte le categorie
                 $.ajax({
@@ -89,4 +90,3 @@
     </script>
 </body>
 </html>
-

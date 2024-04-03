@@ -11,3 +11,88 @@
 #listaProdotti {
     margin-left: 20px; /* Spazio per allineare il contenuto con la sidebar */
 }
+
+.bgContainer {
+    background-image: url('../Content/Images/taralli 1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.st {
+    color: #F28123 !important;
+}
+
+.navbar-transparent {
+    background-color: transparent !important; /* Imposta il colore di sfondo trasparente */
+    transition: background-color 0.3s ease-in-out; /* Aggiungi una transizione graduale per una transizione più fluida */
+}
+
+.bottone {
+    font-family: 'Poppins', sans-serif;
+    display: inline-block;
+    color: #fff;
+    border: 2px solid #F28123;
+    padding: 7px 20px;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+}
+
+    .bottone:hover {
+        background-color: #F28123;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+.title {
+    font-size: 4.5rem;
+}
+
+h1, h2, p {
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.1px;
+}
+
+.hero {
+    padding-block: 11rem;
+}
+
+.title2 {
+    color: #F28123;
+}
+
+.product {
+    box-shadow: 0 0 20px #e4e4e4;
+}
+
+    .product:hover {
+        box-shadow: none;
+    }
+
+
+.bottone1 {
+    font-family: 'Poppins', sans-serif;
+    display: inline-block;
+    color: black;
+    border: 2px solid #F28123;
+    padding: 7px 20px;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+    .bottone1:hover {
+        background-color: #F28123;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+.txCard {
+    color: black;
+}

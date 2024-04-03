@@ -6,58 +6,34 @@
 
 <h2>IndexAdmin</h2>
 
-<p>
+<p class="pt-4">
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Categorie.NomeCategoria)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descrizione)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Prezzo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Immagine)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Disponibilita)
-        </th>
-        <th></th>
-    </tr>
+<div class="container pt-4">
+    <h2>Prodotti</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Categorie.NomeCategoria)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descrizione)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Prezzo)
-        </td>
-        <td>
-            <img src="@Url.Content(string.IsNullOrEmpty(item.Immagine) ? "~/Content/Images/hotel.jpg" : item.Immagine)" style="height:200px; width:600px" class="img-fluid" alt="...">
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Disponibilita)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProdottoID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProdottoID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProdottoID })
-        </td>
-    </tr>
-}
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card border-0 bg-dark" style="width: 18rem;">
+                    <img src="@Url.Content(string.IsNullOrEmpty(item.Immagine) ? "~/Content/Images/hotel.jpg" : item.Immagine)" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Nome)</h5>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.Prezzo)</p>
+                      
 
-</table>
+                        <div>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ProdottoID }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.ProdottoID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ProdottoID })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+

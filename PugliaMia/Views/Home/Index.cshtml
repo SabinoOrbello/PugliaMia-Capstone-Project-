@@ -1,26 +1,67 @@
-﻿<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="aspnetTitle">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
-    </section>
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
-            a broad range of clients, including browsers and mobile devices. ASP.NET Web API
-            is an ideal platform for building RESTful applications on the .NET Framework.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
-        </section>>
+﻿
+
+
+<div class="container-fluid p-2 bgContainer">
+    <div class="container hero">
+        <div class="row pt-5">
+            <div class="text-center lh-4">
+                <p class=" fw-bold st">FRESH & ORGANIC</p>
+                <h1 class="text-white title fw-bold">Delicious Seasonal Fruits</h1>
+                <div class="d-flex justify-content-center gap-3 py-4">
+                    <p>@Html.ActionLink("Registrati", "Register", "Utenti", new { area = "" }, new { @class = "bottone" })</p>
+                    <p>@Html.ActionLink("Accedi", "Login", "Utenti", new { area = "" }, new { @class = "bottone" })</p>
+                </div>
+            </div>
+        </div>
     </div>
-</main>
+</div>
+
+<div class="container py-5 text-center">
+    <h2 class="fw-bold fs-1 title2">Benvenuti in Puglia</h2>
+    <p class="py-4">
+        Dall’amore per il territorio pugliese, ricco di fascino, tradizioni e cultura, nasce Pugliami, lo store online di prodotti tipici pugliesi,<br />
+        enogastronomia, cosmesi naturale, artigianato locale e idee regalo. Chi ha scoperto la Puglia la porta per sempre con sé dentro il <br />
+        cuore ed è per questo che Pugliami offre l’opportunità di acquistare comodamente da casa i prodotti tipici pugliesi e salentini <br />
+        degustati e scoperti durante una vacanza estiva o un soggiorno nella nostra amata terra. E per chi non ha ancora avuto modo di <br />
+        conoscerla, Pugliami può rappresentare l’inizio del viaggio alla scoperta di sapori e di uno stile di vita apprezzato in tutto il mondo.
+    </p>
+    <hr class="border border-danger border-2 opacity-50" />
+</div>
+
+<div class="container text-center">
+    <div class="row">
+        <div class="col">
+            <div>
+                <ion-icon name="airplane-outline" style="font-size: 48px;"></ion-icon>
+                <h5 class="title2 fw-bold">Corriere Espresso</h5>
+                <p>Consegna in 48H</p>
+            </div>
+
+        </div>
+        <div class="col">
+            <div>
+                <ion-icon name="cart-outline" style="font-size: 48px;"></ion-icon>
+                <h5 class="title2 fw-bold">Spedizione Gratuita</h5>
+                <p>Da 39,90€ di spesa</p>
+            </div>
+        </div>
+        <div class="col">
+            <div>
+                <ion-icon name="logo-paypal" style="font-size: 48px;"></ion-icon>
+                <h5 class="title2 fw-bold">Pagamenti Sicuri</h5>
+                <p>Carta, bonifico, contrassegno</p>
+            </div>
+        </div>
+        <div class="col">
+            <div>
+                <ion-icon name="people-outline" style="font-size: 48px;"></ion-icon>
+                <h5 class="title2 fw-bold">Assistenza Clienti</h5>
+                <p>Assistenza 24h</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

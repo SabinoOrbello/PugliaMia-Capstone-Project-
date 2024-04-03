@@ -83,7 +83,7 @@ namespace PugliaMia.Controllers
                 return RedirectToAction("Index", "Carrello");
             }
 
-            return View(recensioni);
+            return Json(recensioni, JsonRequestBehavior.AllowGet);
         }
 
 
