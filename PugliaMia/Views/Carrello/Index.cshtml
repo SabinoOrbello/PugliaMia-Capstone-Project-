@@ -6,19 +6,23 @@
 {
     using (Html.BeginForm("CreaOrdine", "Ordini", FormMethod.Post))
     {
-        <ul>
+        <div class="container">
             @foreach (var prodotto in Model)
             {
-                <li>
-                    @prodotto.Nome - Prezzo: @prodotto.Prezzo €
-                    <input type="number" name="quantita_@prodotto.ProdottoID" min="1" value="1" data-prezzo="@prodotto.Prezzo" class="quantita-prodotto">
-                    <input type="hidden" name="prodottoID" value="@prodotto.ProdottoID" />
-                    <button type="button" class="btn btn-danger" onclick="rimuoviProdotto(@prodotto.ProdottoID)">Elimina</button>
-                    <button type="button" class="btn btn-success btnVediRecensioni">Vedi Recensioni</button>
-                    <p>@Html.ActionLink("Aggiungi Recensione", "Create", "Recensioni", new { prodottoId = prodotto.ProdottoID }, new { @class = "btn btn-primary" })</p>
-                </li>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@prodotto.Nome</h5>
+                        <img src="@Url.Content(string.IsNullOrEmpty(prodotto.Immagine) ? "~/Content/Images/hotel.jpg" : prodotto.Immagine)" class="card-img-top w-25" alt="...">
+                        <p class="card-text">Prezzo: @prodotto.Prezzo €</p>
+                        <b>Seleziona quantità</b>
+                        <input type="number" name="quantita_@prodotto.ProdottoID" min="1" value="1" data-prezzo="@prodotto.Prezzo" class="quantita-prodotto form-control mb-2">
+                        <input type="hidden" name="prodottoID" value="@prodotto.ProdottoID" />
+                        <button type="button" class="btn btn-danger mb-2" onclick="rimuoviProdotto(@prodotto.ProdottoID)">Elimina</button>                     
+                    </div>
+                </div>
+
             }
-        </ul>
+        </div>
         <div>
             <strong>Totale della spesa:</strong> <span id="totaleSpesa">@ViewBag.TotaleSpesa €</span>
         </div>
@@ -82,7 +86,7 @@
             <button type="submit" class="btn btn-primary">Conferma ordine</button>
         </div>
 
-        <div id="recensioniContainer"></div>
+        
 
 
         <script>
@@ -115,34 +119,6 @@
                     this.value = ""; // Cancella il campo
                 }
             });
-            $(document).ready(function () {
-    // Gestisci il clic sul pulsante "Vedi Recensioni"
-    $(".btnVediRecensioni").click(function () {
-        // Ottieni l'ID del prodotto corrente
-        var prodottoID = $(this).closest('li').find('input[name="prodottoID"]').val();
-
-        // Esegui una richiesta AJAX per ottenere le recensioni del prodotto
-        $.ajax({
-            url: '@Url.Action("Index", "Recensioni")',
-            type: 'GET',
-            data: { id: prodottoID },
-            success: function (response) {
-                // Aggiungi le recensioni al div delle recensioni
-                $("#recensioniContainer").html(response);
-
-                // Esegui lo scroll verso il div delle recensioni
-                $('html, body').animate({
-                    scrollTop: $("#recensioniContainer").offset().top
-                }, 1000); // Tempo (in millisecondi) per raggiungere il div delle recensioni
-            },
-            error: function (xhr, status, error) {
-                console.error(error);
-                alert('Si è verificato un errore durante il recupero delle recensioni.');
-            }
-        });
-    });
-});
-
 
             $(document).ready(function () {
                 // Aggiungi un gestore di eventi per rilevare le modifiche alla quantità dei prodotti

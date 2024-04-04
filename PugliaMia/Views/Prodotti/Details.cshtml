@@ -4,63 +4,60 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<div class="container mt-5">
+    <h2>Dettagli Prodotto</h2>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Prodotti</h4>
+            <dl class="row">
+                <dt class="col-sm-3">Categoria</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Categorie.NomeCategoria)</dd>
 
-<div>
-    <h4>Prodotti</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Categorie.NomeCategoria)
-        </dt>
+                <dt class="col-sm-3">Nome</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Nome)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Categorie.NomeCategoria)
-        </dd>
+                <dt class="col-sm-3">Descrizione</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Descrizione)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
+                <dt class="col-sm-3">Prezzo</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Prezzo)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Descrizione)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Descrizione)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Prezzo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Prezzo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Immagine)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Immagine)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Disponibilita)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Disponibilita)
-        </dd>
-
-    </dl>
+                <dt class="col-sm-3"></dt>
+                <img src="@(!string.IsNullOrEmpty(Model.Immagine) ? Url.Content(Model.Immagine) : Url.Content("~/Content/Images/hotel.jpg"))" class="card-img-top w-25" alt="..." />               
+            </dl>
+            <div>
+                <button type="button" class="bottone1 mb-2 btnVediRecensioni">Vedi Recensioni</button>
+                <p>@Html.ActionLink("Aggiungi Recensione", "Create", "Recensioni", new { prodottoId = Model.ProdottoID }, new { @class = "bottone1" })</p>
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ProdottoID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="container">
+    <div id="recensioniContainer"></div>
+</div>
+<script>
+        $(".btnVediRecensioni").click(function () {
+        // Ottieni l'ID del prodotto corrente
+        var prodottoID = $(this).closest('li').find('input[name="prodottoID"]').val();
+
+        // Esegui una richiesta AJAX per ottenere le recensioni del prodotto
+        $.ajax({
+            url: '@Url.Action("Index", "Recensioni")',
+            type: 'GET',
+            data: { id: prodottoID },
+            success: function (response) {
+                // Aggiungi le recensioni al div delle recensioni
+                $("#recensioniContainer").html(response);
+
+                // Esegui lo scroll verso il div delle recensioni
+                $('html, body').animate({
+                    scrollTop: $("#recensioniContainer").offset().top
+                }, 1000); // Tempo (in millisecondi) per raggiungere il div delle recensioni
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+                alert('Si è verificato un errore durante il recupero delle recensioni.');
+            }
+        });
+    });
+</script>

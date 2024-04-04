@@ -4,48 +4,40 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Recensioni Prodotto</h2>
+<h2 class="mb-3">Recensioni Prodotto</h2>
 
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Utenti.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Punteggio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Commento)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataRecensione)
-        </th>
-        <th></th>
-    </tr>
-
+<div class="list-group">
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Utenti.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Punteggio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Commento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataRecensione)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.RecensioneID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.RecensioneID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.RecensioneID })
-            </td>
-
-        </tr>
+        <div class="list-group-item">
+            <h5 class="mb-1">@Html.DisplayFor(modelItem => item.Utenti.Nome)</h5>
+            <p class="mb-1">
+                @for (int i = 0; i < item.Punteggio; i++)
+                {
+                    <i class="fas fa-star"></i>
+                }
+            </p>
+            <p class="mb-1">@Html.DisplayFor(modelItem => item.Commento)</p>
+            <small>
+                @if (item.DataRecensione.HasValue)
+                {
+                    @item.DataRecensione.Value.ToString("dd/MM/yyyy")
+                }
+                else
+                {
+                    @:"Data non disponibile"
+                }
+            </small>
+            <div class="btn-group mt-2" role="group" aria-label="Azioni">
+                @if (item.UserID == ViewBag.CurrentUserID)
+                {
+                    @Html.ActionLink("Dettagli", "Details", new { id = item.RecensioneID }, new { @class = "btn btn-outline-primary btn-sm" })
+                    @Html.ActionLink("Modifica", "Edit", new { id = item.RecensioneID }, new { @class = "btn btn-outline-secondary btn-sm" })
+                    @Html.ActionLink("Elimina", "Delete", new { id = item.RecensioneID }, new { @class = "btn btn-outline-danger btn-sm" })
+                }
+            </div>
+        </div>
     }
+</div>
 
-</table>
+

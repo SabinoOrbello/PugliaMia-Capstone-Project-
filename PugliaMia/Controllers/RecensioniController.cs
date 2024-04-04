@@ -26,6 +26,12 @@ namespace PugliaMia.Controllers
                 recensioni = recensioni.Where(r => r.ProdottoID == id);
             }
 
+            // Recupera l'ID dell'utente autenticato
+            string currentUsername = User.Identity.Name;
+            Utenti currentUser = db.Utenti.FirstOrDefault(u => u.Nome == currentUsername);
+
+            ViewBag.CurrentUserID = currentUser?.UserID;
+
             return PartialView(recensioni.ToList());
         }
 
@@ -80,7 +86,7 @@ namespace PugliaMia.Controllers
                 recensioni.DataRecensione = DateTime.Today;
                 db.Recensioni.Add(recensioni);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index", "Carrello");
+                return RedirectToAction("Details", "Prodotti");
             }
 
             return Json(recensioni, JsonRequestBehavior.AllowGet);

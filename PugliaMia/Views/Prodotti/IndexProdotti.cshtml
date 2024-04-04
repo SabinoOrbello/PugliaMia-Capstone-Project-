@@ -16,13 +16,7 @@
                             <div class="card-body text-center">
                                 <h5 class="card-title txCard">@prodotto.Nome</h5>
                                 <p class="card-text txCard">@prodotto.Prezzo</p>
-                                <!-- Aggiungi al carrello -->
-                                <div class="d-flex g-3">
-                                    @Html.ActionLink("Aggiungi al carrello", "Aggiungi", "Carrello", new { prodottoId = prodotto.ProdottoID }, new { @class = "bottone1 mt-2" })
-
-
-                                </div>
-
+                                @Html.ActionLink("Aggiungi al carrello", "Aggiungi", "Carrello", new { prodottoId = prodotto.ProdottoID }, new { @class = "bottone1 mt-2" })
                             </div>
                         </div>
                     </a>
@@ -35,4 +29,4 @@
             <p>Nessun prodotto trovato per questa categoria.</p>
         }
     </div>
-    </div>
+</div>

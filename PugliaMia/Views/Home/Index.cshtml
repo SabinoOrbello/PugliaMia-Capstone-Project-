@@ -1,21 +1,5 @@
 ﻿
 
-
-<div class="container-fluid p-2 bgContainer">
-    <div class="container hero">
-        <div class="row pt-5">
-            <div class="text-center lh-4">
-                <p class=" fw-bold st">FRESH & ORGANIC</p>
-                <h1 class="text-white title fw-bold">Delicious Seasonal Fruits</h1>
-                <div class="d-flex justify-content-center gap-3 py-4">
-                    <p>@Html.ActionLink("Registrati", "Register", "Utenti", new { area = "" }, new { @class = "bottone" })</p>
-                    <p>@Html.ActionLink("Accedi", "Login", "Utenti", new { area = "" }, new { @class = "bottone" })</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="container py-5 text-center">
     <h2 class="fw-bold fs-1 title2">Benvenuti in Puglia</h2>
     <p class="py-4">
@@ -28,7 +12,7 @@
     <hr class="border border-danger border-2 opacity-50" />
 </div>
 
-<div class="container text-center">
+<div class="container text-center mb-5">
     <div class="row">
         <div class="col">
             <div>
@@ -57,6 +41,54 @@
                 <ion-icon name="people-outline" style="font-size: 48px;"></ion-icon>
                 <h5 class="title2 fw-bold">Assistenza Clienti</h5>
                 <p>Assistenza 24h</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container py-5 mb-5">
+    <div class="row">
+        <div class="col">
+            <video width="640" height="360" controls>
+                <source src="~/Content/Images/frutta e verdura.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="col">
+            <h2>
+                We are <span>Puglia</span>
+            </h2>
+            <p>
+                Etiam vulputate ut augue vel sodales. In sollicitudin neque et <br />
+                massa porttitor vestibulum ac vel nisi. Vestibulum placerat eget <br />
+                dolor sit amet posuere. In ut dolor aliquet, aliquet sapien sed, <br />
+                interdum velit. Nam eu molestie lorem.<br />
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. <br />
+                Sapiente facilis illo repellat veritatis minus, et labore minima mollitia qui ducimus.
+            </p>
+            <a href="#" class="bottone text-dark"> know more</a>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="carouselExampleControls" class="carousel slide logos mt-5 py-3" data-bs-ride="carousel" data-bs-interval="3000">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="row d-flex justify-content-center align-items-center">
+                <div class="col">
+                    <img src="~/Content/Images/alimentare-logo.png" class="d-block w-50 mx-auto" alt="...">
+                </div>
+                <div class="col">
+                    <img src="~/Content/Images/bakery-logo.png" class="d-block w-50 mx-auto" alt="...">
+                </div>
+                <div class="col">
+                    <img src="~/Content/Images/forno-logo.png" class="d-block w-50 mx-auto" alt="...">
+                </div>
+                <div class="col">
+                    <img src="~/Content/Images/company-logo.png" class="d-block w-50 mx-auto" alt="...">
+                </div>
             </div>
         </div>
     </div>
