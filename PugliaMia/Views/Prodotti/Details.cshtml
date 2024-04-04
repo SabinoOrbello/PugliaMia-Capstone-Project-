@@ -23,12 +23,16 @@
                 <dd class="col-sm-9">@Html.DisplayFor(model => model.Prezzo)</dd>
 
                 <dt class="col-sm-3"></dt>
-                <img src="@(!string.IsNullOrEmpty(Model.Immagine) ? Url.Content(Model.Immagine) : Url.Content("~/Content/Images/hotel.jpg"))" class="card-img-top w-25" alt="..." />               
+                <img src="@(!string.IsNullOrEmpty(Model.Immagine) ? Url.Content(Model.Immagine) : Url.Content("~/Content/Images/hotel.jpg"))" class="card-img-top w-25" alt="..." />
             </dl>
             <div>
                 <button type="button" class="bottone1 mb-2 btnVediRecensioni">Vedi Recensioni</button>
-                <p>@Html.ActionLink("Aggiungi Recensione", "Create", "Recensioni", new { prodottoId = Model.ProdottoID }, new { @class = "bottone1" })</p>
-            </div>
+                @if (Request.IsAuthenticated)
+                {
+
+                    <p>@Html.ActionLink("Aggiungi Recensione", "Create", "Recensioni", new { prodottoId = Model.ProdottoID }, new { @class = "bottone1" })</p>
+                }
+                </div>
         </div>
     </div>
 </div>
@@ -36,9 +40,9 @@
     <div id="recensioniContainer"></div>
 </div>
 <script>
-        $(".btnVediRecensioni").click(function () {
-        // Ottieni l'ID del prodotto corrente
-        var prodottoID = $(this).closest('li').find('input[name="prodottoID"]').val();
+    $(".btnVediRecensioni").click(function () {
+        // Ottieni l'ID del prodotto corrente dal modello
+        var prodottoID = '@Model.ProdottoID';
 
         // Esegui una richiesta AJAX per ottenere le recensioni del prodotto
         $.ajax({

@@ -1,95 +1,114 @@
 ﻿@model List<PugliaMia.Models.Prodotti>
 
-<h2>Prodotti nel Carrello</h2>
-
 @if (Model.Any())
 {
     using (Html.BeginForm("CreaOrdine", "Ordini", FormMethod.Post))
     {
-        <div class="container">
-            @foreach (var prodotto in Model)
-            {
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">@prodotto.Nome</h5>
-                        <img src="@Url.Content(string.IsNullOrEmpty(prodotto.Immagine) ? "~/Content/Images/hotel.jpg" : prodotto.Immagine)" class="card-img-top w-25" alt="...">
-                        <p class="card-text">Prezzo: @prodotto.Prezzo €</p>
-                        <b>Seleziona quantità</b>
-                        <input type="number" name="quantita_@prodotto.ProdottoID" min="1" value="1" data-prezzo="@prodotto.Prezzo" class="quantita-prodotto form-control mb-2">
-                        <input type="hidden" name="prodottoID" value="@prodotto.ProdottoID" />
-                        <button type="button" class="btn btn-danger mb-2" onclick="rimuoviProdotto(@prodotto.ProdottoID)">Elimina</button>                     
+        <div class="container py-4">
+            <h2 class="mb-4">Il tuo Carrello</h2>
+            <div class="row">
+                @foreach (var prodotto in Model)
+                {
+                    <div class="col-lg-4 mb-4">
+                        <div class="card h-100">
+                            <img src="@Url.Content(string.IsNullOrEmpty(prodotto.Immagine) ? "~/Content/Images/default-product-image.jpg" : prodotto.Immagine)" class="card-img-top" alt="@prodotto.Nome">
+                            <div class="card-body">
+                                <h5 class="card-title">@prodotto.Nome</h5>
+                                <p class="card-text">Prezzo: @prodotto.Prezzo €</p>
+                                <div class="form-group">
+                                    <label for="quantita_@prodotto.ProdottoID" class="form-label">Quantità:</label>
+                                    <input type="number" name="quantita_@prodotto.ProdottoID" id="quantita_@prodotto.ProdottoID" min="1" value="1" class="form-control" data-prezzo="@prodotto.Prezzo">
+                                </div>
+                                <button type="button" class="btn btn-danger btn-block" onclick="rimuoviProdotto(@prodotto.ProdottoID)">Rimuovi dal Carrello</button>
+                            </div>
+                        </div>
                     </div>
+                }
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-lg-6">
+                    <h4>Totale della Spesa:</h4>
                 </div>
-
-            }
-        </div>
-        <div>
-            <strong>Totale della spesa:</strong> <span id="totaleSpesa">@ViewBag.TotaleSpesa €</span>
-        </div>
-
-        <div class="form-group">
-            <button type="button" class="btn btn-primary" onclick="mostraForm()">Procedi con l'acquisto</button>
-            <p>@Html.ActionLink("Continua gli Acquisti", "Index", "Categorie", new { area = "" }, new { @class = "btn btn-success" })</p>
-        </div>
-
-        <div class="row" id="formSpedizione" style="display: none;">
-            <!-- Dati Spedizione (Colonna sinistra) -->
-            <div class="col-md-6">
-                <h3>Dati Spedizione</h3>
-                <div class="form-group">
-                    <label for="indirizzoSpedizione">Indirizzo di spedizione</label>
-                    <input type="text" class="form-control" id="indirizzoSpedizione" name="indirizzoSpedizione" required>
-                    <label for="corriere">Corriere</label>
-                    <select class="form-control" id="corriere" name="corriere" required>
-                        <option value="">Seleziona un corriere</option>
-                        <option value="Fedex">Fedex</option>
-                        <option value="SDA">SDA</option>
-                        <option value="GLS">GLS</option>
-                        <option value="DHL">DHL</option>
-                    </select>
+                <div class="col-lg-6 text-lg-end">
+                    <h4><span id="totaleSpesa">@ViewBag.TotaleSpesa €</span></h4>
                 </div>
             </div>
-        </div>
 
-        <div class="row" id="formFatturazione" style="display: none;">
-            <!-- Dati Fatturazione (Colonna destra) -->
-            <div class="col-md-6">
-                <h3>Dati Fatturazione</h3>
-                <div class="form-group">
-                    <label for="metodoPagamento">Metodo di pagamento</label>
-                    <select class="form-control" id="metodoPagamento" name="metodoPagamento" required>
-                        <option value="">Seleziona un metodo di pagamento</option>
-                        <option value="Carta di credito">Carta di credito</option>
-                        <option value="PayPal">PayPal</option>
-                    </select>
+            <div class="row mt-4">
+                <div class="col-lg-6">
+                    <button type="button" class="btn btn-primary btn-block" onclick="mostraForm()">Procedi con l'Acquisto</button>
+                </div>
+                <div class="col-lg-6">
+                    @Html.ActionLink("Continua gli Acquisti", "Index", "Home", null, new { @class = "btn btn-secondary btn-block" })
+                </div>
+            </div>
 
-                    <div class="form-group">
-                        <label for="numeroCarta">Numero della Carta</label>
-                        <input type="text" class="form-control" id="numeroCarta" name="numeroCarta" placeholder="Inserisci il numero della carta" required>
+            <div class="row mt-4" id="formSpedizione" style="display: none;">
+                <!-- Dati Spedizione (Colonna sinistra) -->
+                <div class="col-lg-6">
+                    <h3>Dati Spedizione</h3>
+                    <div class="mb-3">
+                        <label for="indirizzoSpedizione" class="form-label">Indirizzo di Spedizione:</label>
+                        <input type="text" class="form-control" id="indirizzoSpedizione" name="indirizzoSpedizione" required>
                     </div>
+                    <div class="mb-3">
+                        <label for="corriere" class="form-label">Corriere:</label>
+                        <select class="form-select" id="corriere" name="corriere" required>
+                            <option value="">Seleziona un Corriere</option>
+                            <option value="Fedex">Fedex</option>
+                            <option value="SDA">SDA</option>
+                            <option value="GLS">GLS</option>
+                            <option value="DHL">DHL</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
-                    <div class="form-group">
-                        <label for="dataScadenzaCarta">Data di scadenza della carta (MM/AA)</label>
+            <div class="row mt-4" id="formFatturazione" style="display: none;">
+                <!-- Dati Fatturazione (Colonna destra) -->
+                <div class="col-lg-6">
+                    <h3>Dati Fatturazione</h3>
+                    <div class="mb-3">
+                        <label for="metodoPagamento" class="form-label">Metodo di Pagamento:</label>
+                        <select class="form-select" id="metodoPagamento" name="metodoPagamento" required>
+                            <option value="">Seleziona un Metodo di Pagamento</option>
+                            <option value="Carta di Credito">Carta di Credito</option>
+                            <option value="PayPal">PayPal</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="numeroCarta" class="form-label">Numero della Carta:</label>
+                        <input type="text" class="form-control" id="numeroCarta" name="numeroCarta" placeholder="Inserisci il Numero della Carta" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="dataScadenzaCarta" class="form-label">Data di Scadenza della Carta (MM/AA):</label>
                         <input type="text" class="form-control" id="dataScadenzaCarta" name="dataScadenzaCarta" placeholder="MM/AA" required>
                         <small class="form-text text-muted">Formato richiesto: MM/AA</small>
                     </div>
-
-
-                    <div class="form-group">
-                        <label for="cvv">CVV</label>
+                    <div class="mb-3">
+                        <label for="cvv" class="form-label">CVV:</label>
                         <input type="text" class="form-control" id="cvv" name="cvv" placeholder="Inserisci il CVV" required>
                     </div>
+                    <button type="submit" class="btn btn-primary btn-block">Conferma Ordine</button>
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Conferma ordine</button>
+    }
+}
+else
+{
+    <div class="container py-4">
+        <div class="alert alert-info" role="alert">
+            Il tuo carrello è vuoto. <a href="@Url.Action("Index", "Home")" class="alert-link">Continua gli Acquisti</a>.
         </div>
+    </div>
+}
 
-        
 
 
-        <script>
+
+<script>
             function mostraForm() {
                 document.getElementById("formSpedizione").style.display = "block";
                 document.getElementById("formFatturazione").style.display = "block";
@@ -135,10 +154,10 @@
                     $('#totaleSpesa').text(totaleSpesa.toString() + ' €');
                 });
             });
-        </script>
+</script>
     }
 }
 else
 {
-    <p>Il carrello è vuoto.</p>
+<p>Il carrello è vuoto.</p>
 }

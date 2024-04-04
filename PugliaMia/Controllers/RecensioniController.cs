@@ -26,6 +26,9 @@ namespace PugliaMia.Controllers
                 recensioni = recensioni.Where(r => r.ProdottoID == id);
             }
 
+            // Ordina le recensioni per data in ordine decrescente
+            recensioni = recensioni.OrderByDescending(r => r.DataRecensione);
+
             // Recupera l'ID dell'utente autenticato
             string currentUsername = User.Identity.Name;
             Utenti currentUser = db.Utenti.FirstOrDefault(u => u.Nome == currentUsername);

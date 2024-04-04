@@ -123,5 +123,19 @@ namespace PugliaMia.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public JsonResult GetNumeroProdottiPerCategoria()
+        {
+            var numeroProdottiPerCategoria = db.Categorie
+                .Select(c => new
+                {
+                    CategoriaID = c.CategoriaID,
+                    NumeroProdotti = c.Prodotti.Count()
+                })
+                .ToList();
+
+            return Json(numeroProdottiPerCategoria, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

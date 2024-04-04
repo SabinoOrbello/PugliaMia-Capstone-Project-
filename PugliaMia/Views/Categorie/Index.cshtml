@@ -11,16 +11,21 @@
     <div class="container-fluid pt-4">
         <div class="row">
             <div class="col-md-3 sidebar">
-                <h2>Categorie Prodotto</h2>
-                <ul>
+                <h2 class="mb-4">Categorie Prodotto</h2>
+                <ul class="list-group">
                     @foreach (var categoria in Model)
                     {
-                        <li> <a href="#" class="categoriaButton link-secondary pe-auto" data-categoria-id="@categoria.CategoriaID">>@categoria.NomeCategoria</a></li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="#" class="categoriaButton link-secondary" data-categoria-id="@categoria.CategoriaID">@categoria.NomeCategoria</a>
+                            <span class="badge bg-success rounded-pill" id="numeroProdotti-@categoria.CategoriaID">...</span> <!-- Numero di prodotti nella categoria -->
+                        </li>
                     }
-                    <li> <a href="#" class="link-secondary pe-auto" id="tutteCategorieButton">>Mostra tutti i Prodotti</a></li>
+                    <li class="list-group-item">
+                        <a href="#" class="link-secondary" id="tutteCategorieButton">Mostra tutti i Prodotti</a>
+                    </li>
                 </ul>
-
             </div>
+
             <div class="col-md-9">
                 <div id="listaProdotti">
                     <!-- Qui verrà inserita la lista dei prodotti tramite AJAX -->
@@ -84,6 +89,21 @@
                         $('#listaProdotti').html('<p>Errore durante il recupero dei prodotti.</p>');
                     }
                 });
+            });
+        });
+
+        $(document).ready(function () {
+            $.ajax({
+                url: '/Categorie/GetNumeroProdottiPerCategoria',
+                type: 'GET',
+                success: function (data) {
+                    data.forEach(function (categoria) {
+                        $('#numeroProdotti-' + categoria.CategoriaID).text(categoria.NumeroProdotti);
+                    });
+                },
+                error: function () {
+                    console.error('Errore durante il recupero del numero di prodotti per categoria.');
+                }
             });
         });
 

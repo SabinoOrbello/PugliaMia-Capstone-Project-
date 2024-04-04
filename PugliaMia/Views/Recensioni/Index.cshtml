@@ -31,7 +31,7 @@
             <div class="btn-group mt-2" role="group" aria-label="Azioni">
                 @if (item.UserID == ViewBag.CurrentUserID)
                 {
-                    @Html.ActionLink("Dettagli", "Details", new { id = item.RecensioneID }, new { @class = "btn btn-outline-primary btn-sm" })
+                    
                     @Html.ActionLink("Modifica", "Edit", new { id = item.RecensioneID }, new { @class = "btn btn-outline-secondary btn-sm" })
                     @Html.ActionLink("Elimina", "Delete", new { id = item.RecensioneID }, new { @class = "btn btn-outline-danger btn-sm" })
                 }
