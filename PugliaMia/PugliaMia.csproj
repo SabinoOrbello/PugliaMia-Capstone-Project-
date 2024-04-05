@@ -181,6 +181,7 @@
     <Compile Include="Models\Categorie.cs" />
     <Compile Include="Models\DettagliOrdine.cs" />
     <Compile Include="Models\ModelDbContext.cs" />
+    <Compile Include="Models\ModificaOrdineViewModel.cs" />
     <Compile Include="Models\Ordini.cs" />
     <Compile Include="Models\Pagamenti.cs" />
     <Compile Include="Models\Prodotti.cs" />
@@ -449,6 +450,7 @@
     <Content Include="Views\Recensioni\Details.cshtml" />
     <Content Include="Views\Recensioni\Edit.cshtml" />
     <Content Include="Views\Recensioni\Index.cshtml" />
+    <Content Include="Views\Ordini\ModificaOrdine.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

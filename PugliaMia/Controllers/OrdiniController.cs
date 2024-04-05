@@ -354,6 +354,103 @@ namespace PugliaMia.Controllers
             base.Dispose(disposing);
         }
 
+        public async Task<ActionResult> ModificaOrdine(int ordineId)
+        {
+            // Recupera l'ordine dal database
+            Ordini ordine = await db.Ordini.FindAsync(ordineId);
+
+            // Assicurati che l'ordine esista
+            if (ordine == null)
+            {
+                return HttpNotFound(); // O un'altra azione appropriata
+            }
+
+            // Carica la spedizione associata a questo ordine
+            Spedizioni spedizione = await db.Spedizioni.FirstOrDefaultAsync(s => s.OrdineID == ordineId);
+
+            // Carica il pagamento associato a questo ordine
+            Pagamenti pagamento = await db.Pagamenti.FirstOrDefaultAsync(p => p.OrdineID == ordineId);
+
+            // Carica i dettagli dell'ordine associati a questo ordine
+            List<DettagliOrdine> dettagliOrdine = await db.DettagliOrdine.Where(d => d.OrdineID == ordineId).ToListAsync();
+
+            // Crea un ViewModel per passare i dati alla vista
+            ModificaOrdineViewModel viewModel = new ModificaOrdineViewModel
+            {
+                Ordine = ordine,
+                Spedizione = spedizione,
+                Pagamento = pagamento,
+                DettagliOrdine = dettagliOrdine
+            };
+
+            return View(viewModel);
+        }
+
+
+        [HttpPost]
+        public async Task<ActionResult> ModificaOrdine(ModificaOrdineViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Recupera l'ordine dal database
+                    Ordini ordine = await db.Ordini.FindAsync(viewModel.Ordine.OrdineID);
+
+                    // Assicurati che l'ordine esista
+                    if (ordine == null)
+                    {
+                        return HttpNotFound(); // O un'altra azione appropriata
+                    }
+
+                    // Aggiorna i dati dell'ordine con quelli provenienti dal viewModel
+                    ordine.DataOrdine = viewModel.Ordine.DataOrdine;
+                    ordine.StatoOrdine = viewModel.Ordine.StatoOrdine;
+                    ordine.Totale = viewModel.Ordine.Totale;
+
+                    // Aggiorna la spedizione
+                    Spedizioni spedizione = await db.Spedizioni.FirstOrDefaultAsync(s => s.OrdineID == viewModel.Ordine.OrdineID);
+                    if (spedizione != null)
+                    {
+                        spedizione.IndirizzoSpedizione = viewModel.Spedizione.IndirizzoSpedizione;
+                        spedizione.Corriere = viewModel.Spedizione.Corriere;
+                        spedizione.DataSpedizione = viewModel.Spedizione.DataSpedizione;
+                        spedizione.StatoSpedizione = viewModel.Spedizione.StatoSpedizione;
+                    }
+
+                    // Aggiorna il pagamento
+                    Pagamenti pagamento = await db.Pagamenti.FirstOrDefaultAsync(p => p.OrdineID == viewModel.Ordine.OrdineID);
+                    if (pagamento != null)
+                    {
+                        pagamento.MetodoPagamento = viewModel.Pagamento.MetodoPagamento;
+                        pagamento.DataPagamento = viewModel.Pagamento.DataPagamento;
+                        pagamento.StatoPagamento = viewModel.Pagamento.StatoPagamento;
+                        pagamento.TotalePagato = viewModel.Pagamento.TotalePagato;
+                    }
+
+                    // Salva tutte le modifiche nel database
+                    await db.SaveChangesAsync();
+
+                    // Reindirizza l'utente a una pagina di conferma o a una vista appropriata
+                    return RedirectToAction("RiepilogoOrdine", new { ordineId = ordine.OrdineID });
+                }
+                catch (Exception ex)
+                {
+                    // Gestione delle eccezioni
+                    System.Diagnostics.Debug.WriteLine(ex.ToString());
+                    return RedirectToAction("Error", "Home"); // Reindirizza a una pagina di errore
+                }
+            }
+
+            // Se ModelState non è valido, torna alla stessa vista per correggere gli errori
+            return View(viewModel);
+        }
+
+
+
+
+
+
 
 
 

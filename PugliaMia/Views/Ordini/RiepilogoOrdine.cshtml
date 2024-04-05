@@ -44,4 +44,6 @@
         <p>Non ci sono prodotti nell'ordine.</p>
     }
     <p>@Html.ActionLink("Torna al menù", "Index", "Categorie", new { area = "" }, new { @class = "nav-link" })</p>
+    <p>@Html.ActionLink("Modifica Ordine", "ModificaOrdine", "Ordini", new { ordineId = Model.Ordine.OrdineID }, new { @class = "nav-link" })</p>
+
 </div>
