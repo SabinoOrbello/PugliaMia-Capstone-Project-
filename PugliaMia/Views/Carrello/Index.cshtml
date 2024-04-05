@@ -17,7 +17,7 @@
                                 <p class="card-text">Prezzo: @prodotto.Prezzo €</p>
                                 <div class="form-group">
                                     <label for="quantita_@prodotto.ProdottoID" class="form-label">Quantità:</label>
-                                    <input type="number" name="quantita_@prodotto.ProdottoID" id="quantita_@prodotto.ProdottoID" min="1" value="1" class="form-control" data-prezzo="@prodotto.Prezzo">
+                                    <input type="number" name="quantita_@prodotto.ProdottoID" id="quantita_@prodotto.ProdottoID" min="1" value="1" class="form-control quantita-prodotto" data-prezzo="@prodotto.Prezzo">
                                 </div>
                                 <button type="button" class="btn btn-danger btn-block" onclick="rimuoviProdotto(@prodotto.ProdottoID)">Rimuovi dal Carrello</button>
                             </div>

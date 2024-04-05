@@ -94,7 +94,7 @@ h1, h2, p {
     }
 
 .txCard {
-    color: black;
+    color: white;
 }
 
 
@@ -113,7 +113,7 @@ h1, h2, p {
 }
 
 .footer-area {
-    background-color: #051922;
+    background-image: linear-gradient(to left, #051937, #4b275b, #972c61, #d34449, #eb7e12);
     color: #fff;
     padding: 150px 0;
 }
@@ -184,7 +184,7 @@ h2.widget-title {
     }
 
 .copyright {
-    background-color: #051922;
+    background-image: linear-gradient(to left, #051937, #4b275b, #972c61, #d34449, #eb7e12);
     border-top: 1px solid #232a35;
 }
 
@@ -248,18 +248,18 @@ h2.widget-title {
 
 .navbar {
     background-color: transparent !important;
-    transition: background-color 0.3s ease-in-out;
+    transition: background-image 0.3s ease-in-out;
 }
 
 .navbar-blue {
-    background-color: #051922 !important;
+    background-image: linear-gradient(to left, #051937, #4b275b, #972c61, #d34449, #eb7e12);
 }
 
-.naColor {
+.navbar-nav .nav-link {
     color: white;
 }
 
-    .naColor:hover {
+    .navbar-nav .nav-link:hover {
         color: #F28123;
     }
 
@@ -267,6 +267,49 @@ h2.widget-title {
     color: #F28123;
 }
 
+.navbar .titPage {
+    color: #F28123;
+}
+
+    .navbar .titPage:hover {
+        color: white;
+    }
+
 span {
     color: #F28123;
 }
+
+.nav-link .fas.fa-user {
+    color: white;
+}
+
+.nav-link:hover .fas.fa-user {
+    color: orange;
+}
+
+/* Login */
+.login-form {
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 50px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-image: linear-gradient(to left, #051937, #4b275b, #972c61, #d34449, #eb7e12);
+    color: white;
+}
+
+    .login-form .form-group {
+        margin-bottom: 20px;
+    }
+
+    .login-form .control-label {
+        font-weight: bold;
+    }
+
+    .login-form .form-control {
+        height: 40px;
+    }
+
+    .login-form button[type="submit"] {
+        height: 40px;
+    }

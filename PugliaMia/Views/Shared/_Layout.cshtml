@@ -5,57 +5,63 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" type="text/css" href="/Styles/css.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-LbrHtzWZy+SC2Gpq1nqS8Y19t36wWnbQlSiq3RV8a4iD7Jk6+p2D++xImQ/W6zAFb+XNvUnHuUHohW4zvVjPlg==" crossorigin="anonymous" />
-
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5YF2m0Jg6JeOWvqT9GYjx6H0pWQwU1z6Z6m8XQQKnG2hZtNhIeh4u" crossorigin="anonymous">
-
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js" integrity="sha384-QC0jEQQNlmNVMeO4AQDuVEeYlW6wF5YkNLej/k9+L1IuEWE1ck1PkFOJpHHUoic1" crossorigin="anonymous"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <title>@ViewBag.Title - Applicazione ASP.NET</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js" integrity="sha384-pXX5S3xIaq5Pq6o6cBibIw4kiLGM23HcdZDBDfKh/hoiX+oFd/B7z9czVzEjfwao" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+gsO3YlC70RHIwCh5V9xn0+al6MfM5R5J9i+8kv" crossorigin="anonymous"></script>
 </head>
 <body>
 
     <nav id="mainNavbar" class="navbar navbar-expand-sm navbar-toggleable-sm py-4 fw-bold fixed-top">
         <div class="container">
-            <h3 class="titPage"> @Html.ActionLink("Pugliazza", "Index", "Home", new { area = "" }, new { @class = "navbar-brand titPage text-white" })</h3>
+            <h3 class="titPage"> @Html.ActionLink("Pugliazza", "Index", "Home", new { area = "" }, new { @class = "navbar-brand titPage" })</h3>
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Attiva/Disattiva spostamento" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link text-white naColor" })</li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, new { @class = "nav-link text-white naColor" })</li>
-                    <li>@Html.ActionLink("I nostri Prodotti", "Index", "Categorie", new { area = "" }, new { @class = "nav-link text-white naColor" })</li>
-                    <li>@Html.ActionLink("Lista Prodotti", "IndexAdmin", "Prodotti", new { area = "" }, new { @class = "nav-link text-white naColor" })</li>
-                    <li>@Html.ActionLink("Carrello", "Index", "Carrello", new { area = "" }, new { @class = "nav-link text-white naColor" })</li>
-                    <li>@Html.ActionLink("I tuoi Ordini", "OrdiniUtente", "Ordini", new { area = "" }, new { @class = "nav-link text-white naColor" })</li>
+                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("I nostri Prodotti", "Index", "Categorie", new { area = "" }, new { @class = "nav-link" })</li>
+
+
                 </ul>
-                <ul class="navbar-nav">
-                    @if (Request.IsAuthenticated)
-                    {
-                        <li>@Html.ActionLink("Logout", "Logout", "Utenti", new { area = "" }, new { @class = "btn btn-dark fw-bold" })</li>
-                        if (User.IsInRole("Admin"))
-                        {
-                            <li>@Html.ActionLink("Back Office", "BackOffice", "Home", new { area = "" }, new { @class = "nav-link text-warning fw-bold" })</li>
-                        }
-                    }
-                    else
-                    {
-                        <li class="nav-item">
-                            @Html.ActionLink("Accedi", "Login", "Utenti", new { area = "" }, new { @class = "nav-link text-white" })
-                        </li>
-                        <li class="nav-item">
-                            @Html.ActionLink("Registrati", "Register", "Utenti", new { area = "" }, new { @class = "nav-link text-white" })
-                        </li>
-                    }
+                <ul>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user"></i> <!-- Icona utente -->
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            @if (Request.IsAuthenticated)
+                            {
+
+                                <li>@Html.ActionLink("Carrello", "Index", "Carrello", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                <li>@Html.ActionLink("Logout", "Logout", "Utenti", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                <li>@Html.ActionLink("I tuoi Ordini", "OrdiniUtente", "Ordini", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                if (User.IsInRole("Admin"))
+                                {
+                                    <li>@Html.ActionLink("Back Office", "BackOffice", "Home", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                    <li>@Html.ActionLink("Lista Prodotti", "IndexAdmin", "Prodotti", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                    <li>@Html.ActionLink("Logout", "Logout", "Utenti", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                }
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("Accedi", "Login", "Utenti", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                <li>@Html.ActionLink("Registrati", "Register", "Utenti", new { area = "" }, new { @class = "dropdown-item" })</li>
+                            }
+                        </ul>
+                    </li>
                 </ul>
+
             </div>
         </div>
     </nav>
@@ -74,10 +80,11 @@
             </div>
         </div>
     </div>
-    <div>
+    <div class="navbar-blue">
         @RenderBody()
     </div>
     <!-- end logo carousel -->
+    
     <div class="footer-area">
         <div class="container">
             <div class="row">
@@ -167,10 +174,20 @@
                 }
             });
         });
+
+        $(document).ready(function () {
+            $('.dropdown-toggle').on('click', function () {
+                $(this).next('.dropdown-menu').toggle();
+            });
+
+            $(document).on('click', function (e) {
+                if (!$(e.target).closest('.dropdown').length) {
+                    $('.dropdown-menu').hide();
+                }
+            });
+        });
+
     </script>
-
-
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
