@@ -113,7 +113,7 @@ h1, h2, p {
 }
 
 .footer-area {
-    background-image: linear-gradient(to left, #051937, #4b275b, #972c61, #d34449, #eb7e12);
+    background-image: linear-gradient(to right, #c0beef, #dcbce5, #f0bdd7, #f9c1c9, #fac8be, #f9cabd, #f7cbbc, #f5cdbb, #f6c8bd, #f6c4c1, #f3c0c6, #efbdcc);
     color: #fff;
     padding: 150px 0;
 }
@@ -184,7 +184,7 @@ h2.widget-title {
     }
 
 .copyright {
-    background-image: linear-gradient(to left, #051937, #4b275b, #972c61, #d34449, #eb7e12);
+    background-image: linear-gradient(to right, #c0beef, #dcbce5, #f0bdd7, #f9c1c9, #fac8be, #f9cabd, #f7cbbc, #f5cdbb, #f6c8bd, #f6c4c1, #f3c0c6, #efbdcc);
     border-top: 1px solid #232a35;
 }
 
@@ -252,7 +252,7 @@ h2.widget-title {
 }
 
 .navbar-blue {
-    background-image: linear-gradient(to left, #051937, #4b275b, #972c61, #d34449, #eb7e12);
+    background-image: linear-gradient(to right, #c0beef, #dcbce5, #f0bdd7, #f9c1c9, #fac8be, #f9cabd, #f7cbbc, #f5cdbb, #f6c8bd, #f6c4c1, #f3c0c6, #efbdcc);
 }
 
 .navbar-nav .nav-link {
@@ -294,7 +294,7 @@ span {
     padding: 50px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    background-image: linear-gradient(to left, #051937, #4b275b, #972c61, #d34449, #eb7e12);
+    background-image: linear-gradient(to right, #c0beef, #dcbce5, #f0bdd7, #f9c1c9, #fac8be, #f9cabd, #f7cbbc, #f5cdbb, #f6c8bd, #f6c4c1, #f3c0c6, #efbdcc);
     color: white;
 }
 
