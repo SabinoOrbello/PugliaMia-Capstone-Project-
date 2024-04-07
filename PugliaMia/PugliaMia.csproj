@@ -451,6 +451,7 @@
     <Content Include="Views\Recensioni\Edit.cshtml" />
     <Content Include="Views\Recensioni\Index.cshtml" />
     <Content Include="Views\Ordini\ModificaOrdine.cshtml" />
+    <Content Include="Views\Utenti\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

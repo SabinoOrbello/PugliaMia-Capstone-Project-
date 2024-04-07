@@ -125,6 +125,38 @@ namespace PugliaMia.Controllers
             base.Dispose(disposing);
         }
 
+        [HttpGet]
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Register([Bind(Include = "Nome,Password,Email")] Utenti model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Verifica se l'utente esiste già
+                var existingUser = db.Utenti.FirstOrDefault(u => u.Nome == model.Nome);
+                if (existingUser != null)
+                {
+                    ModelState.AddModelError("Nome", "Nome already in use");
+                    return View(model);
+                }
+                model.Role = "Cliente"; // Imposta il ruolo predefinito su "Cliente
+
+                // Crea un nuovo utente
+                db.Utenti.Add(model);
+                db.SaveChanges();
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            //  significa che qualcosa non ha funzionato, quindi visualizza nuovamente il modulo
+            return View(model);
+        }
+
 
         [HttpGet]
         public ActionResult Login()

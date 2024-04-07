@@ -1,7 +1,5 @@
 ﻿.sidebar {
-    background-color: #f8f9fa;
     padding: 20px;
-    border-right: 1px solid #dee2e6;
 }
 
 .categoriaButton {
@@ -311,5 +309,36 @@ span {
     }
 
     .login-form button[type="submit"] {
+        height: 40px;
+    }
+
+.badg {
+    background-color: #F28123;
+    color: white;
+}
+
+.form-horizontal {
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 50px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-image: linear-gradient(to right, #c0beef, #dcbce5, #f0bdd7, #f9c1c9, #fac8be, #f9cabd, #f7cbbc, #f5cdbb, #f6c8bd, #f6c4c1, #f3c0c6, #efbdcc);
+    color: white;
+}
+
+    .form-horizontal .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-horizontal .control-label {
+        font-weight: bold;
+    }
+
+    .form-horizontal.form-control {
+        height: 40px;
+    }
+
+    .form-horizontal button[type="submit"] {
         height: 40px;
     }
