@@ -41,9 +41,10 @@
             @Html.DisplayFor(modelItem => item.Totale)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.OrdineID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.OrdineID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.OrdineID })
+            @Html.ActionLink("Edit", "Edit", new { id = item.OrdineID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.OrdineID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.OrdineID })
+            @Html.ActionLink("Conferma", "CompletaOrdine", new { id = item.OrdineID }, new { @class = "btn btn-primary" })
         </td>
     </tr>
 }

@@ -21,33 +21,44 @@
         </div>
         <div class="col-3">
             <div class="card p-2 bgOffice1 text-center" style="width: 18rem;">
-                <h5 class="card-title">Ordine Dettagli</h5>
+                <h5 class="card-title">Ordini Effettuati</h5>
                 <img src="~/Content/Images/strascinati.png" class="card-img-top" alt="...">
                 <div class="card-body">
 
-                    <p> @Html.ActionLink("Dettaglio Ordine", "Index", "DettaglioOrdini", new { area = "" }, new { @class = "bottone1" })</p>
+                    <p> @Html.ActionLink("Ordini Effettuati", "Index", "Ordini", new { area = "" }, new { @class = "bottone1" })</p>
                 </div>
             </div>
         </div>
 
         <div class="col-3">
             <div class="card p-2 bgOffice2 text-center" style="width: 18rem;">
-                <h5 class="card-title">Ordini da Evadere</h5>
+                <h5 class="card-title">Utenti Registrati</h5>
                 <img src="~/Content/Images/taralli classic.png" class="card-img-top" alt="...">
                 <div class="card-body">
 
-                    <p> @Html.ActionLink("Ordini da Evadere", "OrdiniFinalizzati", "Ordini", new { area = "" }, new { @class = "bottone1" })</p>
+                    <p> @Html.ActionLink("Utenti registrati", "Index", "Utenti", new { area = "" }, new { @class = "bottone1" })</p>
                 </div>
             </div>
         </div>
 
         <div class="col-3">
             <div class="card p-2 bgOffice3 text-center" style="width: 18rem;">
-                <h5 class="card-title">Ordini Evasi</h5>
+                <h5 class="card-title">Ordini Dettaglio</h5>
                 <img src="~/Content/Images/olio olivò 5l.png" class="card-img-top" alt="...">
                 <div class="card-body">
 
-                    <p> @Html.ActionLink("Ordini Evasi", "OrdiniEvasi", "Ordini", new { area = "" }, new { @class = "bottone1" })</p>
+                    <p> @Html.ActionLink("Ordini Dettaglio", "Index", "DettagliOrdine", new { area = "" }, new { @class = "bottone1" })</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-3">
+            <div class="card p-2 bgOffice3 text-center" style="width: 18rem;">
+                <h5 class="card-title">Ordini Completati</h5>
+                <img src="~/Content/Images/olio olivò 5l.png" class="card-img-top" alt="...">
+                <div class="card-body">
+
+                    <p> @Html.ActionLink("Ordini Completati", "OrdiniCompletati", "Ordini", new { area = "" }, new { @class = "bottone1" })</p>
                 </div>
             </div>
         </div>

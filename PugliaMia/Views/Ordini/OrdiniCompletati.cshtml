@@ -1,0 +1,36 @@
+﻿@model IEnumerable<PugliaMia.Models.Ordini>
+
+<h2>Ordini Completati</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Nome Cliente
+        </th>
+        <th>
+            Data Ordine
+        </th>
+        <th>
+            Totale
+        </th>
+        <!-- Aggiungi altre colonne se necessario -->
+    </tr>
+
+    @foreach (var ordine in Model)
+    {
+        <tr>
+            <td>
+                @ordine.Utenti.Nome
+            </td>
+            <td>
+                @ordine.DataOrdine
+            </td>
+            <td>
+                @ordine.Totale
+            </td>
+            <!-- Aggiungi altre colonne se necessario -->
+        </tr>
+    }
+
+</table>
+
