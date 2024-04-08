@@ -4,11 +4,12 @@
     ViewBag.Title = "Details";
 }
 
-<div class="container">
-    <h2>Dettagli Prodotto</h2>
+<div class="container pt-4">
+    <h2 class="titPage">Dettagli Prodotto</h2>
+    <hr class="border border-danger border-2 opacity-50 mb-4" />
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Prodotti</h4>
+            
             <dl class="row">
                 <dt class="col-sm-3">Categoria</dt>
                 <dd class="col-sm-9">@Html.DisplayFor(model => model.Categorie.NomeCategoria)</dd>
@@ -20,7 +21,7 @@
                 <dd class="col-sm-9">@Html.DisplayFor(model => model.Descrizione)</dd>
 
                 <dt class="col-sm-3">Prezzo</dt>
-                <dd class="col-sm-9">@Html.DisplayFor(model => model.Prezzo)</dd>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Prezzo) €</dd>
 
                 <dt class="col-sm-3"></dt>
                 <img src="@(!string.IsNullOrEmpty(Model.Immagine) ? Url.Content(Model.Immagine) : Url.Content("~/Content/Images/hotel.jpg"))" class="card-img-top w-25" alt="..." />

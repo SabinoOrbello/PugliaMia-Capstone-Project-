@@ -14,5 +14,13 @@ namespace PugliaMia.Controllers
 
             return View();
         }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult BackOffice()
+        {
+            ViewBag.Title = "Back Office";
+
+            return View();
+        }
     }
 }

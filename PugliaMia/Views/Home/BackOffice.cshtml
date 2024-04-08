@@ -1,0 +1,65 @@
+﻿
+
+@{
+    ViewBag.Title = "BackOffice";
+}
+
+
+<div class="container login-form">
+    <h2 class="titPage">BackOffice</h2>
+    <div class="row g-4">
+        <div class="col-3">
+            <div class="card h-100" style="width: 18rem;">
+                <img src="~/Content/Images/card-5.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Visualizza i Prodotti</h5>
+
+                    <p>@Html.ActionLink("Lista Prodotti", "IndexAdmin", "Prodotti", new { area = "" }, new { @class = "bottone1" })</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card" style="width: 18rem;">
+                <img src="~/Content/Images/card-2.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Ordine Dettagli</h5>
+
+                    <p> @Html.ActionLink("Dettaglio Ordine", "Index", "DettaglioOrdini", new { area = "" }, new { @class = "btn btn-primary" })</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-3">
+            <div class="card" style="width: 18rem;">
+                <img src="~/Content/Images/card-3.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Ordini da Evadere</h5>
+
+                    <p> @Html.ActionLink("Ordini da Evadere", "OrdiniFinalizzati", "Ordini", new { area = "" }, new { @class = "btn btn-primary" })</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-3">
+            <div class="card" style="width: 18rem;">
+                <img src="~/Content/Images/card-4.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Ordini Evasi</h5>
+
+                    <p> @Html.ActionLink("Ordini Evasi", "OrdiniEvasi", "Ordini", new { area = "" }, new { @class = "btn btn-primary" })</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-3">
+            <div class="card" style="width: 18rem;">
+                <img src="~/Content/Images/card-7.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Crea o Modifica</h5>
+
+                    <p> @Html.ActionLink("Lista Prodotti", "IndexAdmin", "Prodotti", new { area = "" }, new { @class = "btn btn-primary" })</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

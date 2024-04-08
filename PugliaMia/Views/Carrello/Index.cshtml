@@ -7,24 +7,30 @@
         <div class="container py-4">
             <h2 class="mb-4">Il tuo Carrello</h2>
             <div class="row">
-                @foreach (var prodotto in Model)
-                {
-                    <div class="col-lg-4 mb-4">
-                        <div class="card h-100">
-                            <img src="@Url.Content(string.IsNullOrEmpty(prodotto.Immagine) ? "~/Content/Images/default-product-image.jpg" : prodotto.Immagine)" class="card-img-top" alt="@prodotto.Nome">
-                            <div class="card-body">
-                                <h5 class="card-title">@prodotto.Nome</h5>
-                                <p class="card-text">Prezzo: @prodotto.Prezzo €</p>
-                                <div class="form-group">
-                                    <label for="quantita_@prodotto.ProdottoID" class="form-label">Quantità:</label>
-                                    <input type="number" name="quantita_@prodotto.ProdottoID" id="quantita_@prodotto.ProdottoID" min="1" value="1" class="form-control quantita-prodotto" data-prezzo="@prodotto.Prezzo">
-                                </div>
-                                <button type="button" class="btn btn-danger btn-block" onclick="rimuoviProdotto(@prodotto.ProdottoID)">Rimuovi dal Carrello</button>
-                            </div>
-                        </div>
-                    </div>
-                }
+                <div class="col-lg-6">
+                    <table class="table">
+                        <tbody>
+                            @foreach (var prodotto in Model)
+                            {
+                                <tr>
+                                    <td><img src="@Url.Content(string.IsNullOrEmpty(prodotto.Immagine) ? "~/Content/Images/default-product-image.jpg" : prodotto.Immagine)" class="img-thumbnail w-50" alt="@prodotto.Nome"></td>
+                                    <td>@prodotto.Nome</td>
+                                    <td>@prodotto.Prezzo €</td>
+                                    <td>
+                                        <input type="number" name="quantita_@prodotto.ProdottoID" id="quantita_@prodotto.ProdottoID" min="1" value="1" class="form-control quantita-prodotto" data-prezzo="@prodotto.Prezzo">
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger" onclick="rimuoviProdotto(@prodotto.ProdottoID)">
+                                            <i class="fas fa-times"></i> 
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
+
 
             <div class="row mt-4">
                 <div class="col-lg-6">
@@ -48,6 +54,7 @@
                 <!-- Dati Spedizione (Colonna sinistra) -->
                 <div class="col-lg-6">
                     <h3>Dati Spedizione</h3>
+                    <hr class="border border-danger border-2 opacity-50 mb-4" />
                     <div class="mb-3">
                         <label for="indirizzoSpedizione" class="form-label">Indirizzo di Spedizione:</label>
                         <input type="text" class="form-control" id="indirizzoSpedizione" name="indirizzoSpedizione" required>
@@ -69,6 +76,7 @@
                 <!-- Dati Fatturazione (Colonna destra) -->
                 <div class="col-lg-6">
                     <h3>Dati Fatturazione</h3>
+                    <hr class="border border-danger border-2 opacity-50 mb-4" />
                     <div class="mb-3">
                         <label for="metodoPagamento" class="form-label">Metodo di Pagamento:</label>
                         <select class="form-select" id="metodoPagamento" name="metodoPagamento" required>
@@ -100,7 +108,7 @@ else
 {
     <div class="container py-4">
         <div class="alert alert-info" role="alert">
-            Il tuo carrello è vuoto. <a href="@Url.Action("Index", "Home")" class="alert-link">Continua gli Acquisti</a>.
+            Il tuo carrello è vuoto. <a href="@Url.Action("Index", "Categorie")" class="alert-link">Continua gli Acquisti</a>.
         </div>
     </div>
 }
@@ -155,9 +163,4 @@ else
                 });
             });
 </script>
-    }
-}
-else
-{
-<p>Il carrello è vuoto.</p>
-}
+  

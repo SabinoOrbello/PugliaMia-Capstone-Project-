@@ -31,8 +31,6 @@
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Shop", "Index", "Categorie", new { area = "" }, new { @class = "nav-link" })</li>
-
-
                 </ul>
                 <ul>
                     <li class="nav-item dropdown">
@@ -42,15 +40,16 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             @if (Request.IsAuthenticated)
                             {
-
-                                <li>@Html.ActionLink("Carrello", "Index", "Carrello", new { area = "" }, new { @class = "dropdown-item" })</li>
                                 <li>@Html.ActionLink("Logout", "Logout", "Utenti", new { area = "" }, new { @class = "dropdown-item" })</li>
-                                <li>@Html.ActionLink("I tuoi Ordini", "OrdiniUtente", "Ordini", new { area = "" }, new { @class = "dropdown-item" })</li>
                                 if (User.IsInRole("Admin"))
                                 {
                                     <li>@Html.ActionLink("Back Office", "BackOffice", "Home", new { area = "" }, new { @class = "dropdown-item" })</li>
                                     <li>@Html.ActionLink("Lista Prodotti", "IndexAdmin", "Prodotti", new { area = "" }, new { @class = "dropdown-item" })</li>
-                                    <li>@Html.ActionLink("Logout", "Logout", "Utenti", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                }
+                                else
+                                {
+                                    <li>@Html.ActionLink("Carrello", "Index", "Carrello", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                    <li>@Html.ActionLink("I tuoi Ordini", "OrdiniUtente", "Ordini", new { area = "" }, new { @class = "dropdown-item" })</li>
                                 }
                             }
                             else
@@ -61,6 +60,7 @@
                         </ul>
                     </li>
                 </ul>
+
 
             </div>
         </div>

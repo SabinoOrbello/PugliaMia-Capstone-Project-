@@ -1,35 +1,40 @@
 ﻿@model PugliaMia.Models.RiepilogoOrdineViewModel
 
-<div class="container">
+<div class="container login-form">
     <h2>Riepilogo dell'Ordine</h2>
+    <hr class="border border-danger border-2 opacity-50 mb-4" />
 
-    <h3>Dettagli dell'Ordine</h3>
-    <p>ID Ordine: @Model.Ordine.OrdineID</p>
-    <p>Data Ordine: @Model.Ordine.DataOrdine</p>
-    <p>Totale: @Model.Ordine.Totale</p>
+    <h3 class="titPage">Dettagli dell'Ordine</h3>
+    <hr class="border border-danger border-2 opacity-50 mb-4" />
+    <p>ID Ordine:<b> @Model.Ordine.OrdineID</b></p>
+    <p>Data Ordine:<b> @Model.Ordine.DataOrdine</b></p>
+    <p>Totale:<b> @Model.Ordine.Totale</b></p>
     <!-- Altri dettagli dell'ordine -->
 
-    <h3>Dettagli della Spedizione</h3>
-    <p>Indirizzo Spedizione: @Model.Spedizione.IndirizzoSpedizione</p>
-    <p>Numero Tracciamento: @Model.Spedizione.NumeroTracciamento</p>
-    <p>Stato Spedizione: @Model.Spedizione.StatoSpedizione</p>
+    <h3 class="titPage">Dettagli della Spedizione</h3>
+    <hr class="border border-danger border-2 opacity-50 mb-4" />
+    <p>Indirizzo Spedizione:<b> @Model.Spedizione.IndirizzoSpedizione</b></p>
+    <p>Numero Tracciamento:<b> @Model.Spedizione.NumeroTracciamento</b></p>
+    <p>Stato Spedizione: <b>@Model.Spedizione.StatoSpedizione</b></p>
 
     <!-- Altri dettagli della spedizione -->
 
-    <h3>Dettagli del Pagamento</h3>
-    <p>Metodo Pagamento: @Model.Pagamento.MetodoPagamento</p>
-    <p>Totale Pagamento: @Model.Pagamento.TotalePagato €</p>
+    <h3 class="titPage">Dettagli del Pagamento</h3>
+    <hr class="border border-danger border-2 opacity-50 mb-4" />
+    <p>Metodo Pagamento: <b>@Model.Pagamento.MetodoPagamento</b></p>
+    <p>Totale Pagamento:<b> @Model.Pagamento.TotalePagato €</b></p>
 
 
     <!-- Altri dettagli del pagamento -->
 
-    <h3>Prodotti Ordinati</h3>
+    <h3 class="titPage">Prodotti Ordinati</h3>
+    <hr class="border border-danger border-2 opacity-50 mb-4" />
     @if (Model.DettagliOrdine.Any())
     {
         <ul>
             @foreach (var dettaglio in Model.DettagliOrdine)
             {
-                <li>@dettaglio.Prodotti.Nome - Quantità: @dettaglio.Quantita - Prezzo: @dettaglio.Prezzo €</li>
+                <li><b>@dettaglio.Prodotti.Nome - Quantità: @dettaglio.Quantita - Prezzo: @dettaglio.Prezzo €</b></li>
 
 
 
@@ -43,7 +48,7 @@
     {
         <p>Non ci sono prodotti nell'ordine.</p>
     }
-    <p>@Html.ActionLink("Torna al menù", "Index", "Categorie", new { area = "" }, new { @class = "nav-link" })</p>
-    <p>@Html.ActionLink("Modifica Ordine", "ModificaOrdine", "Ordini", new { ordineId = Model.Ordine.OrdineID }, new { @class = "nav-link" })</p>
+    <p>@Html.ActionLink("Torna al menù", "Index", "Categorie", new { area = "" }, new { @class = "bottone1" })</p>
+    <p>@Html.ActionLink("Modifica Ordine", "ModificaOrdine", "Ordini", new { ordineId = Model.Ordine.OrdineID }, new { @class = "bottone1" })</p>
 
 </div>

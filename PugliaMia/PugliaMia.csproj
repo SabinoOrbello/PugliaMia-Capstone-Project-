@@ -452,6 +452,7 @@
     <Content Include="Views\Recensioni\Index.cshtml" />
     <Content Include="Views\Ordini\ModificaOrdine.cshtml" />
     <Content Include="Views\Utenti\Register.cshtml" />
+    <Content Include="Views\Home\BackOffice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
