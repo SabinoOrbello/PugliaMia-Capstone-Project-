@@ -342,3 +342,19 @@ span {
     .form-horizontal button[type="submit"] {
         height: 40px;
     }
+
+.bgOffice {
+    background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
+}
+
+.bgOffice1 {
+    background-image: linear-gradient(to left top, #dea0e1, #ff93b9, #ff9c74, #ffc222, #a8eb12);
+}
+
+.bgOffice2 {
+    background-image: linear-gradient(to left top, #a5e1a0, #00d4bf, #00bff1, #009cff, #9763e8);
+}
+
+.bgOffice3 {
+    background-image: linear-gradient(to left top, #ee4576, #d475d2, #86a7ff, #2fcbff, #63e3e8);
+}

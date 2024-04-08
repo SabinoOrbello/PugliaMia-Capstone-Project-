@@ -4,7 +4,7 @@
     ViewBag.Title = "IndexAdmin";
 }
 
-<div class="container">
+<div class="container py-3">
     <h2>IndexAdmin</h2>
 
     <p class="pt-4">
@@ -17,7 +17,7 @@
             @foreach (var item in Model)
             {
                 <div class="col">
-                    <div class="product" style="width: 18rem;">
+                    <div class="product p-2" style="width: 18rem;">
                         <img src="@Url.Content(string.IsNullOrEmpty(item.Immagine) ? "~/Content/Images/hotel.jpg" : item.Immagine)" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">@Html.DisplayFor(modelItem => item.Nome)</h5>
