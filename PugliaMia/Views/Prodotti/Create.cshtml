@@ -4,8 +4,9 @@
     ViewBag.Title = "Create";
 }
 
-<div class="container">
+<div class="container text-center my-3">
     <h2 class="titPage">Create</h2>
+    <hr class="border border-danger border-2 opacity-50 mb-4" />
 
     @using (Html.BeginForm("Create", "Prodotti", FormMethod.Post, new { enctype = "Multipart/form-data" }))
     {
@@ -71,9 +72,9 @@
                 </div>
             </div>
         </div>
+        <div>
+            @Html.ActionLink("Torna indietro", "Index", "", new { @class = "bottone1 my-2" })
+        </div>
     }
 
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
 </div>

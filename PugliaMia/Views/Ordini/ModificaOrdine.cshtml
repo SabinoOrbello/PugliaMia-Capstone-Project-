@@ -4,7 +4,10 @@
     ViewBag.Title = "Modifica Ordine";
 }
 
-<h2>Modifica Ordine</h2>
+<div class="container text-center my-3">
+<h2 class="titPage">Modifica Ordine</h2>
+<hr class="border border-danger border-2 opacity-50 mb-4" />
+
 
 @using (Html.BeginForm())
 {
@@ -56,5 +59,6 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Torna indietro", "Index"o, "", new { @class = "bottone1" })
 </div>
+    </div>

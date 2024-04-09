@@ -18,8 +18,9 @@ namespace PugliaMia.Controllers
         // GET: Ordini
         public ActionResult Index()
         {
-            var ordini = db.Ordini.Include(o => o.Utenti);
-            return View(ordini.ToList());
+            var ordiniElaborazione = db.Ordini.Where(o => o.StatoOrdine == "In elaborazione").ToList();
+
+            return View(ordiniElaborazione);
         }
 
         public ActionResult OrdiniUtente()

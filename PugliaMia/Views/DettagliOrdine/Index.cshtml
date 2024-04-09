@@ -4,60 +4,64 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div class="container py-3">
+    <h2 class="titPage">Dettagli Ordine</h2>
+    <hr class="border border-danger border-2 opacity-50 mb-4" />
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.OrdineID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProdottoID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ordini.StatoOrdine)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Prodotti.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Quantita)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Prezzo)
-        </th>
-        <th></th>
-    </tr>
+    <p>
+        @Html.ActionLink("Create New", "Create", new { area = "" }, new { @class = "bottone1" })
+    </p>
+    <table class="table table-success table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrdineID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProdottoID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ordini.StatoOrdine)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prodotti.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantita)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prezzo)
+            </th>
+            <th></th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.OrdineID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProdottoID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ordini.StatoOrdine)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Prodotti.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quantita)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Prezzo)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.DettaglioID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.DettaglioID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.DettaglioID })
-        </td>
-    </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrdineID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProdottoID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ordini.StatoOrdine)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prodotti.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantita)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prezzo)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.DettaglioID }, new { @class = "btn bnt-success" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.DettaglioID }, new { @class = "btn bnt-success" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.DettaglioID }, new { @class = "btn bnt-danger" })
+                </td>
+            </tr>
+        }
 
-</table>
+    </table>
+</div>

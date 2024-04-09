@@ -1,0 +1,25 @@
+﻿@model List<PugliaMia.Models.ProdottoVendutoViewModel>
+
+<div class="container py-3">
+    <h2 class="titPage">Prodotti più Venduti</h2>
+    <hr class="border border-danger border-2 opacity-50 mb-4" />
+
+    <table class="table table-success table-striped">
+        <thead>
+            <tr>
+                <th>Nome Prodotto</th>
+                <th>Quantità Venduta</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var prodotto in Model)
+            {
+                <tr>
+                    <td>@prodotto.Nome</td>
+                    <td>@prodotto.QuantitaVenduta</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>
+

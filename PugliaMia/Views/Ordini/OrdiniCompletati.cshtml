@@ -1,36 +1,45 @@
 ﻿@model IEnumerable<PugliaMia.Models.Ordini>
 
-<h2>Ordini Completati</h2>
+<div class="container py-3">
+    <h2 class="titPage">Ordini Completati</h2>
+    <hr class="border border-danger border-2 opacity-50 mb-4" />
 
-<table class="table">
-    <tr>
-        <th>
-            Nome Cliente
-        </th>
-        <th>
-            Data Ordine
-        </th>
-        <th>
-            Totale
-        </th>
-        <!-- Aggiungi altre colonne se necessario -->
-    </tr>
-
-    @foreach (var ordine in Model)
-    {
+    <table class="table table-success table-striped">
         <tr>
-            <td>
-                @ordine.Utenti.Nome
-            </td>
-            <td>
-                @ordine.DataOrdine
-            </td>
-            <td>
-                @ordine.Totale
-            </td>
+            <th>
+                OrdineId
+            </th>
+            <th>
+                Nome Cliente
+            </th>
+            <th>
+                Data Ordine
+            </th>
+            <th>
+                Totale
+            </th>
             <!-- Aggiungi altre colonne se necessario -->
         </tr>
-    }
 
-</table>
+        @foreach (var ordine in Model)
+        {
+            <tr>
+                <td>
+                    @ordine.OrdineID
+                </td>
+                <td>
+                    @ordine.Utenti.Nome
+                </td>
+                <td>
+                    @ordine.DataOrdine
+                </td>
+                <td>
+                    @ordine.Totale
+                </td>
+                <!-- Aggiungi altre colonne se necessario -->
+            </tr>
+        }
+
+    </table>
+</div>
 

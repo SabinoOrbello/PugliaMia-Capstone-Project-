@@ -5,13 +5,14 @@
 }
 
 <div class="container py-3">
-    <h2>IndexAdmin</h2>
+   
 
     <p class="pt-4">
         @Html.ActionLink("Createun nuovo prodotto", "Create", new { area = "" }, new { @class = "bottone1" })
     </p>
     <div class="container pt-4">
         <h2>Prodotti</h2>
+        <hr class="border border-danger border-2 opacity-50 mb-4" />
         <div class="row row-cols-1 row-cols-md-3 g-4">
 
             @foreach (var item in Model)

@@ -3,55 +3,58 @@
 @{
     ViewBag.Title = "Index";
 }
+<div class="container py-3">
+    <h2 class="titPage">Utenti Registrati</h2>
+    <hr class="border border-danger border-2 opacity-50 mb-4" />
 
-<h2>Index</h2>
+    <p>
+        @Html.ActionLink("Create New", "Create", new { area = "" }, new { @class = "bottone1" })
+    </p>
+    <table class="table table-success table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IndirizzoSpedizione)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Role)
+            </th>
+            <th></th>
+        </tr>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Password)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IndirizzoSpedizione)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Role)
-        </th>
-        <th></th>
-    </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IndirizzoSpedizione)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.UserID },new {@class="btn bnt-success"}) |
+                    @Html.ActionLink("Details", "Details", new { id = item.UserID },new { @class = "btn bnt-success" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.UserID }, new { @class = "btn bnt-danger" })
+                </td>
+            </tr>
+        }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Password)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IndirizzoSpedizione)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Role)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.UserID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.UserID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.UserID })
-        </td>
-    </tr>
-}
-
-</table>
+    </table>
+</div>

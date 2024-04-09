@@ -31,6 +31,7 @@ namespace PugliaMia.Models
         [StringLength(255)]
         public string Immagine { get; set; }
 
+
         public int? CategoriaID { get; set; }
 
         public bool? Disponibilita { get; set; }

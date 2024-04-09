@@ -185,6 +185,7 @@
     <Compile Include="Models\Ordini.cs" />
     <Compile Include="Models\Pagamenti.cs" />
     <Compile Include="Models\Prodotti.cs" />
+    <Compile Include="Models\ProdottoVendutoViewModel.cs" />
     <Compile Include="Models\Recensioni.cs" />
     <Compile Include="Models\RiepilogoOrdineViewModel.cs" />
     <Compile Include="Models\Roles.cs" />
@@ -455,6 +456,7 @@
     <Content Include="Views\Utenti\Register.cshtml" />
     <Content Include="Views\Home\BackOffice.cshtml" />
     <Content Include="Views\Ordini\OrdiniCompletati.cshtml" />
+    <Content Include="Views\Home\ProdottiPiuVenduti.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
