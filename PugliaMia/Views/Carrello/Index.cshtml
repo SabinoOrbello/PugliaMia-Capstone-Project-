@@ -21,7 +21,7 @@
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-danger" onclick="rimuoviProdotto(@prodotto.ProdottoID)">
-                                            <i class="fas fa-times"></i> 
+                                            <i class="fas fa-times"></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -112,6 +112,34 @@ else
         </div>
     </div>
 }
+@if (ViewBag.ProdottiCorrelati != null && ViewBag.ProdottiCorrelati.Count > 0)
+{
+    <div class="container py-2">
+        <h2 class="titPage">Prodotti Correlati</h2>
+        <hr class="border border-danger border-2 opacity-50 mb-4" />
+        <div class="row">
+            @foreach (var prodotto in ViewBag.ProdottiCorrelati)
+            {
+                <div class="col-lg-2">
+                    <a href="@Url.Action("Details", "Prodotti", new { id = prodotto.ProdottoID })" class="text-decoration-none text-dark">
+                        <div class="card h-100">
+                            <img src="@Url.Content(string.IsNullOrEmpty(prodotto.Immagine) ? "~/Content/Images/default-product-image.jpg" : prodotto.Immagine)" class="card-img-top" alt="@prodotto.Nome">
+                            <div class="card-body">
+                                <h5 class="card-title">@prodotto.Nome</h5>
+                                <p class="card-text">@prodotto.Prezzo €</p>
+                            </div>
+                        </div>
+                        </a>
+                </div>
+
+            }
+        </div>
+    </div>
+}
+
+
+
+
 
 
 
@@ -163,4 +191,4 @@ else
                 });
             });
 </script>
-  
+
