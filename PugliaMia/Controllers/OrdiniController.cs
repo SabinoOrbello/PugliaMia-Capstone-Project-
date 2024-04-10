@@ -80,7 +80,7 @@ namespace PugliaMia.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> CreaOrdine(string indirizzoSpedizione, string metodoPagamento, string corriere, FormCollection form)
+        public async Task<ActionResult> CreaOrdine(string indirizzoSpedizione, string metodoPagamento, string corriere, string paymentMethodId, FormCollection form)
         {
             // Verifica se l'utente è autenticato
             if (User.Identity.IsAuthenticated)
@@ -99,9 +99,7 @@ namespace PugliaMia.Controllers
                     }
 
                     // Inizializza Stripe con la tua chiave segreta
-                    // Inizializza Stripe con la tua chiave segreta recuperata da web.config
                     StripeConfiguration.ApiKey = ConfigurationManager.AppSettings["Stripe:SecretKey"];
-
 
                     // Calcola il totale del pagamento
                     decimal totalePagamento = 0;
@@ -122,13 +120,27 @@ namespace PugliaMia.Controllers
                     // Esegui il pagamento con Stripe
                     var options = new PaymentIntentCreateOptions
                     {
+                        PaymentMethod = paymentMethodId,
                         Amount = (long)totalePagamento * 100, // L'importo deve essere in centesimi
                         Currency = "eur", // Valuta
-                        PaymentMethodTypes = new List<string> { "card" },
+                        PaymentMethodTypes = new List<string>
+        {
+            "card",
+        },
+                        Confirm = true,
+                        ReturnUrl = Url.Action("ConfermaOrdine", "Ordini", null, Request.Url.Scheme),
                     };
 
                     var service = new PaymentIntentService();
-                    var paymentIntent = service.Create(options);
+                    var paymentIntent = await service.CreateAsync(options);
+
+                    // Controlla se il pagamento è andato a buon fine
+                    if (paymentIntent.Status != "succeeded")
+                    {
+                        // Se il pagamento non è andato a buon fine, restituisci un errore all'utente
+                        ModelState.AddModelError("", "Il pagamento non è andato a buon fine. Riprova.");
+                        return View(); // Sostituisci con la tua vista di errore
+                    }
 
                     // Salva l'ID del pagamento di Stripe nel database
                     string stripePaymentIntentId = paymentIntent.Id;
@@ -218,6 +230,7 @@ namespace PugliaMia.Controllers
                 return RedirectToAction("Login", "Utenti");
             }
         }
+
 
         // Metodo per generare un numero di tracciamento casuale
         private string GenerateRandomTrackingNumber()

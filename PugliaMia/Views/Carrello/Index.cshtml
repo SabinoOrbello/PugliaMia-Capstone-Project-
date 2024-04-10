@@ -134,29 +134,37 @@ else
     document.getElementById('confermaOrdineBtn').addEventListener('click', function (event) {
         event.preventDefault(); // Previeni l'invio del form
 
-        // Crea un token della carta di credito con Stripe
-        stripe.createToken(card)
-            .then(function (result) {
-                if (result.error) {
-                    // Se si verifica un errore durante la creazione del token della carta di credito, visualizza un messaggio di errore all'utente
-                    alert(result.error.message);
-                } else {
-                    // Se il token della carta di credito è stato creato con successo, aggiungi il token al form e invia il form
-                    var form = document.getElementsByTagName('form')[0];
-                    var tokenInput = document.createElement('input');
-                    tokenInput.type = 'hidden';
-                    tokenInput.name = 'stripeToken';
-                    tokenInput.value = result.token.id;
-                    form.appendChild(tokenInput);
-                    form.submit();
-                }
-            });
+        stripe.createPaymentMethod({
+            type: 'card',
+            card: card,
+        }).then(function (result) {
+            if (result.error) {
+                // Mostra l'errore all'utente
+                console.log(result.error.message);
+            } else {
+                // Crea un campo nascosto per l'ID del metodo di pagamento
+                var paymentMethodIdField = document.createElement('input');
+                paymentMethodIdField.setAttribute('type', 'hidden');
+                paymentMethodIdField.setAttribute('name', 'paymentMethodId');
+                paymentMethodIdField.setAttribute('value', result.paymentMethod.id);
+
+                // Aggiungi il campo nascosto al form
+                var form = document.querySelector('form');
+                form.appendChild(paymentMethodIdField);
+
+                // Invia il form
+                form.submit();
+            }
+        });
     });
 
-            function mostraForm() {
-                document.getElementById("formSpedizione").style.display = "block";
-                document.getElementById("formFatturazione").style.display = "block";
-            }
+    function mostraForm() {
+        document.getElementById("formSpedizione").style.display = "block";
+        document.getElementById("formFatturazione").style.display = "block";
+    }
+
+    // Il resto del tuo codice JavaScript...
+
              function rimuoviProdotto(prodottoId) {
         // Fai una richiesta AJAX per rimuovere il prodotto dal carrello
         $.ajax({
