@@ -1,4 +1,4 @@
-﻿@model List<PugliaMia.Models.Prodotti>
+﻿﻿@model List<PugliaMia.Models.Prodotti>
 
 @if (Model.Any())
 {
@@ -77,28 +77,10 @@
                 <div class="col-lg-6">
                     <h3>Dati Fatturazione</h3>
                     <hr class="border border-danger border-2 opacity-50 mb-4" />
-                    <div class="mb-3">
-                        <label for="metodoPagamento" class="form-label">Metodo di Pagamento:</label>
-                        <select class="form-select" id="metodoPagamento" name="metodoPagamento" required>
-                            <option value="">Seleziona un Metodo di Pagamento</option>
-                            <option value="Carta di Credito">Carta di Credito</option>
-                            <option value="PayPal">PayPal</option>
-                        </select>
+                    <div id="card-element">
+                        <!-- L'elemento della carta Stripe sarà inserito qui -->
                     </div>
-                    <div class="mb-3">
-                        <label for="numeroCarta" class="form-label">Numero della Carta:</label>
-                        <input type="text" class="form-control" id="numeroCarta" name="numeroCarta" placeholder="Inserisci il Numero della Carta" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="dataScadenzaCarta" class="form-label">Data di Scadenza della Carta (MM/AA):</label>
-                        <input type="text" class="form-control" id="dataScadenzaCarta" name="dataScadenzaCarta" placeholder="MM/AA" required>
-                        <small class="form-text text-muted">Formato richiesto: MM/AA</small>
-                    </div>
-                    <div class="mb-3">
-                        <label for="cvv" class="form-label">CVV:</label>
-                        <input type="text" class="form-control" id="cvv" name="cvv" placeholder="Inserisci il CVV" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block">Conferma Ordine</button>
+                    <button id="confermaOrdineBtn" type="button" class="btn btn-primary btn-block">Conferma Ordine</button>
                 </div>
             </div>
         </div>
@@ -129,7 +111,7 @@ else
                                 <p class="card-text">@prodotto.Prezzo €</p>
                             </div>
                         </div>
-                        </a>
+                    </a>
                 </div>
 
             }
@@ -138,13 +120,39 @@ else
 }
 
 
-
-
-
-
-
-
+<script src="https://js.stripe.com/v3/"></script>
 <script>
+    // Inizializza Stripe con la tua chiave pubblica
+    var stripe = Stripe('pk_test_51P3eZiCzdPBqLcmGk82gXFVY9jj8AbIxB1DOjsxNv8ljuaVbJmmQE50awCqX3NubkbXfqWZjdNipltSxJGC9Tcet00fZB6ogt9');
+
+    // Crea un elemento di carta
+    var elements = stripe.elements();
+    var card = elements.create('card');
+    card.mount('#card-element');
+
+    // Aggiungi un gestore di eventi al form per gestire il pagamento tramite Stripe
+    document.getElementById('confermaOrdineBtn').addEventListener('click', function (event) {
+        event.preventDefault(); // Previeni l'invio del form
+
+        // Crea un token della carta di credito con Stripe
+        stripe.createToken(card)
+            .then(function (result) {
+                if (result.error) {
+                    // Se si verifica un errore durante la creazione del token della carta di credito, visualizza un messaggio di errore all'utente
+                    alert(result.error.message);
+                } else {
+                    // Se il token della carta di credito è stato creato con successo, aggiungi il token al form e invia il form
+                    var form = document.getElementsByTagName('form')[0];
+                    var tokenInput = document.createElement('input');
+                    tokenInput.type = 'hidden';
+                    tokenInput.name = 'stripeToken';
+                    tokenInput.value = result.token.id;
+                    form.appendChild(tokenInput);
+                    form.submit();
+                }
+            });
+    });
+
             function mostraForm() {
                 document.getElementById("formSpedizione").style.display = "block";
                 document.getElementById("formFatturazione").style.display = "block";
@@ -191,4 +199,3 @@ else
                 });
             });
 </script>
-

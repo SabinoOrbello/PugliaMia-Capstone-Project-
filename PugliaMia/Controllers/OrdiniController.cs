@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using PugliaMia.Models;
+using Stripe;
+using Stripe.Forwarding;
 
 namespace PugliaMia.Controllers
 {
@@ -73,6 +77,8 @@ namespace PugliaMia.Controllers
         }
 
 
+
+
         [HttpPost]
         public async Task<ActionResult> CreaOrdine(string indirizzoSpedizione, string metodoPagamento, string corriere, FormCollection form)
         {
@@ -92,44 +98,10 @@ namespace PugliaMia.Controllers
                         return RedirectToAction("Error", "Home");
                     }
 
-                    string dataScadenzaCarta = form["dataScadenzaCarta"];
-                    // Crea un nuovo ordine
-                    Ordini ordine = new Ordini
-                    {
-                        UserID = currentUser.UserID,
-                        DataOrdine = DateTime.Now,
-                        StatoOrdine = "In elaborazione"
-                    };
+                    // Inizializza Stripe con la tua chiave segreta
+                    // Inizializza Stripe con la tua chiave segreta recuperata da web.config
+                    StripeConfiguration.ApiKey = ConfigurationManager.AppSettings["Stripe:SecretKey"];
 
-                    // Aggiungi l'ordine al database
-                    db.Ordini.Add(ordine);
-                    await db.SaveChangesAsync();
-
-                    // Crea una nuova spedizione associata all'ordine
-                    Spedizioni spedizione = new Spedizioni
-                    {
-                        IndirizzoSpedizione = indirizzoSpedizione,
-                        Corriere = corriere,
-                        DataSpedizione = DateTime.Now,
-                        StatoSpedizione = "In transito",
-                        OrdineID = ordine.OrdineID
-                    };
-
-                    // Genera un numero di tracciamento casuale
-                    Random random = new Random();
-                    int numeroTracciamento = random.Next(100000, 999999); // Genera un numero casuale tra 100000 e 999999
-
-                    // Assegna il numero di tracciamento alla spedizione
-                    spedizione.NumeroTracciamento = numeroTracciamento.ToString();
-
-                    // Crea un nuovo pagamento associato all'ordine
-                    Pagamenti pagamento = new Pagamenti
-                    {
-                        MetodoPagamento = metodoPagamento,
-                        DataPagamento = DateTime.Now,
-                        StatoPagamento = "Confermato",
-                        OrdineID = ordine.OrdineID
-                    };
 
                     // Calcola il totale del pagamento
                     decimal totalePagamento = 0;
@@ -144,29 +116,83 @@ namespace PugliaMia.Controllers
                             var quantita = int.Parse(Request.Form["quantita_" + prodotto.ProdottoID]);
                             decimal prezzoProdotto = (decimal)(prodotto.Prezzo * quantita); // Calcola il prezzo totale del prodotto considerando la quantità
                             totalePagamento += prezzoProdotto;
+                        }
+                    }
 
-                            // Crea un nuovo DettagliOrdine
-                            DettagliOrdine dettaglio = new DettagliOrdine
+                    // Esegui il pagamento con Stripe
+                    var options = new PaymentIntentCreateOptions
+                    {
+                        Amount = (long)totalePagamento * 100, // L'importo deve essere in centesimi
+                        Currency = "eur", // Valuta
+                        PaymentMethodTypes = new List<string> { "card" },
+                    };
+
+                    var service = new PaymentIntentService();
+                    var paymentIntent = service.Create(options);
+
+                    // Salva l'ID del pagamento di Stripe nel database
+                    string stripePaymentIntentId = paymentIntent.Id;
+
+                    // Crea un nuovo ordine
+                    Ordini ordine = new Ordini
+                    {
+                        UserID = currentUser.UserID,
+                        DataOrdine = DateTime.Now,
+                        StatoOrdine = "In elaborazione",
+                        Totale = totalePagamento
+                    };
+
+                    // Aggiungi l'ordine al database
+                    db.Ordini.Add(ordine);
+                    await db.SaveChangesAsync();
+
+                    // Crea i dettagli dell'ordine per ogni prodotto nel carrello
+                    foreach (var elemento in elementiCarrello)
+                    {
+                        var prodotto = db.Prodotti.FirstOrDefault(p => p.ProdottoID == elemento.ProdottoID);
+                        if (prodotto != null)
+                        {
+                            var quantita = int.Parse(Request.Form["quantita_" + prodotto.ProdottoID]);
+                            DettagliOrdine dettaglioOrdine = new DettagliOrdine
                             {
                                 OrdineID = ordine.OrdineID,
                                 ProdottoID = prodotto.ProdottoID,
                                 Quantita = quantita,
-                                Prezzo = prezzoProdotto // Utilizza il prezzo totale del prodotto calcolato sopra
+                                Prezzo = prodotto.Prezzo
                             };
-
-                            // Aggiungi il dettaglio all'ordine
-                            db.DettagliOrdine.Add(dettaglio);
+                            db.DettagliOrdine.Add(dettaglioOrdine);
                         }
                     }
 
-                    // Assegna il totale del pagamento al record dei pagamenti
-                    pagamento.TotalePagato = totalePagamento;
+                    await db.SaveChangesAsync();
 
-                    // Assegna il totale del pagamento all'ordine
-                    ordine.Totale = totalePagamento;
+                    // Crea una nuova spedizione associata all'ordine
+                    Spedizioni spedizione = new Spedizioni
+                    {
+                        IndirizzoSpedizione = indirizzoSpedizione,
+                        Corriere = corriere,
+                        DataSpedizione = DateTime.Now,
+                        StatoSpedizione = "In transito",
+                        NumeroTracciamento = GenerateRandomTrackingNumber(), // Genera un numero di tracciamento casuale
+                        OrdineID = ordine.OrdineID
+                    };
 
-                    // Aggiungi la spedizione e il pagamento al database
+                    // Aggiungi la spedizione al database
                     db.Spedizioni.Add(spedizione);
+
+                    // Crea un nuovo pagamento associato all'ordine
+                    Pagamenti pagamento = new Pagamenti
+                    {
+                        MetodoPagamento = metodoPagamento,
+                        DataPagamento = DateTime.Now,
+                        StatoPagamento = "Confermato",
+                        TotalePagato = totalePagamento,
+                        StripePaymentIntentId = stripePaymentIntentId,
+                        StripePaymentStatus = "Confermato",
+                        OrdineID = ordine.OrdineID
+                    };
+
+                    // Aggiungi il pagamento al database
                     db.Pagamenti.Add(pagamento);
 
                     // Rimuovi tutti gli elementi dal carrello dell'utente
@@ -193,6 +219,12 @@ namespace PugliaMia.Controllers
             }
         }
 
+        // Metodo per generare un numero di tracciamento casuale
+        private string GenerateRandomTrackingNumber()
+        {
+            Random random = new Random();
+            return random.Next(100000, 999999).ToString();
+        }
 
 
 
@@ -495,5 +527,30 @@ namespace PugliaMia.Controllers
 
 
 
+    }
+
+    internal class StripeChargeCreateOptions
+    {
+        public string Amount { get; set; }
+        public string Currency { get; set; }
+        public object CustomerId { get; set; }
+    }
+
+    internal class StripeCustomerCreateOptions
+    {
+        public string Email { get; set; }
+        public string SourceToken { get; set; }
+    }
+
+    internal class StripeChargeService
+    {
+        public StripeChargeService()
+        {
+        }
+
+        internal object Create(StripeChargeCreateOptions stripeChargeCreateOptions)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

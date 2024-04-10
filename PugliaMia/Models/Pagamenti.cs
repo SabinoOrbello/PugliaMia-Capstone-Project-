@@ -25,5 +25,20 @@ namespace PugliaMia.Models
         public string StatoPagamento { get; set; }
 
         public virtual Ordini Ordini { get; set; }
+
+        // Nuove proprietà per Stripe
+        [StringLength(100)]
+        public string StripePaymentIntentId { get; set; } // ID dell'intent di pagamento di Stripe
+
+        [StringLength(100)]
+        public string StripePaymentMethodId { get; set; } // ID del metodo di pagamento di Stripe
+
+        [StringLength(100)]
+        public string StripePaymentIntentClientSecret { get; set; } // Chiave segreta del client per l'intent di pagamento di Stripe
+
+        [StringLength(50)]
+        public string StripePaymentStatus { get; set; } // Stato del pagamento di Stripe
+
+
     }
 }
