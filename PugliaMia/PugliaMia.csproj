@@ -308,6 +308,7 @@
     <Content Include="Content\Images\burrata.jpg" />
     <Content Include="Content\Images\cacioricotta salento.png" />
     <Content Include="Content\Images\company-logo.png" />
+    <Content Include="Content\Images\cozzegratinate.jpg" />
     <Content Include="Content\Images\forno-logo.png" />
     <Content Include="Content\Images\frutta e verdura.mp4" />
     <Content Include="Content\Images\grill-logo.png" />
@@ -481,6 +482,7 @@
     <Content Include="Views\Ordini\OrdiniCompletati.cshtml" />
     <Content Include="Views\Home\ProdottiPiuVenduti.cshtml" />
     <Content Include="Views\Home\ChiSiamo.cshtml" />
+    <Content Include="Views\Home\Ricette.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

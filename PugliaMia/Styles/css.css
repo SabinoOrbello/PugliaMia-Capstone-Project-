@@ -263,6 +263,7 @@ h2.widget-title {
 
 .titPage {
     color: #F28123;
+    font-weight: bold;
 }
 
 .navbar .titPage {
@@ -375,4 +376,16 @@ span {
 
 .bgHome {
     background-color: #FFC75F !important;
+}
+
+.line {
+    line-height: 27px;
+}
+
+.fixed {
+    position: fixed;
+    top: 100% !important;
+    right: 0px;
+    transform: translateY(-50%);
+    /* Aggiungi altri stili se necessario */
 }
