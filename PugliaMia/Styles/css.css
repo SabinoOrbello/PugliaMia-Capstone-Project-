@@ -92,7 +92,7 @@ h1, h2, p {
     }
 
 .txCard {
-    color: white;
+    color: black;
 }
 
 
@@ -344,17 +344,35 @@ span {
     }
 
 .bgOffice {
-    background-color: #ff6f91;
+    background-color: #ff6f91 !important;
 }
 
 .bgOffice1 {
-    background-image: linear-gradient(to left top, #dea0e1, #ff93b9, #ff9c74, #ffc222, #a8eb12);
+    background-color: #FF9671 !important;
 }
 
 .bgOffice2 {
-    background-image: linear-gradient(to left top, #a5e1a0, #00d4bf, #00bff1, #009cff, #9763e8);
+    background-color: #845EC2 !important;
+}
+
 }
 
 .bgOffice3 {
-    background-image: linear-gradient(to left top, #ee4576, #d475d2, #86a7ff, #2fcbff, #63e3e8);
+    background-color: #008F7A !important;
+}
+
+.bgOffice4 {
+    background-color: #B39CD0 !important;
+}
+
+.bgOffice5 {
+    background-color: #00C9A7 !important;
+}
+
+.bgOffice6 {
+    background-color: #FFC75F !important;
+}
+
+.bgHome {
+    background-color: #FFC75F !important;
 }

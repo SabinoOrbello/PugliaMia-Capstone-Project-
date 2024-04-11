@@ -29,7 +29,7 @@
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Chi Siamo", "ChiSiamo", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Shop", "Index", "Categorie", new { area = "" }, new { @class = "nav-link" })</li>
                 </ul>
                 <ul>
@@ -44,7 +44,7 @@
                                 if (User.IsInRole("Admin"))
                                 {
                                     <li>@Html.ActionLink("Back Office", "BackOffice", "Home", new { area = "" }, new { @class = "dropdown-item" })</li>
-                                    <li>@Html.ActionLink("Lista Prodotti", "IndexAdmin", "Prodotti", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                  
                                 }
                                 else
                                 {

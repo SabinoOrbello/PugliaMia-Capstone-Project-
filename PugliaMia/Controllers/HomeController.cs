@@ -17,6 +17,13 @@ namespace PugliaMia.Controllers
             return View();
         }
 
+        public ActionResult ChiSiamo()
+        {
+            ViewBag.Title = "Chi Siamo";
+
+            return View();
+        }
+
         [Authorize(Roles = "Admin")]
         public ActionResult BackOffice()
         {

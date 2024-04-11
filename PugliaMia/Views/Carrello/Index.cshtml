@@ -43,7 +43,7 @@
 
             <div class="row mt-4">
                 <div class="col-lg-6">
-                    <button type="button" class="btn btn-success btn-block" onclick="mostraForm()">Procedi con l'Acquisto</button>
+                    <button type="button" class="bottone1 btn-block" onclick="mostraForm()">Procedi con l'Acquisto</button>
                 </div>
                 <div class="col-lg-6">
                     @Html.ActionLink("Continua gli Acquisti", "Index", "Home", null, new { @class = "bottone1" })
@@ -77,12 +77,31 @@
                 <div class="col-lg-6">
                     <h3>Dati Fatturazione</h3>
                     <hr class="border border-danger border-2 opacity-50 mb-4" />
-                    <div id="card-element">
+
+                    <!-- Metodo di Pagamento -->
+                    <div class="mb-3">
+                        <label class="form-label">Metodo di Pagamento:</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="metodoPagamento" id="metodoPagamentoCarta" value="carta" checked>
+                            <label class="form-check-label" for="metodoPagamentoCarta">
+                                Carta di Credito
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="metodoPagamento" id="metodoPagamentoPaypal" value="paypal">
+                            <label class="form-check-label" for="metodoPagamentoPaypal">
+                                PayPal
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="card-element" class="py-3">
                         <!-- L'elemento della carta Stripe sarà inserito qui -->
                     </div>
-                    <button id="confermaOrdineBtn" type="button" class="btn btn-primary btn-block">Conferma Ordine</button>
+                    <button id="confermaOrdineBtn" type="button" class="bottone1 btn-block my-3">Conferma Ordine</button>
                 </div>
             </div>
+
         </div>
     }
 }

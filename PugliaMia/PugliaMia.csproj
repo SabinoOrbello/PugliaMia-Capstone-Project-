@@ -480,6 +480,7 @@
     <Content Include="Views\Home\BackOffice.cshtml" />
     <Content Include="Views\Ordini\OrdiniCompletati.cshtml" />
     <Content Include="Views\Home\ProdottiPiuVenduti.cshtml" />
+    <Content Include="Views\Home\ChiSiamo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
