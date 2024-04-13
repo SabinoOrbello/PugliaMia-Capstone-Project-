@@ -157,6 +157,17 @@ namespace PugliaMia.Controllers
             return PartialView("indexProdotti", prodotti);
         }
 
+        public async Task<ActionResult> Search(string searchText)
+        {
+            var prodotti = await db.Prodotti
+                .Where(p => p.Nome.Contains(searchText)) // Filtra i prodotti il cui nome contiene il testo di ricerca
+                .Include(p => p.Categorie)
+                .ToListAsync();
+
+            return PartialView("indexProdotti", prodotti);
+        }
+
+
 
     }
 }

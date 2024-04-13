@@ -10,6 +10,17 @@
 <body>
 
     <div class="container-fluid pt-4">
+        <div class="row justify-content-center">
+            <!-- Aggiunto justify-content-center per centrare il contenuto -->
+            <div class="col-md-6 ms-auto">
+                <!-- Modificato il numero di colonne per il campo di ricerca -->
+                <input type="text" id="searchInput" class="form-control rounded-pill" placeholder="Cerca prodotti...">
+                <!-- Aggiunta la classe rounded-pill per rendere i bordi tondeggianti -->
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid pt-4">
         <div class="row">
             <div class="col-md-3 sidebar">
                 <h2 class="mb-4 titPage fw-bold">Categorie Prodotto</h2>
@@ -17,7 +28,7 @@
                     @foreach (var categoria in Model)
                     {
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                           <a href="#" class="categoriaButton link-secondary" data-categoria-id="@categoria.CategoriaID">@categoria.NomeCategoria</a>
+                            <a href="#" class="categoriaButton link-secondary" data-categoria-id="@categoria.CategoriaID">@categoria.NomeCategoria</a>
                             <span class="badge bg-success p-2 rounded-pill" id="numeroProdotti-@categoria.CategoriaID">...</span> <!-- Numero di prodotti nella categoria -->
                         </li>
                     }
@@ -104,6 +115,40 @@
                 },
                 error: function () {
                     console.error('Errore durante il recupero del numero di prodotti per categoria.');
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $('#searchInput').on('input', function () {
+                var searchText = $(this).val(); // Ottieni il testo inserito dall'utente
+                if (searchText.length >= 3) {
+                    // Effettua una chiamata AJAX per cercare i prodotti corrispondenti al testo inserito
+                    $.ajax({
+                        url: '/Prodotti/Search',
+                        type: 'GET',
+                        data: { searchText: searchText },
+                        success: function (data) {
+                            // Aggiorna il contenuto della lista dei prodotti con i risultati della ricerca
+                            $('#listaProdotti').html(data);
+                        },
+                        error: function () {
+                            // Gestisci gli errori se la chiamata AJAX fallisce
+                            $('#listaProdotti').html('<p>Errore durante la ricerca dei prodotti.</p>');
+                        }
+                    });
+                } else {
+                    // Se il testo inserito è troppo corto, mostra tutti i prodotti
+                    $.ajax({
+                        url: '/Prodotti/Index',
+                        type: 'GET',
+                        success: function (data) {
+                            $('#listaProdotti').html(data);
+                        },
+                        error: function () {
+                            $('#listaProdotti').html('<p>Errore durante il recupero dei prodotti.</p>');
+                        }
+                    });
                 }
             });
         });
