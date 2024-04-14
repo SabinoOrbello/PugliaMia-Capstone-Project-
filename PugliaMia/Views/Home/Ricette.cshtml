@@ -1,9 +1,6 @@
 ﻿<!-- Video posizionato a destra, in posizione fissa -->
 <div class="container">
     <div class="container">
-        <div class="row">
-            <div class="col col-8">
-                <!-- Contenuto esistente -->
                 <div class="container p-5">
                     <h2 class="titPage my-3">Le Nostre Ricette ...</h2>
                     <h5>
@@ -41,29 +38,55 @@
                     <hr class="border border-danger border-2 opacity-50 my-4" />
 
                     <div class="container my-5">
-                        <div class="card mb-5 w-100  bgCard">
-                            <img src="~/Content/Images/cozzegratinate.jpg" class="card-img-top" alt="...">
-                            <div class="card-body p-5">
-                                <h2 class="card-title py-4"><b>Cozze gratinate, la ricetta pugliese</b></h2>
-                                <p class="card-text py-4 pRicette">
-                                    "
-                                    Un antipasto di mare facile e appetitoso: ecco la ricetta per preparare le cozze gratinate alla <br />
-                                    pugliese, un modo alternativo per gustare questo amato mollusco"
+                        <div class="row">
+                            <div class="col col-4 d-flex flex-column lineaHome justify-content-center align-items-center py-4">
+                                <h3>L'arte di preparare le Melanzane <b> ripiene</b></h3>
+                                <p>
+                                    Le melanzane ripiene alla pugliese sono un capolavoro della cucina regionale, un
+                                    <br /> connubio di sapori autentici e tradizioni secolari. Questo piatto, ricco di storia e gusto,
+                                    <br /> porta con sé l’essenza della Puglia, terra di sapori genuini e ingredienti freschi.
                                 </p>
-                                <a class="bottone1" href="https://www.lacucinaitaliana.it/ricetta/antipasti/ricetta-facile-cozze-gratinate/">Vai alla ricetta</a>
+                            </div>
+                            <div class="col col-8">
+                                <div class="card mb-5 w-100  bgCard">
+                                    <img src="~/Content/Images/cozzegratinate.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body p-5">
+                                        <h2 class="card-title py-4"><b>Cozze gratinate, la ricetta pugliese</b></h2>
+                                        <p class="card-text py-4 pRicette">
+                                            "
+                                            Un antipasto di mare facile e appetitoso: ecco la ricetta per preparare le cozze gratinate alla <br />
+                                            pugliese, un modo alternativo per gustare questo amato mollusco"
+                                        </p>
+                                        <a class="bottone1" href="https://www.lacucinaitaliana.it/ricetta/antipasti/ricetta-facile-cozze-gratinate/">Vai alla ricetta</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="card mb-5 w-100  bgCard">
-                            <img src="~/Content/Images/orecchiette-al-pomodoro-e-cacioricotta.jpg" class="card-img-top" alt="...">
-                            <div class="card-body p-5">
-                                <h2 class="card-title py-4"><b>Orecchiette al pomodoro</b></h2>
-                                <p class="card-text py-4 pRicette">
-                                    "
-                                    Ecco in tavola le orecchiette, la pasta fresca di grano duro più famosa della Puglia, oggi servita in <br />
-                                    semplicità con pomodoro, basilico e ricotta salata"
+                        <div class="row">
+                            <div class="col col-8">
+                                <div class="card mb-5 w-100  bgCard">
+                                    <img src="~/Content/Images/orecchiette-al-pomodoro-e-cacioricotta.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body p-5">
+                                        <h2 class="card-title py-4"><b>Orecchiette al pomodoro</b></h2>
+                                        <p class="card-text py-4 pRicette">
+                                            "
+                                            Ecco in tavola le orecchiette, la pasta fresca di grano duro più famosa della Puglia, oggi servita in <br />
+                                            semplicità con pomodoro, basilico e ricotta salata"
+                                        </p>
+                                        <a class="bottone1" href="https://www.lacucinaitaliana.it/ricetta/primi/orecchiette-al-pomodoro/">Vai alla ricetta</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-4 d-flex flex-column lineaHome justify-content-center align-items-center py-4">
+                                <h3>
+                                    Le orecchiette sono piatto simbolo della <b> Puglia. </b>                                   
+                                </h3>
+                                <p>
+                                    Le orecchiette sono più di un semplice piatto di pasta: sono un emblema della cultura pugliese, <br />
+                                    un tassello nel mosaico della cucina italiana e un <br />
+                                    viaggio gastronomico che attraversa secoli di storia
                                 </p>
-                                <a class="bottone1" href="https://www.lacucinaitaliana.it/ricetta/primi/orecchiette-al-pomodoro/">Vai alla ricetta</a>
                             </div>
                         </div>
 
@@ -81,50 +104,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col col-4">
-
-                <!-- Video -->
-                <video id="video"  width="380" height="500" controls>
-                    <source src="~/Content/Images/frutta e verdura.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-
-                <div id="scro" class="mt-5">jhassavhjasdvj</div>
-            </div>
-        </div>
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function () {
-        // Memorizza l'elemento del video
-        var videoElement = $('#video');
-        var relatedArticles = $('#scro');
-        // Gestisci lo scrolling della pagina
-        $(window).scroll(function () {
-            // Verifica la posizione della pagina
-            var scroll = $(window).scrollTop();
 
-            // Imposta la soglia di attivazione e disattivazione
-            var activationThreshold = 400; // Attiva la classe quando lo scrolling supera i 200px
-            var deactivationThreshold = 3400; // Disattiva la classe quando lo scrolling scende sotto i 100px
 
-            // Aggiungi o rimuovi la classe position-fixed in base alla posizione dello scrolling
-            if (scroll >= activationThreshold && scroll <= deactivationThreshold) {
-                videoElement.addClass('position-fixed bottom-50 mt-5 ');
-            } else {
-                videoElement.removeClass('position-fixed bottom-50 mt-5');
-            }
-
-            // Aggiungi o rimuovi la classe position-fixed in base alla posizione dello scrolling per gli articoli correlati
-            if (scroll >= activationThreshold && scroll <= deactivationThreshold) {
-                relatedArticles.addClass('position-fixed bottom-50 mt-5');
-            } else {
-                relatedArticles.removeClass('position-fixed bottom-50 mt-5');
-            }
-        });
-    });
-  
-</script>
