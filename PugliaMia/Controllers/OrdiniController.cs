@@ -150,7 +150,7 @@ namespace PugliaMia.Controllers
                     {
                         UserID = currentUser.UserID,
                         DataOrdine = DateTime.Now,
-                        StatoOrdine = "In elaborazione",
+                        StatoOrdine = "Confermato",
                         Totale = totalePagamento
                     };
 
@@ -492,40 +492,9 @@ namespace PugliaMia.Controllers
             return View(viewModel);
         }
 
-        public ActionResult CompletaOrdine(int id)
-        {
-            // Recupera l'ordine dal database
-            var ordine = db.Ordini.Find(id);
-            if (ordine == null)
-            {
-                return HttpNotFound();
-            }
 
-            // Cambia lo stato dell'ordine
-            ordine.StatoOrdine = "Confermato";
-            db.SaveChanges();
 
-            // Recupera la spedizione associata all'ordine
-            var spedizione = db.Spedizioni.FirstOrDefault(s => s.OrdineID == id);
-            if (spedizione == null)
-            {
-                return HttpNotFound();
-            }
 
-            // Cambia lo stato della spedizione
-            spedizione.StatoSpedizione = "Completato";
-            db.SaveChanges();
-
-            return RedirectToAction("Index");
-        }
-
-        public ActionResult OrdiniCompletati()
-        {
-            // Filtra gli ordini completati dal database
-            var ordiniCompletati = db.Ordini.Where(o => o.StatoOrdine == "Confermato").ToList();
-
-            return View(ordiniCompletati);
-        }
 
 
 

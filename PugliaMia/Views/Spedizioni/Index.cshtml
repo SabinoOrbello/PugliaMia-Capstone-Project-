@@ -53,9 +53,10 @@
             @Html.DisplayFor(modelItem => item.StatoSpedizione)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.SpedizioneID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.SpedizioneID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.SpedizioneID })
+            @Html.ActionLink("Edit", "Edit", new { id = item.SpedizioneID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.SpedizioneID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.SpedizioneID })
+            @Html.ActionLink("Conferma", "CompletaSpedizione", new { id = item.SpedizioneID }, new { @class = "btn btn-primary" })
         </td>
     </tr>
 }

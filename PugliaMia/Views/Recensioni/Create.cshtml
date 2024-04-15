@@ -4,15 +4,17 @@
     ViewBag.Title = "Create";
 }
 
-<div class="container text-center my-3">
-    <h2 class="titPage">Crea Recensione</h2>
+<div class="container my-3">
+    <div class="text-center">
+        <h2 class="titPage">Crea Recensione</h2>
+    </div>
     <hr class="border border-danger border-2 opacity-50 mb-4" />
 
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-horizontal">
+        <div class="login-form">
             <h4>Recensioni</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -37,7 +39,7 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <input type="submit" value="Create" class="btn btn-primary" />
                 </div>
             </div>
         </div>
@@ -45,6 +47,6 @@
     }
 
     <div>
-        @Html.ActionLink("Back to List", "Index", "", new { @class = "bottone1 my-2" })
+        @Html.ActionLink("Torna Indietro", "Index", "", new { @class = "bottone1 my-2" })
     </div>
 </div>

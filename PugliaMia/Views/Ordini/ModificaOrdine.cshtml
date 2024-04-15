@@ -4,8 +4,10 @@
     ViewBag.Title = "Modifica Ordine";
 }
 
-<div class="container text-center my-3">
-<h2 class="titPage">Modifica Ordine</h2>
+<div class="container my-3">
+    <div class="text-center">
+        <h2 class="titPage">Modifica Ordine</h2>
+    </div>
 <hr class="border border-danger border-2 opacity-50 mb-4" />
 
 
@@ -13,52 +15,54 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        @Html.HiddenFor(model => model.Ordine.OrdineID)
+<div class="login-form">
+    <h4>Ordine</h4>
+    <hr />
+    @Html.HiddenFor(model => model.Ordine.OrdineID)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Ordine.DataOrdine, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Ordine.DataOrdine, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Ordine.DataOrdine, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Spedizione.IndirizzoSpedizione, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Spedizione.IndirizzoSpedizione, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Spedizione.IndirizzoSpedizione, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Spedizione.Corriere, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Spedizione.Corriere, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Spedizione.Corriere, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Pagamento.MetodoPagamento, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Pagamento.MetodoPagamento, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Pagamento.MetodoPagamento, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <!-- Aggiungi qui altri campi per i dati dell'ordine, della spedizione e del pagamento -->
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Modifica" class="btn btn-default" />
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Ordine.DataOrdine, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Ordine.DataOrdine, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Ordine.DataOrdine, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Spedizione.IndirizzoSpedizione, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Spedizione.IndirizzoSpedizione, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Spedizione.IndirizzoSpedizione, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Spedizione.Corriere, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Spedizione.Corriere, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Spedizione.Corriere, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Pagamento.MetodoPagamento, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Pagamento.MetodoPagamento, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Pagamento.MetodoPagamento, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Aggiungi qui altri campi per i dati dell'ordine, della spedizione e del pagamento -->
+
+    <div class="form-group tetx-center">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Modifica" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
 }
 
 <div>
-    @Html.ActionLink("Torna indietro", "Index"o, "", new { @class = "bottone1" })
+    @Html.ActionLink("Torna indietro", "Index", "", new { @class = "bottone1" })
 </div>
     </div>

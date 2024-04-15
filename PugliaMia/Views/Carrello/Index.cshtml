@@ -1,4 +1,4 @@
-﻿﻿@model List<PugliaMia.Models.Prodotti>
+﻿﻿﻿@model List<PugliaMia.Models.Prodotti>
 
 @if (Model.Any())
 {
@@ -46,7 +46,7 @@
                     <button type="button" class="bottone1 btn-block" onclick="mostraForm()">Procedi con l'Acquisto</button>
                 </div>
                 <div class="col-lg-6">
-                    @Html.ActionLink("Continua gli Acquisti", "Index", "Home", null, new { @class = "bottone1" })
+                    @Html.ActionLink("Continua gli Acquisti", "Index", "Categorie", null, new { @class = "bottone1" })
                 </div>
             </div>
 
@@ -141,6 +141,23 @@ else
 
 <script src="https://js.stripe.com/v3/"></script>
 <script>
+    $(document).ready(function () {
+        // Aggiungi un gestore di eventi per rilevare le modifiche alla quantità dei prodotti
+        $('.quantita-prodotto').on('input', function () {
+            // Calcola il nuovo totale della spesa
+            var totaleSpesa = 0;
+            $('.quantita-prodotto').each(function () {
+                var quantita = $(this).val();
+                var prezzo = $(this).data('prezzo').replace(',', '.');
+                totaleSpesa += parseFloat(quantita) * parseFloat(prezzo);
+            });
+
+            // Aggiorna il testo dell'elemento che mostra il totale della spesa
+            $('#totaleSpesa').text(totaleSpesa.toFixed(2).replace(',', '.') + ' €');
+        });
+    });
+
+
     // Inizializza Stripe con la tua chiave pubblica
     var stripe = Stripe('pk_test_51P3eZiCzdPBqLcmGk82gXFVY9jj8AbIxB1DOjsxNv8ljuaVbJmmQE50awCqX3NubkbXfqWZjdNipltSxJGC9Tcet00fZB6ogt9');
 
@@ -210,19 +227,6 @@ else
                 }
             });
 
-            $(document).ready(function () {
-                // Aggiungi un gestore di eventi per rilevare le modifiche alla quantità dei prodotti
-                $('.quantita-prodotto').on('input', function () {
-                    // Calcola il nuovo totale della spesa
-                    var totaleSpesa = 0;
-                    $('.quantita-prodotto').each(function () {
-                        var quantita = $(this).val();
-                        var prezzo = $(this).data('prezzo');
-                        totaleSpesa += parseFloat(quantita) * parseFloat(prezzo);
-                    });
 
-                    // Aggiorna il testo dell'elemento che mostra il totale della spesa
-                    $('#totaleSpesa').text(totaleSpesa.toString() + ' €');
-                });
-            });
+
 </script>

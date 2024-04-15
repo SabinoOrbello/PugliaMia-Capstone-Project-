@@ -181,7 +181,7 @@ namespace PugliaMia.Controllers
                         user.Nome,
                         DateTime.Now,
                         DateTime.Now.AddMinutes(30),
-                        false,
+                        true,
                         user.Role,
                         FormsAuthentication.FormsCookiePath);
 

@@ -43,23 +43,18 @@ namespace PugliaMia.Controllers
                         {
                             // Aggiungi al totale il prezzo del prodotto moltiplicato per la quantità nel carrello
                             totaleSpesa += (decimal)prodotto.Prezzo * (decimal)carrelloProdotto.Quantita.Value;
-
-
                         }
                     }
 
-                    var categorieProdotto = prodottiInCarrello.Select(p => p.CategoriaID).Distinct();
-
                     // Ottieni i prodotti correlati (i primi 5 prodotti delle stesse categorie)
+                    var categorieProdotto = prodottiInCarrello.Select(p => p.CategoriaID).Distinct();
                     var prodottiCorrelati = await db.Prodotti
                         .Where(p => categorieProdotto.Contains(p.CategoriaID))
                         .Take(5)
                         .ToListAsync();
 
-                    // Passa i prodotti correlati alla vista
+                    // Passa i prodotti correlati e il totale della spesa alla vista
                     ViewBag.ProdottiCorrelati = prodottiCorrelati;
-
-                    // Passa i prodotti nel carrello e il totale della spesa alla vista
                     ViewBag.TotaleSpesa = totaleSpesa;
                     return View(prodottiInCarrello);
                 }
@@ -68,6 +63,7 @@ namespace PugliaMia.Controllers
             // Se l'utente non è autenticato o se non ci sono prodotti nel carrello, restituisci la vista del carrello vuota
             return View(new List<Prodotti>());
         }
+
 
 
 
@@ -186,6 +182,7 @@ namespace PugliaMia.Controllers
                 return RedirectToAction("Login", "Utenti");
             }
         }
+
 
 
 
@@ -331,6 +328,8 @@ namespace PugliaMia.Controllers
             // Reindirizza alla pagina del carrello dopo aver rimosso il prodotto
             return RedirectToAction("Index", "Carrello");
         }
+
+
 
 
     }
