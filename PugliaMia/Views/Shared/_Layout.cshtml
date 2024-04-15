@@ -21,11 +21,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js" integrity="sha384-pXX5S3xIaq5Pq6o6cBibIw4kiLGM23HcdZDBDfKh/hoiX+oFd/B7z9czVzEjfwao" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+gsO3YlC70RHIwCh5V9xn0+al6MfM5R5J9i+8kv" crossorigin="anonymous"></script>
 </head>
-<body>
+<body class="@(ViewContext.RouteData.Values["controller"].ToString() == "Home" && ViewContext.RouteData.Values["action"].ToString() == "Index" ? "home-page" : "")">
 
     <nav id="mainNavbar" class="navbar navbar-expand-sm navbar-toggleable-sm py-4 fw-bold fixed-top">
         <div class="container">
-            <h3 class="titPage"> @Html.ActionLink("Pugliazza", "Index", "Home", new { area = "" }, new { @class = "navbar-brand titPage" })</h3>
+            <img src="~/Content/Images/PUGLIA.png" class="img-fluid logo" />
+            <h3 class="titPage"> @Html.ActionLink("Puglia", "Index", "Home", new { area = "" }, new { @class = "navbar-brand titPage" })</h3>
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Attiva/Disattiva spostamento" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -48,7 +49,7 @@
                                 if (User.IsInRole("Admin"))
                                 {
                                     <li>@Html.ActionLink("Back Office", "BackOffice", "Home", new { area = "" }, new { @class = "dropdown-item" })</li>
-                                  
+
                                 }
                                 else
                                 {
@@ -69,16 +70,25 @@
             </div>
         </div>
     </nav>
+    <div class="hiden-content">
+        <div class="container-fluid p-2 bgContainer">
+            <div class="container hero">
+                <div class="row pt-5">
+                    <div class="text-center lh-4">
+                        <p class=" fw-bold st">FRESH & ORGANIC</p>
+                        <h1 class="text-white title fw-bold">Delicious Seasonal Fruits</h1>
+                        <div class="d-flex justify-content-center gap-3 py-4">
+                            @if (Request.IsAuthenticated)
+                            {
+                                <p>@Html.ActionLink("Registrati", "Register", "Utenti", new { area = "" }, new { @class = "bottone" })</p>
+                            }
+                            else
+                            {
+                                <p>@Html.ActionLink("Registrati", "Register", "Utenti", new { area = "" }, new { @class = "bottone" })</p>
+                                <p>@Html.ActionLink("Accedi", "Login", "Utenti", new { area = "" }, new { @class = "bottone" })</p>
+                            }
 
-    <div class="container-fluid p-2 bgContainer">
-        <div class="container hero">
-            <div class="row pt-5">
-                <div class="text-center lh-4">
-                    <p class=" fw-bold st">FRESH & ORGANIC</p>
-                    <h1 class="text-white title fw-bold">Delicious Seasonal Fruits</h1>
-                    <div class="d-flex justify-content-center gap-3 py-4">
-                        <p>@Html.ActionLink("Registrati", "Register", "Utenti", new { area = "" }, new { @class = "bottone" })</p>
-                        <p>@Html.ActionLink("Accedi", "Login", "Utenti", new { area = "" }, new { @class = "bottone" })</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -88,7 +98,7 @@
         @RenderBody()
     </div>
     <!-- end logo carousel -->
-    
+
     <div class="footer-area">
         <div class="container">
             <div class="row">
@@ -190,6 +200,21 @@
                 }
             });
         });
+
+        $(document).ready(function () {
+            var video = document.getElementById('logo-video');
+
+            video.onended = function () {
+                // Nascondi l'animazione del logo
+                $('#logo-animation').hide();
+
+                // Mostra il contenuto
+                $('body.home-page .hiden-content').show();
+            };
+        });
+
+
+
 
     </script>
     @Scripts.Render("~/bundles/jquery")

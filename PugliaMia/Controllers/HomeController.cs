@@ -13,7 +13,7 @@ namespace PugliaMia.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
-
+            Session["HasVisitedHomePage"] = true;
             return View();
         }
 

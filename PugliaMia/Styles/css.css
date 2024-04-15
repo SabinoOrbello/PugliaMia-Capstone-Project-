@@ -1,4 +1,8 @@
-﻿.sidebar {
+﻿body.home-page .hiden-content {
+    display: none;
+}
+
+.sidebar {
     padding: 20px;
 }
 
@@ -288,12 +292,12 @@ span {
 
 /* Login */
 .login-form {
-    max-width: 300px;
+    max-width: 391px;
     margin: 0 auto;
     padding: 50px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    background-image: linear-gradient(to left top, #f48221, #f27018, #f05c12, #ee4410, #eb2312);
+    background-color: #b9cdd7;
     color: white;
 }
 
@@ -409,4 +413,25 @@ b {
     font-family: "Kanit", sans-serif;
     font-weight: 600;
     font-style: italic;
+}
+
+.hide-content {
+    display: none;
+}
+
+.logo {
+    height: 78px !important;
+    width: auto !important;
+}
+
+.bgRecensioni {
+    background-color: #77a8e55e !important;
+    border-top-left-radius: inherit !important;
+    border-top-right-radius: inherit !important;
+    border-bottom-left-radius: inherit !important;
+    border-bottom-right-radius: inherit !important;
+}
+
+.stella {
+    color: goldenrod;
 }
