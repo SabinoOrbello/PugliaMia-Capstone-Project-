@@ -48,6 +48,9 @@ namespace PugliaMia.Controllers
                     // Calcola il costo di spedizione basato sul peso totale
                     decimal costoSpedizione = CalcolaCostoSpedizione(pesoTotale);
 
+                    // Inizializza una variabile per tenere traccia se il costo di spedizione è stato già aggiunto
+                    bool costoSpedizioneAggiunto = false;
+
                     // Calcola il totale della spesa considerando il costo di spedizione totale
                     decimal totaleSpesa = 0;
                     foreach (var prodotto in prodottiInCarrello)
@@ -57,11 +60,15 @@ namespace PugliaMia.Controllers
                         {
                             decimal costoProdotto = (decimal)(prodotto.Prezzo * carrelloProdotto.Quantita.Value);
                             totaleSpesa += costoProdotto;
+
+                            // Aggiungi il costo di spedizione solo una volta
+                            if (!costoSpedizioneAggiunto)
+                            {
+                                totaleSpesa += costoSpedizione;
+                                costoSpedizioneAggiunto = true;
+                            }
                         }
                     }
-
-                    // Aggiungi il costo di spedizione al totale della spesa
-                    totaleSpesa += costoSpedizione;
 
                     // Passa il totale della spesa alla vista
                     ViewBag.TotaleSpesa = totaleSpesa;
@@ -105,13 +112,6 @@ namespace PugliaMia.Controllers
                 }
             }
 
-            // Se il peso totale supera tutti gli intervalli definiti, applica una tariffa aggiuntiva
-            if (costoSpedizione == 0)
-            {
-                // Esempio: una tariffa di spedizione aggiuntiva di 2 euro per ogni kg oltre i 20 kg
-                decimal pesoAggiuntivo = pesoTotale - intervalliPeso[intervalliPeso.Length - 1];
-                costoSpedizione = tariffeSpedizione[tariffeSpedizione.Length - 1] + (pesoAggiuntivo * 2);
-            }
 
             return costoSpedizione;
         }

@@ -21,8 +21,8 @@
 
     <h3 class="titPage">Dettagli del Pagamento</h3>
     <hr class="border border-danger border-2 opacity-50 mb-4" />
-    <p>Metodo Pagamento: <b>@Model.Pagamento.MetodoPagamento</b></p>
-    <p>Totale Pagamento:<b> @Model.Pagamento.TotalePagato €</b></p>
+    <p>Metodo Pagamento: <b>@(Model.Pagamento?.MetodoPagamento ?? "Not available")</b></p>
+    
     <hr />
     <p>Totale dell'Ordine:<b> @Model.TotaleOrdine €</b></p>
     <p>Costo di Spedizione Totale:<b> @Model.CostoSpedizioneTotale €</b></p>

@@ -245,7 +245,7 @@ namespace PugliaMia.Controllers
 
         public async Task<ActionResult> RiepilogoOrdine(int ordineId)
         {
-            // Recupera l'ordine
+            // Recupera l'ordine dal database
             Ordini ordine = await db.Ordini
                 .Include(o => o.DettagliOrdine.Select(d => d.Prodotti))
                 .FirstOrDefaultAsync(o => o.OrdineID == ordineId);
@@ -263,27 +263,31 @@ namespace PugliaMia.Controllers
             Pagamenti pagamento = await db.Pagamenti.FirstOrDefaultAsync(p => p.OrdineID == ordineId);
 
             // Recupera i dettagli dell'ordine (i prodotti associati all'ordine)
-            List<DettagliOrdine> dettagliOrdine = await db.DettagliOrdine.Include(d => d.Prodotti).Where(d => d.OrdineID == ordineId).ToListAsync();
+            List<DettagliOrdine> dettagliOrdine = await db.DettagliOrdine
+                .Include(d => d.Prodotti)
+                .Where(d => d.OrdineID == ordineId)
+                .ToListAsync();
 
-            // Inizializza il totale dell'ordine e il costo di spedizione
+            // Calcola il peso totale del carrello
+            decimal pesoTotale = (decimal)dettagliOrdine.Sum(d => (decimal)d.Prodotti.Peso * d.Quantita);
+
+            // Calcola il costo di spedizione basato sul peso totale
+            decimal costoSpedizione = CalcolaCostoSpedizione(pesoTotale);
+
+            // Inizializza il totale dell'ordine
             decimal totaleOrdine = 0;
-            decimal costoSpedizioneTotale = 0;
 
-            // Calcola il totale dell'ordine e il costo di spedizione totale includendo il costo di spedizione di ciascun prodotto
+            // Calcola il totale dell'ordine includendo il costo di spedizione totale
             foreach (var dettaglio in dettagliOrdine)
             {
                 // Aggiungi al totale il prezzo del prodotto moltiplicato per la quantità nel dettaglio dell'ordine
                 totaleOrdine += (decimal)dettaglio.Prezzo * (decimal)dettaglio.Quantita;
-
-                // Calcola e aggiungi il costo di spedizione del prodotto al costo di spedizione totale
-                decimal costoSpedizione = CalcolaCostoSpedizione((decimal)(dettaglio.Prodotti.Peso * dettaglio.Quantita));
-                costoSpedizioneTotale += costoSpedizione;
             }
 
-            // Aggiungi il costo di spedizione totale al totale dell'ordine
-            totaleOrdine += costoSpedizioneTotale;
+            // Aggiungi il costo di spedizione al totale dell'ordine
+            totaleOrdine += costoSpedizione;
 
-            // Popola un view model con i dati dell'ordine, il costo di spedizione totale e il totale dell'ordine
+            // Popola un view model con i dati dell'ordine, la spedizione, il pagamento e il costo di spedizione totale
             var viewModel = new RiepilogoOrdineViewModel
             {
                 Ordine = ordine,
@@ -291,13 +295,14 @@ namespace PugliaMia.Controllers
                 Pagamento = pagamento,
                 DettagliOrdine = dettagliOrdine,
                 TotaleOrdine = totaleOrdine,
-                CostoSpedizioneTotale = costoSpedizioneTotale
+                CostoSpedizioneTotale = costoSpedizione
             };
 
             return View(viewModel);
         }
 
 
+        // Metodo per calcolare il costo di spedizione in base al peso totale
         private decimal CalcolaCostoSpedizione(decimal pesoTotale)
         {
             decimal costoSpedizione = 0;
@@ -316,17 +321,9 @@ namespace PugliaMia.Controllers
                 }
             }
 
-            // Se il peso totale supera tutti gli intervalli definiti, applica una tariffa aggiuntiva
-            if (costoSpedizione == 0)
-            {
-                // Esempio: una tariffa di spedizione aggiuntiva di 2 euro per ogni kg oltre i 20 kg
-                decimal pesoAggiuntivo = pesoTotale - intervalliPeso[intervalliPeso.Length - 1];
-                costoSpedizione = tariffeSpedizione[tariffeSpedizione.Length - 1] + (pesoAggiuntivo * 2);
-            }
 
             return costoSpedizione;
         }
-
 
 
         // GET: Ordini/Details/5

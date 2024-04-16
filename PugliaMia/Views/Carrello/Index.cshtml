@@ -15,7 +15,6 @@
                                 <th>Nome</th>
                                 <th>Prezzo</th>
                                 <th>Ingredienti</th>
-                                <th>Costo Spedizione</th>
                                 <th>Quantità</th>
                                 <th></th>
                             </tr>
@@ -28,7 +27,7 @@
                                     <td>@prodotto.Nome</td>
                                     <td>@prodotto.Prezzo €</td>
                                     <td>@prodotto.Ingredienti</td>
-                                    <td>@ViewBag.CostoSpedizione €</td>
+                                    
 
                                     <td>
                                         <input type="number" name="quantita_@prodotto.ProdottoID" id="quantita_@prodotto.ProdottoID" min="1" value="1" class="form-control quantita-prodotto" data-prezzo="@prodotto.Prezzo " data-costo-spedizione="@ViewBag.CostoSpedizione">
@@ -52,6 +51,7 @@
                 </div>
                 <div class="col-lg-6 text-lg-end">
                     <h4><span id="totaleSpesa">@ViewBag.TotaleSpesa €</span></h4>
+                    <h4>Costo di Spedizione<span>@ViewBag.CostoSpedizione €</span></h4>
                 </div>
             </div>
 
@@ -155,33 +155,36 @@ else
 
 <script src="https://js.stripe.com/v3/"></script>
 <script>
-    $(document).ready(function () {
-        // Aggiungi un gestore di eventi per rilevare le modifiche alla quantità dei prodotti
-        $('.quantita-prodotto').on('input', function () {
-            // Initialize the total cost
-            var totaleSpesa = 0;
+    // Initialize the total cost
+    var totaleSpesa = 0;
 
-            // Iterate over each product input field
-            $('.quantita-prodotto').each(function () {
-                // Fetch the updated quantity
-                var quantita = parseInt($(this).val());
+    // Initialize a flag to track if shipping cost has been added
+    var costoSpedizioneAggiunto = false;
 
-                // Fetch the product price and shipping cost per unit
-                var prezzo = parseFloat($(this).data('prezzo'));
-                var costoSpedizione = parseFloat($(this).data('costo-spedizione'));
+    // Iterate over each product input field
+    $('.quantita-prodotto').each(function () {
+        // Fetch the updated quantity
+        var quantita = parseInt($(this).val());
 
-                // Calculate the total cost for this product (quantity * (price + shipping cost))
-                var costoProdotto = quantita * (prezzo + costoSpedizione);
+        // Fetch the product price and shipping cost per unit
+        var prezzo = parseFloat($(this).data('prezzo'));
+        var costoSpedizione = parseFloat($(this).data('costo-spedizione'));
 
-                // Add the total cost for this product to the overall total
-                totaleSpesa += costoProdotto;
-            });
+        // Calculate the total cost for this product (quantity * price)
+        var costoProdotto = quantita * prezzo;
 
-            // Update the displayed total cost
-            $('#totaleSpesa').text(totaleSpesa.toFixed(2) + ' €');
-        });
+        // Add the total cost for this product to the overall total
+        totaleSpesa += costoProdotto;
 
+        // Add shipping cost only once
+        if (!costoSpedizioneAggiunto) {
+            totaleSpesa += costoSpedizione;
+            costoSpedizioneAggiunto = true;
+        }
     });
+
+    // Update the displayed total cost
+    $('#totaleSpesa').text(totaleSpesa.toFixed(2) + ' €');
 
 
     // Inizializza Stripe con la tua chiave pubblica
