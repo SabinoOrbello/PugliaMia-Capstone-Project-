@@ -203,6 +203,18 @@
     <Compile Include="Migrations\202404160705451_AggiungiCostoSpedizioneIngredienti.Designer.cs">
       <DependentUpon>202404160705451_AggiungiCostoSpedizioneIngredienti.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202404161223385_AggiungiPeso.cs" />
+    <Compile Include="Migrations\202404161223385_AggiungiPeso.Designer.cs">
+      <DependentUpon>202404161223385_AggiungiPeso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202404161229158_ModificaTipoCampo.cs" />
+    <Compile Include="Migrations\202404161229158_ModificaTipoCampo.Designer.cs">
+      <DependentUpon>202404161229158_ModificaTipoCampo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202404161254107_ModificaCampoPeso1.cs" />
+    <Compile Include="Migrations\202404161254107_ModificaCampoPeso1.Designer.cs">
+      <DependentUpon>202404161254107_ModificaCampoPeso1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Carrello.cs" />
     <Compile Include="Models\Categorie.cs" />
@@ -322,6 +334,7 @@
     <Content Include="Content\Images\Melanzane-ripiene0.jpg" />
     <Content Include="Content\Images\mozza bomba di latte.png" />
     <Content Include="Content\Images\mozzarella deliziosa.png" />
+    <Content Include="Content\Images\olio devo.jpg" />
     <Content Include="Content\Images\olio olivò 5l.png" />
     <Content Include="Content\Images\olio.jpg" />
     <Content Include="Content\Images\orecchiette-al-pomodoro-e-cacioricotta.jpg" />
@@ -336,6 +349,7 @@
     <Content Include="Content\Images\taralli fin.png" />
     <Content Include="Content\Images\taralli pat e rosma.png" />
     <Content Include="Content\Images\treccia vg.png" />
+    <Content Include="Content\Images\trulli.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -572,6 +586,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202404160705451_AggiungiCostoSpedizioneIngredienti.resx">
       <DependentUpon>202404160705451_AggiungiCostoSpedizioneIngredienti.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404161223385_AggiungiPeso.resx">
+      <DependentUpon>202404161223385_AggiungiPeso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404161229158_ModificaTipoCampo.resx">
+      <DependentUpon>202404161229158_ModificaTipoCampo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404161254107_ModificaCampoPeso1.resx">
+      <DependentUpon>202404161254107_ModificaCampoPeso1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

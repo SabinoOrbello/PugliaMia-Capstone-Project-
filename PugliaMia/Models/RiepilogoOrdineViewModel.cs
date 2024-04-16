@@ -12,5 +12,7 @@ namespace PugliaMia.Models
         public Spedizioni Spedizione { get; set; }
         public Pagamenti Pagamento { get; set; }
         public List<DettagliOrdine> DettagliOrdine { get; set; }
+        public decimal TotaleOrdine { get; set; } // Aggiungi questo campo per il totale dell'ordine
+        public decimal CostoSpedizioneTotale { get; set; }
     }
 }

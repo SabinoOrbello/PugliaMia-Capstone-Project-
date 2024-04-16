@@ -34,6 +34,7 @@ namespace PugliaMia.Models
         public decimal CostoSpedizione { get; set; }
         public string Ingredienti { get; set; }
 
+        public decimal? Peso { get; set; }
         public int? CategoriaID { get; set; }
 
         public bool? Disponibilita { get; set; }

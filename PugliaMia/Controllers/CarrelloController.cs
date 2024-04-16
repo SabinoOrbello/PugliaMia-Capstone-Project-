@@ -34,17 +34,37 @@ namespace PugliaMia.Controllers
                     var prodottoIDs = carrello.Select(c => c.ProdottoID).ToList();
                     var prodottiInCarrello = await db.Prodotti.Where(p => prodottoIDs.Contains(p.ProdottoID)).ToListAsync();
 
-                    // Calcola il totale della spesa considerando la quantità dei prodotti nel carrello
+                    // Calcola il peso totale del carrello
+                    decimal pesoTotale = 0;
+                    foreach (var prodotto in prodottiInCarrello)
+                    {
+                        var carrelloProdotto = carrello.FirstOrDefault(c => c.ProdottoID == prodotto.ProdottoID);
+                        if (carrelloProdotto != null && carrelloProdotto.Quantita.HasValue)
+                        {
+                            pesoTotale += (decimal)prodotto.Peso * (decimal)carrelloProdotto.Quantita.Value;
+                        }
+                    }
+
+                    // Calcola il costo di spedizione basato sul peso totale
+                    decimal costoSpedizione = CalcolaCostoSpedizione(pesoTotale);
+
+                    // Calcola il totale della spesa considerando il costo di spedizione totale
                     decimal totaleSpesa = 0;
                     foreach (var prodotto in prodottiInCarrello)
                     {
                         var carrelloProdotto = carrello.FirstOrDefault(c => c.ProdottoID == prodotto.ProdottoID);
                         if (carrelloProdotto != null && carrelloProdotto.Quantita.HasValue)
                         {
-                            // Aggiungi al totale il prezzo del prodotto moltiplicato per la quantità nel carrello
-                            totaleSpesa += (decimal)prodotto.Prezzo * (decimal)carrelloProdotto.Quantita.Value;
+                            decimal costoProdotto = (decimal)(prodotto.Prezzo * carrelloProdotto.Quantita.Value);
+                            totaleSpesa += costoProdotto;
                         }
                     }
+
+                    // Aggiungi il costo di spedizione al totale della spesa
+                    totaleSpesa += costoSpedizione;
+
+                    // Passa il totale della spesa alla vista
+                    ViewBag.TotaleSpesa = totaleSpesa;
 
                     // Ottieni i prodotti correlati (i primi 5 prodotti delle stesse categorie)
                     var categorieProdotto = prodottiInCarrello.Select(p => p.CategoriaID).Distinct();
@@ -53,15 +73,47 @@ namespace PugliaMia.Controllers
                         .Take(5)
                         .ToListAsync();
 
-                    // Passa i prodotti correlati e il totale della spesa alla vista
+                    // Passa i prodotti correlati e il costo di spedizione alla vista
                     ViewBag.ProdottiCorrelati = prodottiCorrelati;
-                    ViewBag.TotaleSpesa = totaleSpesa;
+                    ViewBag.CostoSpedizione = costoSpedizione;
+
                     return View(prodottiInCarrello);
                 }
             }
 
             // Se l'utente non è autenticato o se non ci sono prodotti nel carrello, restituisci la vista del carrello vuota
             return View(new List<Prodotti>());
+        }
+
+
+        // Metodo per calcolare il costo di spedizione in base al peso totale
+        private decimal CalcolaCostoSpedizione(decimal pesoTotale)
+        {
+            decimal costoSpedizione = 0;
+
+            // Definisci i tuoi intervalli di peso e le relative tariffe di spedizione
+            decimal[] intervalliPeso = { 5, 10, 20 }; // Pesi in kg
+            decimal[] tariffeSpedizione = { 5, 7, 10 }; // Tariffe di spedizione in euro
+
+            // Controlla in quale intervallo di peso rientra il peso totale
+            for (int i = 0; i < intervalliPeso.Length; i++)
+            {
+                if (pesoTotale <= intervalliPeso[i])
+                {
+                    costoSpedizione = tariffeSpedizione[i];
+                    break; // Esci dal ciclo una volta trovato l'intervallo corretto
+                }
+            }
+
+            // Se il peso totale supera tutti gli intervalli definiti, applica una tariffa aggiuntiva
+            if (costoSpedizione == 0)
+            {
+                // Esempio: una tariffa di spedizione aggiuntiva di 2 euro per ogni kg oltre i 20 kg
+                decimal pesoAggiuntivo = pesoTotale - intervalliPeso[intervalliPeso.Length - 1];
+                costoSpedizione = tariffeSpedizione[tariffeSpedizione.Length - 1] + (pesoAggiuntivo * 2);
+            }
+
+            return costoSpedizione;
         }
 
 

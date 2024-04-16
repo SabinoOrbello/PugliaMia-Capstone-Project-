@@ -28,9 +28,10 @@
                                     <td>@prodotto.Nome</td>
                                     <td>@prodotto.Prezzo €</td>
                                     <td>@prodotto.Ingredienti</td>
-                                    <td>@prodotto.CostoSpedizione €</td>
+                                    <td>@ViewBag.CostoSpedizione €</td>
+
                                     <td>
-                                        <input type="number" name="quantita_@prodotto.ProdottoID" id="quantita_@prodotto.ProdottoID" min="1" value="1" class="form-control quantita-prodotto" data-prezzo="@prodotto.Prezzo">
+                                        <input type="number" name="quantita_@prodotto.ProdottoID" id="quantita_@prodotto.ProdottoID" min="1" value="1" class="form-control quantita-prodotto" data-prezzo="@prodotto.Prezzo " data-costo-spedizione="@ViewBag.CostoSpedizione">
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-danger" onclick="rimuoviProdotto(@prodotto.ProdottoID)">
@@ -157,17 +158,29 @@ else
     $(document).ready(function () {
         // Aggiungi un gestore di eventi per rilevare le modifiche alla quantità dei prodotti
         $('.quantita-prodotto').on('input', function () {
-            // Calcola il nuovo totale della spesa
+            // Initialize the total cost
             var totaleSpesa = 0;
+
+            // Iterate over each product input field
             $('.quantita-prodotto').each(function () {
-                var quantita = $(this).val();
-                var prezzo = $(this).data('prezzo').replace(',', '.');
-                totaleSpesa += parseFloat(quantita) * parseFloat(prezzo);
+                // Fetch the updated quantity
+                var quantita = parseInt($(this).val());
+
+                // Fetch the product price and shipping cost per unit
+                var prezzo = parseFloat($(this).data('prezzo'));
+                var costoSpedizione = parseFloat($(this).data('costo-spedizione'));
+
+                // Calculate the total cost for this product (quantity * (price + shipping cost))
+                var costoProdotto = quantita * (prezzo + costoSpedizione);
+
+                // Add the total cost for this product to the overall total
+                totaleSpesa += costoProdotto;
             });
 
-            // Aggiorna il testo dell'elemento che mostra il totale della spesa
-            $('#totaleSpesa').text(totaleSpesa.toFixed(2).replace(',', '.') + ' €');
+            // Update the displayed total cost
+            $('#totaleSpesa').text(totaleSpesa.toFixed(2) + ' €');
         });
+
     });
 
 

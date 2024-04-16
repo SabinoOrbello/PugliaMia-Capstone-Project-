@@ -2,7 +2,7 @@
 
 <div class="container login-form my-4">
     <h2>Riepilogo dell'Ordine</h2>
-    
+
 
     <h3 class="titPage">Dettagli dell'Ordine</h3>
     <hr class="border border-danger border-2 opacity-50 mb-4" />
@@ -23,6 +23,9 @@
     <hr class="border border-danger border-2 opacity-50 mb-4" />
     <p>Metodo Pagamento: <b>@Model.Pagamento.MetodoPagamento</b></p>
     <p>Totale Pagamento:<b> @Model.Pagamento.TotalePagato €</b></p>
+    <hr />
+    <p>Totale dell'Ordine:<b> @Model.TotaleOrdine €</b></p>
+    <p>Costo di Spedizione Totale:<b> @Model.CostoSpedizioneTotale €</b></p>
 
 
     <!-- Altri dettagli del pagamento -->
@@ -48,6 +51,14 @@
     {
         <p>Non ci sono prodotti nell'ordine.</p>
     }
+
+
+
+
+
+
+
+
     <p>@Html.ActionLink("Torna al menù", "Index", "Categorie", new { area = "" }, new { @class = "bottone1" })</p>
     <p>@Html.ActionLink("Modifica Ordine", "ModificaOrdine", "Ordini", new { ordineId = Model.Ordine.OrdineID }, new { @class = "bottone1" })</p>
 

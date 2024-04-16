@@ -55,7 +55,7 @@ namespace PugliaMia.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProdottoID,Nome,Descrizione,Prezzo,Immagine,CategoriaID,Disponibilita")] Prodotti prodotti, HttpPostedFileBase Immagine)
+        public ActionResult Create([Bind(Include = "ProdottoID,Nome,Descrizione,Prezzo, Ingredienti, Peso, Immagine,CategoriaID,Disponibilita")] Prodotti prodotti, HttpPostedFileBase Immagine)
         {
             if (Immagine != null && Immagine.ContentLength > 0)
             {
@@ -97,7 +97,7 @@ namespace PugliaMia.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProdottoID,Nome,Descrizione,Prezzo, Ingredienti, CostoSpedizione, Immagine,CategoriaID,Disponibilita")] Prodotti prodotti, HttpPostedFileBase Immagine)
+        public ActionResult Edit([Bind(Include = "ProdottoID,Nome,Descrizione,Prezzo, Ingredienti, Peso, Immagine,CategoriaID,Disponibilita")] Prodotti prodotti, HttpPostedFileBase Immagine)
         {
             if (ModelState.IsValid)
             {

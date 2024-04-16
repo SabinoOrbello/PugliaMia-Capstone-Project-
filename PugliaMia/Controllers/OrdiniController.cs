@@ -78,7 +78,6 @@ namespace PugliaMia.Controllers
 
 
 
-
         [HttpPost]
         public async Task<ActionResult> CreaOrdine(string indirizzoSpedizione, string metodoPagamento, string corriere, string paymentMethodId, FormCollection form)
         {
@@ -101,8 +100,9 @@ namespace PugliaMia.Controllers
                     // Inizializza Stripe con la tua chiave segreta
                     StripeConfiguration.ApiKey = ConfigurationManager.AppSettings["Stripe:SecretKey"];
 
-                    // Calcola il totale del pagamento
+                    // Calcola il totale del pagamento e il costo di spedizione
                     decimal totalePagamento = 0;
+                    decimal costoSpedizione = 0;
 
                     var elementiCarrello = db.Carrello.Where(c => c.UserID == currentUser.UserID);
 
@@ -114,6 +114,7 @@ namespace PugliaMia.Controllers
                             var quantita = int.Parse(Request.Form["quantita_" + prodotto.ProdottoID]);
                             decimal prezzoProdotto = (decimal)(prodotto.Prezzo * quantita); // Calcola il prezzo totale del prodotto considerando la quantità
                             totalePagamento += prezzoProdotto;
+                            costoSpedizione += CalcolaCostoSpedizione((decimal)(prodotto.Peso * quantita));
                         }
                     }
 
@@ -121,12 +122,12 @@ namespace PugliaMia.Controllers
                     var options = new PaymentIntentCreateOptions
                     {
                         PaymentMethod = paymentMethodId,
-                        Amount = (long)totalePagamento * 100, // L'importo deve essere in centesimi
+                        Amount = (long)(totalePagamento + costoSpedizione) * 100, // L'importo deve essere in centesimi
                         Currency = "eur", // Valuta
                         PaymentMethodTypes = new List<string>
-        {
-            "card",
-        },
+                {
+                    "card",
+                },
                         Confirm = true,
                         ReturnUrl = Url.Action("ConfermaOrdine", "Ordini", null, Request.Url.Scheme),
                     };
@@ -151,7 +152,7 @@ namespace PugliaMia.Controllers
                         UserID = currentUser.UserID,
                         DataOrdine = DateTime.Now,
                         StatoOrdine = "Confermato",
-                        Totale = totalePagamento
+                        Totale = totalePagamento + costoSpedizione
                     };
 
                     // Aggiungi l'ordine al database
@@ -198,7 +199,7 @@ namespace PugliaMia.Controllers
                         MetodoPagamento = metodoPagamento,
                         DataPagamento = DateTime.Now,
                         StatoPagamento = "Confermato",
-                        TotalePagato = totalePagamento,
+                        TotalePagato = totalePagamento + costoSpedizione,
                         StripePaymentIntentId = stripePaymentIntentId,
                         StripePaymentStatus = "Confermato",
                         OrdineID = ordine.OrdineID
@@ -232,6 +233,7 @@ namespace PugliaMia.Controllers
         }
 
 
+
         // Metodo per generare un numero di tracciamento casuale
         private string GenerateRandomTrackingNumber()
         {
@@ -241,12 +243,12 @@ namespace PugliaMia.Controllers
 
 
 
-        public ActionResult RiepilogoOrdine(int ordineId)
+        public async Task<ActionResult> RiepilogoOrdine(int ordineId)
         {
             // Recupera l'ordine
-            Ordini ordine = db.Ordini
-    .Include(o => o.DettagliOrdine.Select(d => d.Prodotti))
-    .FirstOrDefault(o => o.OrdineID == ordineId);
+            Ordini ordine = await db.Ordini
+                .Include(o => o.DettagliOrdine.Select(d => d.Prodotti))
+                .FirstOrDefaultAsync(o => o.OrdineID == ordineId);
 
             // Verifica se l'ordine esiste
             if (ordine == null)
@@ -255,28 +257,75 @@ namespace PugliaMia.Controllers
             }
 
             // Recupera la spedizione associata all'ordine
-            Spedizioni spedizione = db.Spedizioni.FirstOrDefault(s => s.OrdineID == ordineId);
+            Spedizioni spedizione = await db.Spedizioni.FirstOrDefaultAsync(s => s.OrdineID == ordineId);
 
             // Recupera il pagamento associato all'ordine
-            Pagamenti pagamento = db.Pagamenti.FirstOrDefault(p => p.OrdineID == ordineId);
+            Pagamenti pagamento = await db.Pagamenti.FirstOrDefaultAsync(p => p.OrdineID == ordineId);
 
             // Recupera i dettagli dell'ordine (i prodotti associati all'ordine)
-            List<DettagliOrdine> dettagliOrdine = db.DettagliOrdine.Include(d => d.Prodotti).Where(d => d.OrdineID == ordineId).ToList();
+            List<DettagliOrdine> dettagliOrdine = await db.DettagliOrdine.Include(d => d.Prodotti).Where(d => d.OrdineID == ordineId).ToListAsync();
 
-            // Popola un view model con i dati dell'ordine
+            // Inizializza il totale dell'ordine e il costo di spedizione
+            decimal totaleOrdine = 0;
+            decimal costoSpedizioneTotale = 0;
+
+            // Calcola il totale dell'ordine e il costo di spedizione totale includendo il costo di spedizione di ciascun prodotto
+            foreach (var dettaglio in dettagliOrdine)
+            {
+                // Aggiungi al totale il prezzo del prodotto moltiplicato per la quantità nel dettaglio dell'ordine
+                totaleOrdine += (decimal)dettaglio.Prezzo * (decimal)dettaglio.Quantita;
+
+                // Calcola e aggiungi il costo di spedizione del prodotto al costo di spedizione totale
+                decimal costoSpedizione = CalcolaCostoSpedizione((decimal)(dettaglio.Prodotti.Peso * dettaglio.Quantita));
+                costoSpedizioneTotale += costoSpedizione;
+            }
+
+            // Aggiungi il costo di spedizione totale al totale dell'ordine
+            totaleOrdine += costoSpedizioneTotale;
+
+            // Popola un view model con i dati dell'ordine, il costo di spedizione totale e il totale dell'ordine
             var viewModel = new RiepilogoOrdineViewModel
             {
                 Ordine = ordine,
                 Spedizione = spedizione,
                 Pagamento = pagamento,
-                DettagliOrdine = dettagliOrdine
+                DettagliOrdine = dettagliOrdine,
+                TotaleOrdine = totaleOrdine,
+                CostoSpedizioneTotale = costoSpedizioneTotale
             };
 
             return View(viewModel);
         }
 
 
+        private decimal CalcolaCostoSpedizione(decimal pesoTotale)
+        {
+            decimal costoSpedizione = 0;
 
+            // Definisci i tuoi intervalli di peso e le relative tariffe di spedizione
+            decimal[] intervalliPeso = { 5, 10, 20 }; // Pesi in kg
+            decimal[] tariffeSpedizione = { 5, 7, 10 }; // Tariffe di spedizione in euro
+
+            // Controlla in quale intervallo di peso rientra il peso totale
+            for (int i = 0; i < intervalliPeso.Length; i++)
+            {
+                if (pesoTotale <= intervalliPeso[i])
+                {
+                    costoSpedizione = tariffeSpedizione[i];
+                    break; // Esci dal ciclo una volta trovato l'intervallo corretto
+                }
+            }
+
+            // Se il peso totale supera tutti gli intervalli definiti, applica una tariffa aggiuntiva
+            if (costoSpedizione == 0)
+            {
+                // Esempio: una tariffa di spedizione aggiuntiva di 2 euro per ogni kg oltre i 20 kg
+                decimal pesoAggiuntivo = pesoTotale - intervalliPeso[intervalliPeso.Length - 1];
+                costoSpedizione = tariffeSpedizione[tariffeSpedizione.Length - 1] + (pesoAggiuntivo * 2);
+            }
+
+            return costoSpedizione;
+        }
 
 
 

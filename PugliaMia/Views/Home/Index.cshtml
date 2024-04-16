@@ -8,6 +8,31 @@
     </div>
 </div>
 <div class="hiden-content">
+    <div class="container-fluid p-2 bgContainer">
+        <div class="container hero">
+            <div class="row pt-5">
+                <div class="text-center lh-4">
+                    <p class=" fw-bold st">FRESH & ORGANIC</p>
+                    <h1 class="text-white title fw-bold">Delicious Seasonal Fruits</h1>
+                    <div class="d-flex justify-content-center gap-3 py-4">
+                        @if (Request.IsAuthenticated)
+                        {
+                            <p>@Html.ActionLink("Registrati", "Register", "Utenti", new { area = "" }, new { @class = "bottone" })</p>
+                            <p>@Html.ActionLink("Logout", "Logout", "Utenti", new { area = "" }, new { @class = "bottone" })</p>
+                        }
+                        else
+                        {
+                            <p>@Html.ActionLink("Registrati", "Register", "Utenti", new { area = "" }, new { @class = "bottone" })</p>
+                            <p>@Html.ActionLink("Accedi", "Login", "Utenti", new { area = "" }, new { @class = "bottone" })</p>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="hiden-content">
     <div class="container py-5 text-center">
         <h2 class="fw-bold fs-1 title2">Benvenuti in Puglia</h2>
         <p class="py-4 lineaHome">
