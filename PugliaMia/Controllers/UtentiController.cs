@@ -186,7 +186,9 @@ namespace PugliaMia.Controllers
                         FormsAuthentication.FormsCookiePath);
 
                     string encTicket = FormsAuthentication.Encrypt(ticket);
-                    Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
+                    HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
+                    cookie.Expires = DateTime.Now.AddMinutes(30); // Imposta la scadenza del cookie
+                    Response.Cookies.Add(cookie);
 
                     // Recupera l'ID dell'utente autenticato
                     int userId = user.UserID;
@@ -216,6 +218,19 @@ namespace PugliaMia.Controllers
 
             return View(model);
         }
+
+        public ActionResult AssignAdminRole(int id)
+        {
+            var user = db.Utenti.FirstOrDefault(u => u.UserID == id);
+            if (user != null)
+            {
+                user.Role = "Admin"; // Assegna il ruolo di amministratore
+                db.SaveChanges(); // Salva le modifiche nel database
+            }
+
+            return RedirectToAction("Index");
+        }
+
 
 
 

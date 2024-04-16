@@ -97,7 +97,7 @@ namespace PugliaMia.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProdottoID,Nome,Descrizione,Prezzo,Immagine,CategoriaID,Disponibilita")] Prodotti prodotti, HttpPostedFileBase Immagine)
+        public ActionResult Edit([Bind(Include = "ProdottoID,Nome,Descrizione,Prezzo, Ingredienti, CostoSpedizione, Immagine,CategoriaID,Disponibilita")] Prodotti prodotti, HttpPostedFileBase Immagine)
         {
             if (ModelState.IsValid)
             {
@@ -110,7 +110,7 @@ namespace PugliaMia.Controllers
                 }
                 db.Entry(prodotti).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("IndexAdmin");
             }
             ViewBag.CategoriaID = new SelectList(db.Categorie, "CategoriaID", "NomeCategoria", prodotti.CategoriaID);
             return View(prodotti);

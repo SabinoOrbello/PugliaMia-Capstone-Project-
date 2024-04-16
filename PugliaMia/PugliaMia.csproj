@@ -199,6 +199,10 @@
     <Compile Include="Migrations\202404091348323_AggiungiCampiPagamentiStripe.Designer.cs">
       <DependentUpon>202404091348323_AggiungiCampiPagamentiStripe.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202404160705451_AggiungiCostoSpedizioneIngredienti.cs" />
+    <Compile Include="Migrations\202404160705451_AggiungiCostoSpedizioneIngredienti.Designer.cs">
+      <DependentUpon>202404160705451_AggiungiCostoSpedizioneIngredienti.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Carrello.cs" />
     <Compile Include="Models\Categorie.cs" />
@@ -565,6 +569,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202404091348323_AggiungiCampiPagamentiStripe.resx">
       <DependentUpon>202404091348323_AggiungiCampiPagamentiStripe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404160705451_AggiungiCostoSpedizioneIngredienti.resx">
+      <DependentUpon>202404160705451_AggiungiCostoSpedizioneIngredienti.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

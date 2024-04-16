@@ -49,9 +49,10 @@
                     @Html.DisplayFor(modelItem => item.Role)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.UserID },new {@class="btn bnt-success"}) |
-                    @Html.ActionLink("Details", "Details", new { id = item.UserID },new { @class = "btn bnt-success" }) |
+                    @Html.ActionLink("Edit", "Edit", new { id = item.UserID }, new { @class = "btn bnt-success" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.UserID }, new { @class = "btn bnt-success" }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.UserID }, new { @class = "btn bnt-danger" })
+                    @Html.ActionLink("Rendi Admin", "AssignAdminRole", new { id = item.UserID }, new { @class = "btn bnt-Success" })
                 </td>
             </tr>
         }

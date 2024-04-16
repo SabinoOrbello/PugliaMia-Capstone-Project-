@@ -31,6 +31,8 @@ namespace PugliaMia.Models
         [StringLength(255)]
         public string Immagine { get; set; }
 
+        public decimal CostoSpedizione { get; set; }
+        public string Ingredienti { get; set; }
 
         public int? CategoriaID { get; set; }
 

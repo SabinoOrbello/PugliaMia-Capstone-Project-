@@ -9,6 +9,17 @@
             <div class="row">
                 <div class="col-lg-6">
                     <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Immagine</th>
+                                <th>Nome</th>
+                                <th>Prezzo</th>
+                                <th>Ingredienti</th>
+                                <th>Costo Spedizione</th>
+                                <th>Quantità</th>
+                                <th></th>
+                            </tr>
+                        </thead>
                         <tbody>
                             @foreach (var prodotto in Model)
                             {
@@ -16,6 +27,8 @@
                                     <td><img src="@Url.Content(string.IsNullOrEmpty(prodotto.Immagine) ? "~/Content/Images/default-product-image.jpg" : prodotto.Immagine)" class="img-thumbnail w-50" alt="@prodotto.Nome"></td>
                                     <td>@prodotto.Nome</td>
                                     <td>@prodotto.Prezzo €</td>
+                                    <td>@prodotto.Ingredienti</td>
+                                    <td>@prodotto.CostoSpedizione €</td>
                                     <td>
                                         <input type="number" name="quantita_@prodotto.ProdottoID" id="quantita_@prodotto.ProdottoID" min="1" value="1" class="form-control quantita-prodotto" data-prezzo="@prodotto.Prezzo">
                                     </td>
