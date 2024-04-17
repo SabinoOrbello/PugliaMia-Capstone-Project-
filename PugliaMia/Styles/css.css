@@ -453,3 +453,82 @@ b {
     font-style: normal;
     color: goldenrod;
 }
+
+.bgShop {
+    background-image: url('../Content/Images/mare.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.titShop {
+    animation-name: fadeInDown;
+    animation-duration: 2.5s;
+}
+
+/* Definisci l'animazione fadeInDown */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.bgChisiamo2 {
+    background-image: url('../Content/Images/pomodori.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.dancing2 {
+    font-family: "Dancing Script", cursive;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: #e1bf6c;
+    font-size: 80px;
+    line-height: 130px;
+}
+
+.dancing3 {
+    font-family: "Dancing Script", cursive;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: #e1bf6c;
+    font-size: 43px;
+}
+
+.container.text-center.bgChisiamo3 {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Centra verticalmente i figli */
+    height: 100%; /* Assicura che il contenitore occupi l'altezza della finestra */
+}
+
+    .container.text-center.bgChisiamo3 input[type="email"] {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        font-family: Poppins, sans-serif;
+        font-size: 16px;
+        color: #68745c;
+        line-height: 27px;
+        font-weight: 600;
+        padding-left: 0;
+        padding-bottom: 2px;
+        width: 100%;
+        background-color: transparent;
+        opacity: 0.7;
+    }
+
+
+.bgChisiamo3 {
+    background-color: #80808038;
+}

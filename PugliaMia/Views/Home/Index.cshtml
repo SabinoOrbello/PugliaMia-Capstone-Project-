@@ -1,7 +1,7 @@
 ﻿
-<div id="logo-animation">
-    <div class="container">
-        <video id="logo-video" width="100%" height="100%" autoplay muted>
+<div id="logo-animation"> 
+    <div class="container text-center">
+        <video id="logo-video" width="700px" height="450px" autoplay muted>
             <source src="~/Content/Images/PUGLIA.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -155,9 +155,26 @@
     $(document).ready(function () {
         var video = document.getElementById('logo-video');
 
-        video.onended = function () {
-            $('#logo-animation').hide();
-        };
+        // Funzione per gestire la dissolvenza del video
+        function fadeOutVideo() {
+            $(video).animate({ opacity: 0 }, 1000, function () {
+                // Nascondi l'animazione del logo dopo la dissolvenza
+                $('#logo-animation').hide();
+                // Mostra il contenuto della pagina
+                $('.hiden-content').show();
+            });
+        }
+
+        // Attiva la funzione di dissolvenza quando il video è terminato
+        video.onended = fadeOutVideo;
+
+        // Avvia la dissolvenza dopo un certo tempo se il video non si riproduce correttamente
+        setTimeout(fadeOutVideo, 4000); // 10 secondi
+    });
+
+
+    $(document).ready(function () {
+        $(window).scrollTop(300); 
     });
 </script>
 

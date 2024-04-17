@@ -330,6 +330,7 @@
     <Content Include="Content\Images\grill-logo.png" />
     <Content Include="Content\Images\lampascioni la terra di puglia.png" />
     <Content Include="Content\Images\legumi big.jpg" />
+    <Content Include="Content\Images\mare.jpeg" />
     <Content Include="Content\Images\marmellata1.png" />
     <Content Include="Content\Images\Melanzane-ripiene0.jpg" />
     <Content Include="Content\Images\mozza bomba di latte.png" />
@@ -340,6 +341,7 @@
     <Content Include="Content\Images\orecchiette-al-pomodoro-e-cacioricotta.jpg" />
     <Content Include="Content\Images\orecchiette.jpg" />
     <Content Include="Content\Images\orecchiette1.png" />
+    <Content Include="Content\Images\pomodori.jpg" />
     <Content Include="Content\Images\PUGLIA.mp4" />
     <Content Include="Content\Images\PUGLIA.png" />
     <Content Include="Content\Images\spaghetti.jpg" />

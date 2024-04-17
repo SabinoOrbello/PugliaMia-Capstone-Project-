@@ -24,7 +24,7 @@
 </head>
 <body class="@(ViewContext.RouteData.Values["controller"].ToString() == "Home" && ViewContext.RouteData.Values["action"].ToString() == "Index" ? "home-page" : "")">
 
-    <nav id="mainNavbar" class="navbar navbar-expand-sm navbar-toggleable-sm py-4 fw-bold fixed-top">
+    <nav id="mainNavbar" class="navbar navbar-expand-sm navbar-toggleable-sm py-4 fw-bold fixed-top hiden-content">
         <div class="container">
             <img src="~/Content/Images/PUGLIA.png" class="img-fluid logo" />
             <h3 class="titPage"> @Html.ActionLink("Puglia", "Index", "Home", new { area = "" }, new { @class = "navbar-brand titPage" })</h3>
@@ -72,12 +72,13 @@
         </div>
     </nav>
  
+
     <div>
         @RenderBody()
     </div>
     <!-- end logo carousel -->
 
-    <div class="footer-area">
+    <div class="footer-area hiden-content">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6">
@@ -123,7 +124,7 @@
     </div>
     <!-- end footer -->
     <!-- copyright -->
-    <div class="copyright">
+    <div class="copyright hiden-content">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-12">
@@ -190,12 +191,7 @@
                 $('body.home-page .hiden-content').show();
             };
         });
-
-        $(document).ready(function () {
-            $(window).scrollTop(300); // sostituisci 100 con il numero di pixel che vuoi scorrere verso il basso
-        });
-
-
+    
 
     </script>
     @Scripts.Render("~/bundles/jquery")

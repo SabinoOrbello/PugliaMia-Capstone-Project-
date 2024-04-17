@@ -10,7 +10,7 @@
 
             foreach (var prodotto in Model)
             {
-                <div class="col">
+                <div class="col titShop">
                     <a href="@Url.Action("Details", "Prodotti", new { id = prodotto.ProdottoID })" class="text-decoration-none">
                         <div class="product" style="width: 18rem;">
                             <img src="@Url.Content(string.IsNullOrEmpty(prodotto.Immagine) ? "~/Content/Images/hotel.jpg" : prodotto.Immagine)" class="card-img-top" alt="...">
