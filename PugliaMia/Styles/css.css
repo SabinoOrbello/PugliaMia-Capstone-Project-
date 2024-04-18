@@ -473,6 +473,7 @@ b {
     font-weight: 400;
     font-style: normal;
     color: goldenrod;
+    font-size: 64px;
 }
 
 .bgShop {
@@ -613,4 +614,25 @@ textarea {
 
 .bgContact {
     background-color: #c5bebe17;
+}
+
+.bgChisiamo7 {
+    background-image: url('../Content/Images/borgo2.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.bgChisiamo8 {
+    background-image: url('../Content/Images/borgo3.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.bgChisiamo9 {
+    background-image: url('../Content/Images/borgo4.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }

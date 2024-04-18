@@ -325,6 +325,9 @@
     <Content Include="Content\Images\alimentare-logo.png" />
     <Content Include="Content\Images\bakery-logo.png" />
     <Content Include="Content\Images\borgo.jpeg" />
+    <Content Include="Content\Images\borgo2.jpg" />
+    <Content Include="Content\Images\borgo3.jpg" />
+    <Content Include="Content\Images\borgo4.jpg" />
     <Content Include="Content\Images\burrata igp andria.png" />
     <Content Include="Content\Images\burrata.jpg" />
     <Content Include="Content\Images\cacioricotta salento.png" />

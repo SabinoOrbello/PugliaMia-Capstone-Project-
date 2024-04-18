@@ -5,7 +5,7 @@
     <div class="container hero">
         <div class="row pt-5">
             <div class="text-center lh-4">
-                <h1 class="text-white fw-bold titShop">Poesia Pugliese</h1>
+                <h1 class="text-white fw-bold titShop dancing">Poesia Pugliese</h1>
             </div>
         </div>
     </div>
@@ -38,7 +38,7 @@
                                     <td>@prodotto.Nome</td>
                                     <td>@prodotto.Prezzo €</td>
                                     <td>@prodotto.Ingredienti</td>
-                                    
+
 
                                     <td>
                                         <input type="number" name="quantita_@prodotto.ProdottoID" id="quantita_@prodotto.ProdottoID" min="1" value="1" class="form-control quantita-prodotto" data-prezzo="@prodotto.Prezzo " data-costo-spedizione="@ViewBag.CostoSpedizione">
@@ -53,18 +53,26 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="col-lg-6 login-form w-25 text-center">
+                    <!-- Totale della spesa e costo di spedizione -->
+                    <div class="row mt-4">
+                        <div class="col-lg-12">
+                            <h4>Totale della Spesa:</h4>
+                            <h4><span id="totaleSpesa">@ViewBag.TotaleSpesa €</span></h4>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-lg-12">
+                            <h4>Costo di Spedizione:</h4>
+                            <h4><span>@ViewBag.CostoSpedizione €</span></h4>
+                        </div>
+                    </div>
+                </div>
             </div>
 
 
-            <div class="row mt-4">
-                <div class="col-lg-6">
-                    <h4>Totale della Spesa:</h4>
-                </div>
-                <div class="col-lg-6 text-lg-end">
-                    <h4><span id="totaleSpesa">@ViewBag.TotaleSpesa €</span></h4>
-                    <h4>Costo di Spedizione<span>@ViewBag.CostoSpedizione €</span></h4>
-                </div>
-            </div>
+          
+
 
             <div class="row mt-4">
                 <div class="col-lg-6">
@@ -75,27 +83,27 @@
                 </div>
             </div>
 
-            <div class="row mt-4" id="formSpedizione" style="display: none;">
+            <div class="row mt-4 login-form" id="formSpedizione" style="display: none;">
                 <!-- Dati Spedizione (Colonna sinistra) -->
-                <div class="col-lg-6">
+                <div class="col-lg-6 w-100">
                     <h3>Dati Spedizione</h3>
                     <hr class="border border-danger border-2 opacity-50 mb-4" />
                     <div class="mb-3">
-                        <label for="indirizzoSpedizione" class="form-label">Indirizzo di Spedizione:</label>
-                        <input type="text" class="form-control" id="indirizzoSpedizione" name="indirizzoSpedizione" required>
+                        <label for="indirizzoSpedizione" class="form-label"></label>
+                        <input type="text" class="form-control" id="indirizzoSpedizione" name="indirizzoSpedizione" placeholder="Indirizzo" required>
 
-                        <label for="citta" class="form-label">Città:</label>
-                        <input type="text" class="form-control" id="citta" name="citta" required>
+                        <label for="citta" class="form-label"></label>
+                        <input type="text" class="form-control" id="citta" name="citta" placeholder="Città" required>
 
-                        <label for="regione" class="form-label">Regione:</label>
-                        <input type="text" class="form-control" id="regione" name="regione" required>
+                        <label for="regione" class="form-label"></label>
+                        <input type="text" class="form-control" id="regione" name="regione" placeholder="regione" required>
 
-                        <label for="provincia" class="form-label">Provincia:</label>
-                        <input type="text" class="form-control" id="provincia" name="provincia" required>
+                        <label for="provincia" class="form-label"></label>
+                        <input type="text" class="form-control" id="provincia" name="provincia" placeholder="provincia" required>
 
                     </div>
                     <div class="mb-3">
-                        <label for="corriere" class="form-label">Corriere:</label>
+                        <label for="corriere" class="form-label"></label>
                         <select class="form-select" id="corriere" name="corriere" required>
                             <option value="">Seleziona un Corriere</option>
                             <option value="Fedex">Fedex</option>
@@ -107,9 +115,9 @@
                 </div>
             </div>
 
-            <div class="row mt-4" id="formFatturazione" style="display: none;">
+            <div class="row mt-4 login-form" id="formFatturazione" style="display: none;">
                 <!-- Dati Fatturazione (Colonna destra) -->
-                <div class="col-lg-6">
+                <div class="col-lg-6 w-100">
                     <h3>Dati Fatturazione</h3>
                     <hr class="border border-danger border-2 opacity-50 mb-4" />
 

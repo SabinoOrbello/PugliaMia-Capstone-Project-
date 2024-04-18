@@ -1,5 +1,15 @@
 ﻿@model PugliaMia.Models.RiepilogoOrdineViewModel
 
+
+<div id="logo-animation">
+    <div class="container text-center">
+        <video id="logo-video" width="700px" height="450px" autoplay muted>
+            <source src="~/Content/Images/PUGLIA.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+</div>
+
 <div class="container login-form my-4">
     <h2>Riepilogo dell'Ordine</h2>
 
@@ -22,7 +32,7 @@
     <h3 class="titPage">Dettagli del Pagamento</h3>
     <hr class="border border-danger border-2 opacity-50 mb-4" />
     <p>Metodo Pagamento: <b>@(Model.Pagamento?.MetodoPagamento ?? "Not available")</b></p>
-    
+
     <hr />
     <p>Totale dell'Ordine:<b> @Model.TotaleOrdine €</b></p>
     <p>Costo di Spedizione Totale:<b> @Model.CostoSpedizioneTotale €</b></p>
