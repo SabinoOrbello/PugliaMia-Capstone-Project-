@@ -1,5 +1,16 @@
 ﻿﻿﻿@model List<PugliaMia.Models.Prodotti>
 
+
+<div class="container-fluid bgChisiamo4">
+    <div class="container hero">
+        <div class="row pt-5">
+            <div class="text-center lh-4">
+                <h1 class="text-white fw-bold titShop">Poesia Pugliese</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
 @if (Model.Any())
 {
     using (Html.BeginForm("CreaOrdine", "Ordini", FormMethod.Post))
@@ -72,6 +83,16 @@
                     <div class="mb-3">
                         <label for="indirizzoSpedizione" class="form-label">Indirizzo di Spedizione:</label>
                         <input type="text" class="form-control" id="indirizzoSpedizione" name="indirizzoSpedizione" required>
+
+                        <label for="citta" class="form-label">Città:</label>
+                        <input type="text" class="form-control" id="citta" name="citta" required>
+
+                        <label for="regione" class="form-label">Regione:</label>
+                        <input type="text" class="form-control" id="regione" name="regione" required>
+
+                        <label for="provincia" class="form-label">Provincia:</label>
+                        <input type="text" class="form-control" id="provincia" name="provincia" required>
+
                     </div>
                     <div class="mb-3">
                         <label for="corriere" class="form-label">Corriere:</label>

@@ -215,6 +215,10 @@
     <Compile Include="Migrations\202404161254107_ModificaCampoPeso1.Designer.cs">
       <DependentUpon>202404161254107_ModificaCampoPeso1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202404171240494_AggiungiCampiSpedizione.cs" />
+    <Compile Include="Migrations\202404171240494_AggiungiCampiSpedizione.Designer.cs">
+      <DependentUpon>202404171240494_AggiungiCampiSpedizione.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Carrello.cs" />
     <Compile Include="Models\Categorie.cs" />
@@ -320,6 +324,7 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Images\alimentare-logo.png" />
     <Content Include="Content\Images\bakery-logo.png" />
+    <Content Include="Content\Images\borgo.jpeg" />
     <Content Include="Content\Images\burrata igp andria.png" />
     <Content Include="Content\Images\burrata.jpg" />
     <Content Include="Content\Images\cacioricotta salento.png" />
@@ -344,6 +349,7 @@
     <Content Include="Content\Images\pomodori.jpg" />
     <Content Include="Content\Images\PUGLIA.mp4" />
     <Content Include="Content\Images\PUGLIA.png" />
+    <Content Include="Content\Images\PUGLIA2.png" />
     <Content Include="Content\Images\spaghetti.jpg" />
     <Content Include="Content\Images\strascinati.png" />
     <Content Include="Content\Images\taralli 1.jpg" />
@@ -352,6 +358,8 @@
     <Content Include="Content\Images\taralli pat e rosma.png" />
     <Content Include="Content\Images\treccia vg.png" />
     <Content Include="Content\Images\trulli.jpg" />
+    <Content Include="Content\Images\trullino.jpg" />
+    <Content Include="Content\Images\vigna.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -507,6 +515,7 @@
     <Content Include="Views\Home\ProdottiPiuVenduti.cshtml" />
     <Content Include="Views\Home\ChiSiamo.cshtml" />
     <Content Include="Views\Home\Ricette.cshtml" />
+    <Content Include="Views\Home\Contattaci.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -597,6 +606,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202404161254107_ModificaCampoPeso1.resx">
       <DependentUpon>202404161254107_ModificaCampoPeso1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404171240494_AggiungiCampiSpedizione.resx">
+      <DependentUpon>202404171240494_AggiungiCampiSpedizione.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -4,45 +4,66 @@
     ViewBag.Title = "Details";
 }
 
-<div class="container pt-4 my-4">
-    <h2 class="titPage">Dettagli Prodotto</h2>
-    <hr class="border border-danger border-2 opacity-50 mb-4" />
-    <div class="card w-50">
-        <div class="card-body">
-            
-            <dl class="row">
-                <dt class="col-sm-3">Categoria</dt>
-                <dd class="col-sm-9">@Html.DisplayFor(model => model.Categorie.NomeCategoria)</dd>
-
-                <dt class="col-sm-3">Nome</dt>
-                <dd class="col-sm-9">@Html.DisplayFor(model => model.Nome)</dd>
-
-                <dt class="col-sm-3">Descrizione</dt>
-                <dd class="col-sm-9">@Html.DisplayFor(model => model.Descrizione)</dd>
-
-                <dt class="col-sm-3">Prezzo</dt>
-                <dd class="col-sm-9">@Html.DisplayFor(model => model.Prezzo) €</dd>
-
-                <dt class="col-sm-3">Ingredienti</dt>
-                <dd class="col-sm-9">@Html.DisplayFor(model => model.Ingredienti) </dd>
-
-                <dt class="col-sm-3">Costo di spedizione</dt>
-                <dd class="col-sm-9">@Html.DisplayFor(model => model.CostoSpedizione) € </dd>
-
-                <dt class="col-sm-3"></dt>
-                <img src="@(!string.IsNullOrEmpty(Model.Immagine) ? Url.Content(Model.Immagine) : Url.Content("~/Content/Images/hotel.jpg"))" class="card-img-top w-25" alt="..." />
-            </dl>
-            <div>
-                <button type="button" class="bottone1 mb-2 btnVediRecensioni">Vedi Recensioni</button>
-                @if (Request.IsAuthenticated)
-                {
-
-                    <p>@Html.ActionLink("Aggiungi Recensione", "Create", "Recensioni", new { prodottoId = Model.ProdottoID }, new { @class = "bottone1" })</p>
-                }
-                </div>
+<div class="container-fluid bgChisiamo5">
+    <div class="container hero">
+        <div class="row pt-5">
+            <div class="text-center lh-4">
+                <h1 class="text-white fw-bold titShop">Un posto magico</h1>
+            </div>
         </div>
     </div>
 </div>
+
+<div class="container pt-4 my-4">
+    <h2 class="titPage">Dettagli Prodotto</h2>
+    <hr class="border border-danger border-2 opacity-50 mb-4" />
+    <div class="row">
+        <div class="col-lg-6">
+            <img src="@(!string.IsNullOrEmpty(Model.Immagine) ? Url.Content(Model.Immagine) : Url.Content("~/Content/Images/hotel.jpg"))" class="card-img-top w-100" alt="..." />
+        </div>
+        <div class="col-lg-6">
+            <div class="card border-0">
+                <div class="card-body">
+                    <div class="row h-100 my-4 lineaHome">
+
+
+
+                        <div class="col-sm-9 fw-bold size">
+                            <h1>@Html.DisplayFor(model => model.Nome)</h1>
+                        </div>
+
+
+                        <div class="col-sm-9 fs-2 fw-bold">
+                            <p>@Html.DisplayFor(model => model.Prezzo)€</p>
+                        </div>
+
+                        <div class="col-sm-9 text-secondary">
+                            <p>@Html.DisplayFor(model => model.Categorie.NomeCategoria)</p>
+                        </div>
+
+                        <div class="col-sm-9 text-secondary">
+                        <p>@Html.DisplayFor(model => model.Descrizione)</p>
+                        </div>
+
+
+
+                        <div class="col-sm-9 text-secondary">
+                        <p>Ingredienti: @Html.DisplayFor(model => model.Ingredienti)</p> 
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" class="bottone1 mb-2 btnVediRecensioni">Vedi Recensioni</button>
+                        @if (Request.IsAuthenticated)
+                        {
+                            <p>@Html.ActionLink("Aggiungi Recensione", "Create", "Recensioni", new { prodottoId = Model.ProdottoID }, new { @class = "bottone1" })</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <div id="recensioniContainer"></div>
 </div>

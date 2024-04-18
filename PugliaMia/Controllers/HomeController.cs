@@ -31,6 +31,13 @@ namespace PugliaMia.Controllers
             return View();
         }
 
+        public ActionResult Contattaci()
+        {
+            ViewBag.Title = "Contattaci";
+
+            return View();
+        }
+
         [Authorize(Roles = "Admin")]
         public ActionResult BackOffice()
         {

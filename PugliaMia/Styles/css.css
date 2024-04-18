@@ -3,6 +3,10 @@ body.home-page .hiden-content {
     display: none;
 }
 
+.titLogo {
+    color: white !important;
+}
+
 .sidebar {
     padding: 20px;
 }
@@ -41,10 +45,11 @@ body.home-page .hiden-content {
     text-decoration: none;
     border-radius: 50px;
     font-weight: bold;
+    background-color: #F28123;
 }
 
     .bottone:hover {
-        background-color: #F28123;
+        background-color: transparent;
         color: white;
         text-decoration: none;
         font-weight: bold;
@@ -283,12 +288,28 @@ span {
     color: #F28123;
 }
 
+.nav-link {
+    color: #F28123 !important;
+    font-size: 18px;
+}
+
+    .nav-link:hover {
+        color: white !important;
+        font-size: 22px;
+    }
+
+.navNav {
+    color: white !important;
+}
+
 .nav-link .fas.fa-user {
-    color: white;
+    color: white !important;
+    font-size: 18px;
 }
 
 .nav-link:hover .fas.fa-user {
-    color: orange;
+    color: white;
+    font-size: 22px;
 }
 
 /* Login */
@@ -528,7 +549,68 @@ b {
         opacity: 0.7;
     }
 
+input[type="email"], input[type=tel], input[type=text], input[type=url] {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-family: Poppins, sans-serif;
+    font-size: 16px;
+    color: #68745c;
+    line-height: 27px;
+    font-weight: 600;
+    padding-left: 0;
+    padding-bottom: 2px;
+    width: 100%;
+    background-color: transparent;
+    opacity: 0.7;
+}
+
+textarea {
+    font-family: Poppins, sans-serif;
+    font-size: 16px;
+    color: #68745c;
+    line-height: 27px;
+    font-weight: 600;
+    padding-left: 0;
+    padding-bottom: 2px;
+    width: 100%;
+    background-color: transparent;
+    opacity: 0.7;
+}
+
+.area {
+    color: rgb(58 60 62 / 43%) !important;
+}
 
 .bgChisiamo3 {
-    background-color: #80808038;
+    background-color: #c5bebe17;
+}
+
+.bgChisiamo4 {
+    background-image: url('../Content/Images/trullino.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.bgChisiamo5 {
+    background-image: url('../Content/Images/borgo.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.size {
+    font-size: 20px;
+}
+
+.bgChisiamo6 {
+    background-image: url('../Content/Images/vigna.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.bgContact {
+    background-color: #c5bebe17;
 }

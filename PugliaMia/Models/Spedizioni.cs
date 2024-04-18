@@ -16,6 +16,9 @@ namespace PugliaMia.Models
 
         [StringLength(255)]
         public string IndirizzoSpedizione { get; set; }
+        public string Citta { get; set; }
+        public string Regione { get; set; }
+        public string Provincia { get; set; }
 
         [StringLength(100)]
         public string Corriere { get; set; }

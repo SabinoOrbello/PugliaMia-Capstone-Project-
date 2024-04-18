@@ -79,7 +79,7 @@ namespace PugliaMia.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> CreaOrdine(string indirizzoSpedizione, string metodoPagamento, string corriere, string paymentMethodId, FormCollection form)
+        public async Task<ActionResult> CreaOrdine(string indirizzoSpedizione, string citta, string regione, string provincia, string metodoPagamento, string corriere, string paymentMethodId, FormCollection form)
         {
             // Verifica se l'utente è autenticato
             if (User.Identity.IsAuthenticated)
@@ -183,6 +183,9 @@ namespace PugliaMia.Controllers
                     Spedizioni spedizione = new Spedizioni
                     {
                         IndirizzoSpedizione = indirizzoSpedizione,
+                        Citta = citta,
+                        Regione = regione,
+                        Provincia = provincia,
                         Corriere = corriere,
                         DataSpedizione = DateTime.Now,
                         StatoSpedizione = "In transito",

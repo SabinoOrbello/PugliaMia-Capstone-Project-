@@ -26,8 +26,8 @@
 
     <nav id="mainNavbar" class="navbar navbar-expand-sm navbar-toggleable-sm py-4 fw-bold fixed-top hiden-content">
         <div class="container">
-            <img src="~/Content/Images/PUGLIA.png" class="img-fluid logo" />
-            <h3 class="titPage"> @Html.ActionLink("Puglia", "Index", "Home", new { area = "" }, new { @class = "navbar-brand titPage" })</h3>
+            <img src="~/Content/Images/PUGLIA2.png" class="img-fluid logo" />
+            <h3 class="titLogo"> @Html.ActionLink("Puglia", "Index", "Home", new { area = "" }, new { @class = "navbar-brand titLogo" })</h3>
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Attiva/Disattiva spostamento" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -37,6 +37,7 @@
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Chi Siamo", "ChiSiamo", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Shop", "Index", "Categorie", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Contatti", "Contattaci", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                 </ul>
                 <ul>
                     <li class="nav-item dropdown">
@@ -76,6 +77,8 @@
     <div>
         @RenderBody()
     </div>
+
+
     <!-- end logo carousel -->
 
     <div class="footer-area hiden-content">
@@ -83,13 +86,13 @@
             <div class="row">
                 <div class="col-lg-3 col-md-6">
                     <div class="footer-box about-widget">
-                        <h2 class="widget-title">About us</h2>
-                        <p>Ut enim ad minim veniam perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.</p>
+                        <h2 class="widget-title">The Puglia</h2>
+                        <p>Puglia è uno stile di vita, un viaggio del gusto che tocca le eccellenze di questa terra, condividendo i prodotti che per noi rappresentano la magia ed il sapore di Puglia.</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="footer-box get-in-touch">
-                        <h2 class="widget-title">Get in Touch</h2>
+                        <h2 class="widget-title">Informazioni</h2>
                         <ul>
                             <li>34/8, East Hukupara, Gifirtok, Sadan.</li>
                             <li>support@fruitkha.com</li>
@@ -99,20 +102,20 @@
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="footer-box pages">
-                        <h2 class="widget-title">Pages</h2>
+                        <h2 class="widget-title">Pagine</h2>
                         <ul>
                             <li><a href="index.html">Home</a></li>
-                            <li><a href="about.html">About</a></li>
-                            <li><a href="services.html">Shop</a></li>
-                            <li><a href="news.html">News</a></li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li>@Html.ActionLink("Chi Siamo", "ChiSiamo", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Shop", "Index", "Categorie", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li><a href="news.html">Blog</a></li>
+                            <li>@Html.ActionLink("Contatti", "Contattaci", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="footer-box subscribe">
-                        <h2 class="widget-title">Subscribe</h2>
-                        <p>Subscribe to our mailing list to get the latest updates.</p>
+                        <h2 class="widget-title">Iscriviti</h2>
+                        <p>Iscriviti per ricevere le nostre offerte.</p>
                         <form action="index.html">
                             <input type="email" placeholder="Email">
                             <button type="submit"><i class="fas fa-paper-plane"></i></button>
@@ -151,17 +154,23 @@
     <script>
         $(document).ready(function () {
             var navbar = $('#mainNavbar');
+            var navLink = $('.nav-link');
+            var icona = $('.fas fa-user');
             var scrolled = false;
 
             $(window).scroll(function () {
                 if ($(this).scrollTop() > 50) {
                     if (!scrolled) {
                         navbar.addClass('navbar-blue');
+                        navLink.addClass('navNav')
+                        icona.addClass('navTitolo')
                         scrolled = true;
                     }
                 } else {
                     if (scrolled) {
                         navbar.removeClass('navbar-blue');
+                        navLink.removeClass('navNav');
+                        icona.removeClass('navTitolo');
                         scrolled = false;
                     }
                 }
