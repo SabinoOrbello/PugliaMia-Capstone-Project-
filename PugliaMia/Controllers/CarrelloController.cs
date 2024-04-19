@@ -88,10 +88,10 @@ namespace PugliaMia.Controllers
                 }
             }
 
-            // Se l'utente non è autenticato o se non ci sono prodotti nel carrello, restituisci la vista del carrello vuota
-            return View(new List<Prodotti>());
+            // Se l'utente non è autenticato o non ha prodotti nel carrello, visualizza un messaggio appropriato
+            ViewBag.Message = "Il tuo carrello è vuoto.";
+            return View();
         }
-
 
         // Metodo per calcolare il costo di spedizione in base al peso totale
         private decimal CalcolaCostoSpedizione(decimal pesoTotale)
@@ -207,6 +207,7 @@ namespace PugliaMia.Controllers
                     };
 
                     db.Carrello.Add(nuovoItem);
+
 
                     // Salva i cambiamenti nel database in modo asincrono
                     await db.SaveChangesAsync();

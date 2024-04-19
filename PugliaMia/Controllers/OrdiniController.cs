@@ -245,7 +245,6 @@ namespace PugliaMia.Controllers
         }
 
 
-
         public async Task<ActionResult> RiepilogoOrdine(int ordineId)
         {
             // Recupera l'ordine dal database
@@ -271,11 +270,31 @@ namespace PugliaMia.Controllers
                 .Where(d => d.OrdineID == ordineId)
                 .ToListAsync();
 
-            // Calcola il peso totale del carrello
-            decimal pesoTotale = (decimal)dettagliOrdine.Sum(d => (decimal)d.Prodotti.Peso * d.Quantita);
+            // Calcola il peso totale degli articoli nell'ordine
+            string currentUsername = User.Identity.Name;
+            Utenti currentUser = await db.Utenti.FirstOrDefaultAsync(u => u.Nome == currentUsername);
 
-            // Calcola il costo di spedizione basato sul peso totale
-            decimal costoSpedizione = CalcolaCostoSpedizione(pesoTotale);
+            if (currentUser == null)
+            {
+                // L'utente non è autenticato, gestisci il caso appropriato
+                return RedirectToAction("Login", "Account");
+            }
+
+            var carrello = await db.Carrello.Where(c => c.UserID == currentUser.UserID).ToListAsync();
+
+            // Calcola il peso totale del carrello
+            decimal pesoTotaleCarrello = 0;
+            foreach (var item in carrello)
+            {
+                Prodotti prodotto = await db.Prodotti.FirstOrDefaultAsync(p => p.ProdottoID == item.ProdottoID);
+                if (prodotto != null)
+                {
+                    pesoTotaleCarrello += (decimal)prodotto.Peso * (decimal)item.Quantita;
+                }
+            }
+
+            // Calcola il costo di spedizione basato sul peso totale del carrello
+            decimal costoSpedizione = CalcolaCostoSpedizione(pesoTotaleCarrello);
 
             // Inizializza il totale dell'ordine
             decimal totaleOrdine = 0;
@@ -303,6 +322,8 @@ namespace PugliaMia.Controllers
 
             return View(viewModel);
         }
+
+
 
 
         // Metodo per calcolare il costo di spedizione in base al peso totale

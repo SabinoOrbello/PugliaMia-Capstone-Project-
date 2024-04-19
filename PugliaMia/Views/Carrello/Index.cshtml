@@ -11,6 +11,12 @@
     </div>
 </div>
 
+@if (!string.IsNullOrEmpty(TempData["Message"] as string))
+{
+    <div class="alert alert-warning" role="alert">
+        @TempData["Message"]
+    </div>
+}
 @if (Model.Any())
 {
     using (Html.BeginForm("CreaOrdine", "Ordini", FormMethod.Post))
@@ -187,9 +193,20 @@ else
 
 
 <script src="https://js.stripe.com/v3/"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
 <script>
 
-    
+    function nascondiMessaggio() {
+        setTimeout(function () {
+            $('.alert').fadeOut('slow'); // Nasconde gradualmente il messaggio
+        }, 3000); // Nasconde il messaggio dopo 3 secondi (3000 millisecondi)
+    }
+
+    // Chiama la funzione per nascondere il messaggio quando la pagina è pronta
+    $(document).ready(function () {
+        nascondiMessaggio();
+    })
 
 
     // Inizializza il totale della spesa
@@ -307,6 +324,5 @@ else
                 }
             });
 
-
-
+   
 </script>
