@@ -118,74 +118,9 @@ namespace PugliaMia.Controllers
 
 
 
-
         [HttpGet]
+
         public async Task<ActionResult> Aggiungi(int? prodottoId)
-        {
-            if (prodottoId == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            Prodotti prodotto = await db.Prodotti.FindAsync(prodottoId);
-
-            if (prodotto == null)
-            {
-                return HttpNotFound();
-            }
-
-            if (User.Identity.IsAuthenticated)
-            {
-                string currentUsername = User.Identity.Name;
-                Utenti currentUser = await db.Utenti.FirstOrDefaultAsync(u => u.Nome == currentUsername);
-
-                if (currentUser == null)
-                {
-                    return RedirectToAction("Error", "Home");
-                }
-
-                Carrello carrelloItem = await db.Carrello.FirstOrDefaultAsync(c => c.UserID == currentUser.UserID && c.ProdottoID == prodottoId);
-
-                if (carrelloItem != null)
-                {
-                    carrelloItem.Quantita++;
-                }
-                else
-                {
-                    Carrello nuovoItem = new Carrello
-                    {
-                        UserID = currentUser.UserID,
-                        ProdottoID = prodottoId,
-                        Quantita = 1
-                    };
-
-                    db.Carrello.Add(nuovoItem);
-                }
-
-                await db.SaveChangesAsync();
-
-                var prodottoCorrente = await db.Prodotti.FirstOrDefaultAsync(p => p.ProdottoID == prodottoId);
-                var prodottiCorrelati = await db.Prodotti
-                    .Where(p => p.CategoriaID == prodottoCorrente.CategoriaID && p.ProdottoID != prodottoId)
-                    .Take(5)
-                    .ToListAsync();
-
-                // Aggiungi i prodotti correlati alla ViewBag
-                ViewBag.ProdottiCorrelati = prodottiCorrelati;
-
-                // Reindirizza alla pagina del carrello
-                return RedirectToAction("Index", "Carrello");
-
-
-            }
-            else
-            {
-                return RedirectToAction("Login", "Utenti");
-            }
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> Aggiungi(int prodottoId)
         {
             // Verifica se l'utente è autenticato
             if (User.Identity.IsAuthenticated)
@@ -206,7 +141,7 @@ namespace PugliaMia.Controllers
 
                 if (carrelloItem != null)
                 {
-                    // Il prodotto esiste già nel carrello, aggiorna la quantità
+                    // Il prodotto esiste già nel carrello, incrementa la quantità nel database
                     carrelloItem.Quantita++;
                 }
                 else
@@ -234,6 +169,58 @@ namespace PugliaMia.Controllers
                 return RedirectToAction("Login", "Utenti");
             }
         }
+
+        [HttpPost]
+        public async Task<ActionResult> Aggiungi(int prodottoId)
+        {
+            // Verifica se l'utente è autenticato
+            if (User.Identity.IsAuthenticated)
+            {
+                // Ottieni l'utente autenticato dal database
+                string currentUsername = User.Identity.Name;
+                Utenti currentUser = await db.Utenti.FirstOrDefaultAsync(u => u.Nome == currentUsername);
+
+                // Verifica se l'utente esiste nel database
+                if (currentUser == null)
+                {
+                    // Se l'utente non esiste, gestisci questo caso in modo appropriato
+                    return RedirectToAction("Error", "Home");
+                }
+
+                // Verifica se il prodotto esiste già nel carrello dell'utente
+                Carrello carrelloItem = await db.Carrello.FirstOrDefaultAsync(c => c.UserID == currentUser.UserID && c.ProdottoID == prodottoId);
+
+                if (carrelloItem != null)
+                {
+                    // Il prodotto esiste già nel carrello, incrementa la quantità nel database
+                    carrelloItem.Quantita++;
+                }
+                else
+                {
+                    // Il prodotto non esiste nel carrello, aggiungi un nuovo elemento
+                    Carrello nuovoItem = new Carrello
+                    {
+                        UserID = currentUser.UserID,
+                        ProdottoID = prodottoId,
+                        Quantita = 1
+                    };
+
+                    db.Carrello.Add(nuovoItem);
+                }
+
+                // Salva i cambiamenti nel database in modo asincrono
+                await db.SaveChangesAsync();
+
+                // Reindirizza alla pagina del carrello
+                return RedirectToAction("Index", "Carrello");
+            }
+            else
+            {
+                // L'utente non è autenticato, reindirizza alla pagina di accesso
+                return RedirectToAction("Login", "Utenti");
+            }
+        }
+
 
 
 

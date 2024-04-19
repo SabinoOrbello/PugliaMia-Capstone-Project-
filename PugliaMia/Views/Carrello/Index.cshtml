@@ -41,7 +41,7 @@
 
 
                                     <td>
-                                        <input type="number" name="quantita_@prodotto.ProdottoID" id="quantita_@prodotto.ProdottoID" min="1" value="1" class="form-control quantita-prodotto" data-prezzo="@prodotto.Prezzo " data-costo-spedizione="@ViewBag.CostoSpedizione">
+                                        <input type="number" name="quantita_@prodotto.ProdottoID" id="quantita_@prodotto.ProdottoID" min="1" value="1" class="form-control  quantita-prodotto" data-prezzo="@prodotto.Prezzo " data-costo-spedizione="@ViewBag.CostoSpedizione">
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-danger" onclick="rimuoviProdotto(@prodotto.ProdottoID)">
@@ -71,7 +71,7 @@
             </div>
 
 
-          
+
 
 
             <div class="row mt-4">
@@ -83,68 +83,72 @@
                 </div>
             </div>
 
-            <div class="row mt-4 login-form" id="formSpedizione" style="display: none;">
-                <!-- Dati Spedizione (Colonna sinistra) -->
-                <div class="col-lg-6 w-100">
-                    <h3>Dati Spedizione</h3>
-                    <hr class="border border-danger border-2 opacity-50 mb-4" />
-                    <div class="mb-3">
-                        <label for="indirizzoSpedizione" class="form-label"></label>
-                        <input type="text" class="form-control" id="indirizzoSpedizione" name="indirizzoSpedizione" placeholder="Indirizzo" required>
+            <div class="d-flex gap-5">
+                <div class="row mt-4 w-100 login-form" id="formSpedizione" style="display: none;">
+                    <!-- Dati Spedizione (Colonna sinistra) -->
+                    <div class="col-lg-6 w-100 d-flex flex-column">
+                        <h3>Dati Spedizione</h3>
+                        <hr class="border border-danger border-2 opacity-50 mb-4" />
+                        <div class="mb-3">
+                            <label for="indirizzoSpedizione" class="form-label"></label>
+                            <input type="text" class="form-control" id="indirizzoSpedizione" name="indirizzoSpedizione" placeholder="Indirizzo" required>
 
-                        <label for="citta" class="form-label"></label>
-                        <input type="text" class="form-control" id="citta" name="citta" placeholder="Città" required>
+                            <label for="citta" class="form-label"></label>
+                            <input type="text" class="form-control" id="citta" name="citta" placeholder="Città" required>
 
-                        <label for="regione" class="form-label"></label>
-                        <input type="text" class="form-control" id="regione" name="regione" placeholder="regione" required>
+                            <label for="regione" class="form-label"></label>
+                            <input type="text" class="form-control" id="regione" name="regione" placeholder="regione" required>
 
-                        <label for="provincia" class="form-label"></label>
-                        <input type="text" class="form-control" id="provincia" name="provincia" placeholder="provincia" required>
+                            <label for="provincia" class="form-label"></label>
+                            <input type="text" class="form-control" id="provincia" name="provincia" placeholder="provincia" required>
 
-                    </div>
-                    <div class="mb-3">
-                        <label for="corriere" class="form-label"></label>
-                        <select class="form-select" id="corriere" name="corriere" required>
-                            <option value="">Seleziona un Corriere</option>
-                            <option value="Fedex">Fedex</option>
-                            <option value="SDA">SDA</option>
-                            <option value="GLS">GLS</option>
-                            <option value="DHL">DHL</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mt-4 login-form" id="formFatturazione" style="display: none;">
-                <!-- Dati Fatturazione (Colonna destra) -->
-                <div class="col-lg-6 w-100">
-                    <h3>Dati Fatturazione</h3>
-                    <hr class="border border-danger border-2 opacity-50 mb-4" />
-
-                    <!-- Metodo di Pagamento -->
-                    <div class="mb-3">
-                        <label class="form-label">Metodo di Pagamento:</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="metodoPagamento" id="metodoPagamentoCarta" value="carta" checked>
-                            <label class="form-check-label" for="metodoPagamentoCarta">
-                                Carta di Credito
-                            </label>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="metodoPagamento" id="metodoPagamentoPaypal" value="paypal">
-                            <label class="form-check-label" for="metodoPagamentoPaypal">
-                                PayPal
-                            </label>
+                        <div class="mb-3">
+                            <label for="corriere" class="form-label"></label>
+                            <select class="form-select" id="corriere" name="corriere" required>
+                                <option value="">Seleziona un Corriere</option>
+                                <option value="Fedex">Fedex</option>
+                                <option value="SDA">SDA</option>
+                                <option value="GLS">GLS</option>
+                                <option value="DHL">DHL</option>
+                            </select>
                         </div>
                     </div>
-
-                    <div id="card-element" class="py-3">
-                        <!-- L'elemento della carta Stripe sarà inserito qui -->
-                    </div>
-                    <button id="confermaOrdineBtn" type="button" class="bottone1 btn-block my-3">Conferma Ordine</button>
                 </div>
-            </div>
 
+
+
+                <div class="row mt-4 w-100 login-form" id="formFatturazione" style="display: none;">
+                    <!-- Dati Fatturazione (Colonna destra) -->
+                    <div class="col-lg-6 w-100 d-flex flex-column">
+                        <h3>Dati Fatturazione</h3>
+                        <hr class="border border-danger border-2 opacity-50 mb-4" />
+
+                        <!-- Metodo di Pagamento -->
+                        <div class="mb-3 fw-bold">
+                            <label class="form-label">Metodo di Pagamento:</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="metodoPagamento" id="metodoPagamentoCarta" value="carta" checked>
+                                <label class="form-check-label" for="metodoPagamentoCarta">
+                                    Carta di Credito
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="metodoPagamento" id="metodoPagamentoPaypal" value="paypal">
+                                <label class="form-check-label" for="metodoPagamentoPaypal">
+                                    PayPal
+                                </label>
+                            </div>
+                        </div>
+
+                        <div id="card-element" class="py-3 mb-5">
+                            <!-- L'elemento della carta Stripe sarà inserito qui -->
+                        </div>
+                        <button id="confermaOrdineBtn" type="button" class="bottone1 btn-block mt-5">Conferma Ordine</button>
+                    </div>
+                </div>
+
+            </div>
         </div>
     }
 }
@@ -184,36 +188,54 @@ else
 
 <script src="https://js.stripe.com/v3/"></script>
 <script>
-    // Initialize the total cost
+
+    
+
+
+    // Inizializza il totale della spesa
     var totaleSpesa = 0;
 
-    // Initialize a flag to track if shipping cost has been added
+    // Inizializza un flag per tracciare se il costo di spedizione è stato aggiunto
     var costoSpedizioneAggiunto = false;
 
-    // Iterate over each product input field
-    $('.quantita-prodotto').each(function () {
-        // Fetch the updated quantity
-        var quantita = parseInt($(this).val());
+    // Funzione per aggiornare il totale della spesa
+    function aggiornaTotaleSpesa() {
+        totaleSpesa = 0;
+        costoSpedizioneAggiunto = false;
 
-        // Fetch the product price and shipping cost per unit
-        var prezzo = parseFloat($(this).data('prezzo'));
-        var costoSpedizione = parseFloat($(this).data('costo-spedizione'));
+        // Itera su ogni campo di input del prodotto
+        $('.quantita-prodotto').each(function () {
+            // Preleva la quantità aggiornata
+            var quantita = parseInt($(this).val());
 
-        // Calculate the total cost for this product (quantity * price)
-        var costoProdotto = quantita * prezzo;
+            // Preleva il prezzo del prodotto e il costo di spedizione per unità
+            var prezzo = parseFloat($(this).data('prezzo'));
+            var costoSpedizione = parseFloat($(this).data('costo-spedizione'));
 
-        // Add the total cost for this product to the overall total
-        totaleSpesa += costoProdotto;
+            // Calcola il costo totale per questo prodotto (quantità * prezzo)
+            var costoProdotto = quantita * prezzo;
 
-        // Add shipping cost only once
-        if (!costoSpedizioneAggiunto) {
-            totaleSpesa += costoSpedizione;
-            costoSpedizioneAggiunto = true;
-        }
-    });
+            // Aggiungi il costo totale per questo prodotto al totale generale
+            totaleSpesa += costoProdotto;
 
-    // Update the displayed total cost
-    $('#totaleSpesa').text(totaleSpesa.toFixed(2) + ' €');
+            // Aggiungi il costo di spedizione solo una volta
+            if (!costoSpedizioneAggiunto) {
+                totaleSpesa += costoSpedizione;
+                costoSpedizioneAggiunto = true;
+            }
+        });
+
+        // Aggiorna il totale della spesa visualizzato
+        $('#totaleSpesa').text(totaleSpesa.toFixed(2) + ' €');
+    }
+
+    // Chiama la funzione aggiornaTotaleSpesa quando la pagina viene caricata
+    aggiornaTotaleSpesa();
+
+    // Aggiungi un gestore di eventi 'change' a ogni campo di input della quantità del prodotto
+    $('.quantita-prodotto').on('change', aggiornaTotaleSpesa);
+
+    // Il resto del tuo codice JavaScript...
 
 
     // Inizializza Stripe con la tua chiave pubblica
