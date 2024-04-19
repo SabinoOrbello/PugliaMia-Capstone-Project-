@@ -141,8 +141,8 @@ namespace PugliaMia.Controllers
 
                 if (carrelloItem != null)
                 {
-                    // Il prodotto esiste già nel carrello, incrementa la quantità nel database
-                    carrelloItem.Quantita++;
+                    // Il prodotto esiste già nel carrello, restituisci un messaggio o esegui un'azione appropriata
+                    TempData["Message"] = "Il prodotto è già presente nel carrello.";
                 }
                 else
                 {
@@ -155,10 +155,10 @@ namespace PugliaMia.Controllers
                     };
 
                     db.Carrello.Add(nuovoItem);
-                }
 
-                // Salva i cambiamenti nel database in modo asincrono
-                await db.SaveChangesAsync();
+                    // Salva i cambiamenti nel database in modo asincrono
+                    await db.SaveChangesAsync();
+                }
 
                 // Reindirizza alla pagina del carrello
                 return RedirectToAction("Index", "Carrello");
@@ -169,6 +169,7 @@ namespace PugliaMia.Controllers
                 return RedirectToAction("Login", "Utenti");
             }
         }
+
 
         [HttpPost]
         public async Task<ActionResult> Aggiungi(int prodottoId)
@@ -192,8 +193,8 @@ namespace PugliaMia.Controllers
 
                 if (carrelloItem != null)
                 {
-                    // Il prodotto esiste già nel carrello, incrementa la quantità nel database
-                    carrelloItem.Quantita++;
+                    // Il prodotto esiste già nel carrello, restituisci un messaggio o esegui un'azione appropriata
+                    TempData["Message"] = "Il prodotto è già presente nel carrello.";
                 }
                 else
                 {
@@ -206,10 +207,10 @@ namespace PugliaMia.Controllers
                     };
 
                     db.Carrello.Add(nuovoItem);
-                }
 
-                // Salva i cambiamenti nel database in modo asincrono
-                await db.SaveChangesAsync();
+                    // Salva i cambiamenti nel database in modo asincrono
+                    await db.SaveChangesAsync();
+                }
 
                 // Reindirizza alla pagina del carrello
                 return RedirectToAction("Index", "Carrello");
