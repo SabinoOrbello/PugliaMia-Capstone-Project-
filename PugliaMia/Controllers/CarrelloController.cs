@@ -17,6 +17,7 @@ namespace PugliaMia.Controllers
         private ModelDbContext db = new ModelDbContext();
 
         // GET: Carrelloe
+        // GET: Carrelloe
         public async Task<ActionResult> Index()
         {
             if (User.Identity.IsAuthenticated)
@@ -48,6 +49,9 @@ namespace PugliaMia.Controllers
                     // Calcola il costo di spedizione basato sul peso totale
                     decimal costoSpedizione = CalcolaCostoSpedizione(pesoTotale);
 
+                    // Aggiorna la ViewBag con il nuovo costo di spedizione
+                    ViewBag.CostoSpedizione = costoSpedizione;
+
                     // Inizializza una variabile per tenere traccia se il costo di spedizione è stato già aggiunto
                     bool costoSpedizioneAggiunto = false;
 
@@ -65,7 +69,7 @@ namespace PugliaMia.Controllers
                             if (!costoSpedizioneAggiunto)
                             {
                                 totaleSpesa += costoSpedizione;
-                                costoSpedizioneAggiunto = true;
+                                costoSpedizioneAggiunto = false;
                             }
                         }
                     }
@@ -93,6 +97,7 @@ namespace PugliaMia.Controllers
             return View();
         }
 
+
         // Metodo per calcolare il costo di spedizione in base al peso totale
         private decimal CalcolaCostoSpedizione(decimal pesoTotale)
         {
@@ -112,10 +117,23 @@ namespace PugliaMia.Controllers
                 }
             }
 
+            // Se il peso totale è esattamente uguale al limite superiore di un intervallo di peso,
+            // utilizza la tariffa di spedizione del prossimo intervallo di peso
+            if (intervalliPeso.Contains(pesoTotale) && intervalliPeso.ToList().IndexOf(pesoTotale) < tariffeSpedizione.Length - 1)
+            {
+                costoSpedizione = tariffeSpedizione[intervalliPeso.ToList().IndexOf(pesoTotale) + 1];
+            }
 
             return costoSpedizione;
         }
 
+
+        [HttpPost]
+        public ActionResult CalcolaCostoSpedizioneInterno(decimal pesoTotale)
+        {
+            decimal costoSpedizione = CalcolaCostoSpedizione(pesoTotale);
+            return Json(costoSpedizione);
+        }
 
 
         [HttpGet]

@@ -1,4 +1,4 @@
-﻿﻿﻿@model List<PugliaMia.Models.Prodotti>
+﻿﻿﻿﻿@model List<PugliaMia.Models.Prodotti>
 
 
 <div class="container-fluid bgChisiamo4">
@@ -47,7 +47,7 @@
 
 
                                     <td>
-                                        <input type="number" name="quantita_@prodotto.ProdottoID" id="quantita_@prodotto.ProdottoID" min="1" value="1" class="form-control  quantita-prodotto" data-prezzo="@prodotto.Prezzo " data-costo-spedizione="@ViewBag.CostoSpedizione">
+                                        <input type="number" name="quantita_@prodotto.ProdottoID" id="quantita_@prodotto.ProdottoID" min="1" value="1" class="form-control  quantita-prodotto" data-peso="@prodotto.Peso" data-prezzo="@prodotto.Prezzo " data-costo-spedizione="@ViewBag.CostoSpedizione">
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-danger" onclick="rimuoviProdotto(@prodotto.ProdottoID)">
@@ -70,7 +70,7 @@
                     <div class="row mt-4">
                         <div class="col-lg-12">
                             <h4>Costo di Spedizione:</h4>
-                            <h4><span>@ViewBag.CostoSpedizione €</span></h4>
+                            <h4><span id="costoSpedizione"> €</span></h4>
                         </div>
                     </div>
                 </div>
@@ -204,9 +204,28 @@ else
     }
 
     // Chiama la funzione per nascondere il messaggio quando la pagina è pronta
-    $(document).ready(function () {
-        nascondiMessaggio();
-    })
+$(document).ready(function () {
+    nascondiMessaggio();
+    calcolaCostoSpedizione(); // Calcola il costo di spedizione non appena la pagina viene caricata
+})
+
+$('.quantita-prodotto').on('change', calcolaCostoSpedizione);
+
+function calcolaCostoSpedizione() {
+    // Calcola il peso totale del carrello
+    var pesoTotale = 0;
+    $('.quantita-prodotto').each(function () {
+        var quantita = parseInt($(this).val());
+        var peso = parseFloat($(this).data('peso')); // Assumendo che ogni input abbia un attributo data-peso
+        pesoTotale += quantita * peso;
+    });
+
+    // Fai una richiesta AJAX al metodo CalcolaCostoSpedizione
+    $.post('@Url.Action("CalcolaCostoSpedizioneInterno", "Carrello")', { pesoTotale: pesoTotale }, function(data) {
+        // Aggiorna il costo di spedizione visualizzato con la risposta
+        $('#costoSpedizione').text(data + ' €');
+    });
+}
 
 
     // Inizializza il totale della spesa
@@ -324,5 +343,6 @@ else
                 }
             });
 
-   
+
+
 </script>

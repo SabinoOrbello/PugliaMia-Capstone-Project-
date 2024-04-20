@@ -264,43 +264,26 @@ namespace PugliaMia.Controllers
             // Recupera il pagamento associato all'ordine
             Pagamenti pagamento = await db.Pagamenti.FirstOrDefaultAsync(p => p.OrdineID == ordineId);
 
-            // Recupera i dettagli dell'ordine (i prodotti associati all'ordine)
-            List<DettagliOrdine> dettagliOrdine = await db.DettagliOrdine
-                .Include(d => d.Prodotti)
-                .Where(d => d.OrdineID == ordineId)
-                .ToListAsync();
-
             // Calcola il peso totale degli articoli nell'ordine
-            string currentUsername = User.Identity.Name;
-            Utenti currentUser = await db.Utenti.FirstOrDefaultAsync(u => u.Nome == currentUsername);
-
-            if (currentUser == null)
+            decimal pesoTotaleOrdine = 0;
+            foreach (var dettaglio in ordine.DettagliOrdine)
             {
-                // L'utente non è autenticato, gestisci il caso appropriato
-                return RedirectToAction("Login", "Account");
-            }
-
-            var carrello = await db.Carrello.Where(c => c.UserID == currentUser.UserID).ToListAsync();
-
-            // Calcola il peso totale del carrello
-            decimal pesoTotaleCarrello = 0;
-            foreach (var item in carrello)
-            {
-                Prodotti prodotto = await db.Prodotti.FirstOrDefaultAsync(p => p.ProdottoID == item.ProdottoID);
+                // Recupera il prodotto associato al dettaglio dell'ordine
+                Prodotti prodotto = await db.Prodotti.FirstOrDefaultAsync(p => p.ProdottoID == dettaglio.ProdottoID);
                 if (prodotto != null)
                 {
-                    pesoTotaleCarrello += (decimal)prodotto.Peso * (decimal)item.Quantita;
+                    pesoTotaleOrdine += (decimal)prodotto.Peso * (decimal)dettaglio.Quantita;
                 }
             }
 
-            // Calcola il costo di spedizione basato sul peso totale del carrello
-            decimal costoSpedizione = CalcolaCostoSpedizione(pesoTotaleCarrello);
+            // Calcola il costo di spedizione basato sul peso totale dell'ordine
+            decimal costoSpedizione = CalcolaCostoSpedizione(pesoTotaleOrdine);
 
             // Inizializza il totale dell'ordine
             decimal totaleOrdine = 0;
 
             // Calcola il totale dell'ordine includendo il costo di spedizione totale
-            foreach (var dettaglio in dettagliOrdine)
+            foreach (var dettaglio in ordine.DettagliOrdine)
             {
                 // Aggiungi al totale il prezzo del prodotto moltiplicato per la quantità nel dettaglio dell'ordine
                 totaleOrdine += (decimal)dettaglio.Prezzo * (decimal)dettaglio.Quantita;
@@ -315,13 +298,14 @@ namespace PugliaMia.Controllers
                 Ordine = ordine,
                 Spedizione = spedizione,
                 Pagamento = pagamento,
-                DettagliOrdine = dettagliOrdine,
+                DettagliOrdine = ordine.DettagliOrdine.ToList(),
                 TotaleOrdine = totaleOrdine,
                 CostoSpedizioneTotale = costoSpedizione
             };
 
             return View(viewModel);
         }
+
 
 
 
