@@ -43,44 +43,44 @@
                         <!-- Icona del carrello con classe aggiuntiva "cart-icon" -->
                         <a href="/Carrello/Index" class="nav-link"><ion-icon name="cart-outline" class="cart-icon"></ion-icon> </a>
                         <!-- Badge per il numero di prodotti nel carrello -->
-                        <span id="numeroProdottiCarrello" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary"></span>
+                        <span id="numeroProdottiCarrello" class="position-absolute py-1 px-2 top-0 badge rounded-pill bg-primary"></span>
                     </li>
 
 
 
                 </ul>
-                
-                    <ul>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user"></i> <!-- Icona utente -->
-                            </a>
-                            
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                @if (Request.IsAuthenticated)
-                                {
-                                    <li>@Html.ActionLink("Logout", "Logout", "Utenti", new { area = "" }, new { @class = "dropdown-item" })</li>
-                                    if (User.IsInRole("Admin"))
-                                    {
-                                        <li>@Html.ActionLink("Back Office", "BackOffice", "Home", new { area = "" }, new { @class = "dropdown-item" })</li>
 
-                                    }
-                                    else
-                                    {
-                                        <li>@Html.ActionLink("Carrello", "Index", "Carrello", new { area = "" }, new { @class = "dropdown-item" })</li>
-                                        <li>@Html.ActionLink("I tuoi Ordini", "OrdiniUtente", "Ordini", new { area = "" }, new { @class = "dropdown-item" })</li>
-                                    }
+                <ul>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user"></i> <!-- Icona utente -->
+                        </a>
+
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            @if (Request.IsAuthenticated)
+                            {
+                                <li>@Html.ActionLink("Logout", "Logout", "Utenti", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                if (User.IsInRole("Admin"))
+                                {
+                                    <li>@Html.ActionLink("Back Office", "BackOffice", "Home", new { area = "" }, new { @class = "dropdown-item" })</li>
+
                                 }
                                 else
                                 {
-                                    <li>@Html.ActionLink("Accedi", "Login", "Utenti", new { area = "" }, new { @class = "dropdown-item" })</li>
-                                    <li>@Html.ActionLink("Registrati", "Register", "Utenti", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                    <li>@Html.ActionLink("Carrello", "Index", "Carrello", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                    <li>@Html.ActionLink("I tuoi Ordini", "OrdiniUtente", "Ordini", new { area = "" }, new { @class = "dropdown-item" })</li>
                                 }
-                            </ul>
-                        </li>
-                    </ul>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("Accedi", "Login", "Utenti", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                <li>@Html.ActionLink("Registrati", "Register", "Utenti", new { area = "" }, new { @class = "dropdown-item" })</li>
+                            }
+                        </ul>
+                    </li>
+                </ul>
 
-                  
+
 
 
 
@@ -171,9 +171,15 @@
         </div>
     </div>
 
-    <script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-        function aggiornaNumeroProdottiCarrello() {
+    <script>
+    function aggiornaNumeroProdottiCarrello() {
+        // Verifica se l'utente è autenticato
+        var isUserAuthenticated = @(User.Identity.IsAuthenticated.ToString().ToLower());
+
+        // Esegue la chiamata AJAX solo se l'utente è autenticato
+        if (isUserAuthenticated) {
             $.ajax({
                 url: '/Carrello/GetNumeroProdotti',
                 type: 'GET',
@@ -185,66 +191,39 @@
                 }
             });
         }
+    }
 
+    $(document).ready(function () {
         // Chiamata alla funzione per aggiornare il numero di prodotti nel carrello quando la pagina è pronta
-        $(document).ready(function () {
-            aggiornaNumeroProdottiCarrello();
+        aggiornaNumeroProdottiCarrello();
+
+        var navbar = $('#mainNavbar');
+        var navLink = $('.nav-link');
+
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 50) {
+                navbar.addClass('navbar-blue');
+                navLink.addClass('navNav');
+            } else {
+                navbar.removeClass('navbar-blue');
+                navLink.removeClass('navNav');
+            }
         });
 
-        $(document).ready(function () {
-            var navbar = $('#mainNavbar');
-            var navLink = $('.nav-link');
-            var icona = $('.fas fa-user');
-            var scrolled = false;
-
-            $(window).scroll(function () {
-                if ($(this).scrollTop() > 50) {
-                    if (!scrolled) {
-                        navbar.addClass('navbar-blue');
-                        navLink.addClass('navNav')
-                        icona.addClass('navTitolo')
-                        scrolled = true;
-                    }
-                } else {
-                    if (scrolled) {
-                        navbar.removeClass('navbar-blue');
-                        navLink.removeClass('navNav');
-                        icona.removeClass('navTitolo');
-                        scrolled = false;
-                    }
-                }
-            });
+        $('.dropdown-toggle').on('click', function () {
+            $(this).next('.dropdown-menu').toggle();
         });
 
-        $(document).ready(function () {
-            $('.dropdown-toggle').on('click', function () {
-                $(this).next('.dropdown-menu').toggle();
-            });
-
-            $(document).on('click', function (e) {
-                if (!$(e.target).closest('.dropdown').length) {
-                    $('.dropdown-menu').hide();
-                }
-            });
+        $(document).on('click', function (e) {
+            if (!$(e.target).closest('.dropdown').length) {
+                $('.dropdown-menu').hide();
+            }
         });
-
-        $(document).ready(function () {
-            var video = document.getElementById('logo-video');
-
-            video.onended = function () {
-                // Nascondi l'animazione del logo
-                $('#logo-animation').hide();
-
-                // Mostra il contenuto
-                $('body.home-page .hiden-content').show();
-            };
-        });
-
-   
-
-
+    });
     </script>
-    
+
+
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
