@@ -674,3 +674,18 @@ textarea {
     color: #ff0000; /* colore del testo */
     background-color: #ffff00;
 }
+
+/* Stile per l'icona del carrello */
+.cart-icon {
+    font-size: 2.5rem; /* Imposta la dimensione desiderata per l'icona */
+    margin-right: 5px; /* Aggiunge un po' di spazio tra l'icona e il badge */
+}
+
+/* Stile per il badge */
+.badge {
+    font-size: 0.8rem; /* Imposta la dimensione del testo del badge */
+    padding: 0.25rem 0.5rem; /* Imposta il padding del badge */
+    /* Imposta la posizione del badge */
+    top: -5px; /* Sposta il badge verso l'alto rispetto al suo contenitore */
+    right: -5px; /* Sposta il badge verso destra rispetto al suo contenitore */
+}

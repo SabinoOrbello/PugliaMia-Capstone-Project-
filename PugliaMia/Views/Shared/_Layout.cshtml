@@ -39,41 +39,55 @@
                     <li>@Html.ActionLink("Chi Siamo", "ChiSiamo", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Shop", "Index", "Categorie", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Contatti", "Contattaci", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                </ul>
-                <ul>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-user"></i> <!-- Icona utente -->
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            @if (Request.IsAuthenticated)
-                            {
-                                <li>@Html.ActionLink("Logout", "Logout", "Utenti", new { area = "" }, new { @class = "dropdown-item" })</li>
-                                if (User.IsInRole("Admin"))
-                                {
-                                    <li>@Html.ActionLink("Back Office", "BackOffice", "Home", new { area = "" }, new { @class = "dropdown-item" })</li>
+                    <li class="d-flex position-relative">
+                        <!-- Icona del carrello con classe aggiuntiva "cart-icon" -->
+                        <a href="/Carrello/Index" class="nav-link"><ion-icon name="cart-outline" class="cart-icon"></ion-icon> </a>
+                        <!-- Badge per il numero di prodotti nel carrello -->
+                        <span id="numeroProdottiCarrello" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary"></span>
+                    </li>
 
+
+
+                </ul>
+                
+                    <ul>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user"></i> <!-- Icona utente -->
+                            </a>
+                            
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @if (Request.IsAuthenticated)
+                                {
+                                    <li>@Html.ActionLink("Logout", "Logout", "Utenti", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                    if (User.IsInRole("Admin"))
+                                    {
+                                        <li>@Html.ActionLink("Back Office", "BackOffice", "Home", new { area = "" }, new { @class = "dropdown-item" })</li>
+
+                                    }
+                                    else
+                                    {
+                                        <li>@Html.ActionLink("Carrello", "Index", "Carrello", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                        <li>@Html.ActionLink("I tuoi Ordini", "OrdiniUtente", "Ordini", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                    }
                                 }
                                 else
                                 {
-                                    <li>@Html.ActionLink("Carrello", "Index", "Carrello", new { area = "" }, new { @class = "dropdown-item" })</li>
-                                    <li>@Html.ActionLink("I tuoi Ordini", "OrdiniUtente", "Ordini", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                    <li>@Html.ActionLink("Accedi", "Login", "Utenti", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                    <li>@Html.ActionLink("Registrati", "Register", "Utenti", new { area = "" }, new { @class = "dropdown-item" })</li>
                                 }
-                            }
-                            else
-                            {
-                                <li>@Html.ActionLink("Accedi", "Login", "Utenti", new { area = "" }, new { @class = "dropdown-item" })</li>
-                                <li>@Html.ActionLink("Registrati", "Register", "Utenti", new { area = "" }, new { @class = "dropdown-item" })</li>
-                            }
-                        </ul>
-                    </li>
-                </ul>
+                            </ul>
+                        </li>
+                    </ul>
+
+                  
+
 
 
             </div>
         </div>
     </nav>
- 
+
 
     <div>
         @RenderBody()
@@ -110,6 +124,11 @@
                             <li>@Html.ActionLink("Shop", "Index", "Categorie", new { area = "" }, new { @class = "nav-link" })</li>
                             <li>@Html.ActionLink("Blog", "Ricette", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                             <li>@Html.ActionLink("Contatti", "Contattaci", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>
+                                @Html.ActionLink("Carrello", "Index", "Carrello", new { area = "" }, new { @class = "nav-link" })
+                                <span id="numeroProdottiCarrello" class="badge rounded-pill bg-primary"></span>
+                            </li>
+
                         </ul>
                     </div>
                 </div>
@@ -153,6 +172,25 @@
     </div>
 
     <script>
+
+        function aggiornaNumeroProdottiCarrello() {
+            $.ajax({
+                url: '/Carrello/GetNumeroProdotti',
+                type: 'GET',
+                success: function (data) {
+                    $('#numeroProdottiCarrello').text(data);
+                },
+                error: function () {
+                    console.error('Errore durante il recupero del numero di prodotti nel carrello.');
+                }
+            });
+        }
+
+        // Chiamata alla funzione per aggiornare il numero di prodotti nel carrello quando la pagina è pronta
+        $(document).ready(function () {
+            aggiornaNumeroProdottiCarrello();
+        });
+
         $(document).ready(function () {
             var navbar = $('#mainNavbar');
             var navLink = $('.nav-link');
@@ -201,11 +239,15 @@
                 $('body.home-page .hiden-content').show();
             };
         });
-    
+
+   
+
 
     </script>
+    
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>
+

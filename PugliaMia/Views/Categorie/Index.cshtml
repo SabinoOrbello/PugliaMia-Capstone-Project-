@@ -27,16 +27,9 @@
                 <input type="text" id="searchInput" class="form-control rounded-pill" placeholder="Cerca prodotti...">
                 <!-- Aggiunta la classe rounded-pill per rendere i bordi tondeggianti -->
             </div>
+
         </div>
     </div>
-
-    <div id="carrello">
-        <a href="/Carrello/Index">
-            <i class="fas fa-shopping-cart"></i>
-            <span id="numeroProdottiCarrello">...</span>
-        </a>
-    </div>
-
     <div class="container-fluid pt-4">
         <div class="row">
             <div class="col-md-3 sidebar">
@@ -178,20 +171,6 @@
         $(document).ready(function () {
             aggiornaNumeroProdottiCarrello();
         });
-
-        function aggiornaNumeroProdottiCarrello() {
-            $.ajax({
-                url: '/Carrello/GetNumeroProdotti',
-                type: 'GET',
-                success: function (data) {
-                    $('#numeroProdottiCarrello').text(data);
-                },
-                error: function () {
-                    console.error('Errore durante il recupero del numero di prodotti nel carrello.');
-                }
-            });
-        }
-
 
     </script>
 </body>

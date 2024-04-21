@@ -11,7 +11,7 @@
 @if (!String.IsNullOrEmpty(TempData["WelcomeMessage"] as string))
 {
     <div class="overlay" id="overlay">
-        <div class="alert alert-success  custom-welcome-message" id="welcomeMessage">
+        <div class="alert alert-success custom-welcome-message" id="welcomeMessage">
             <i class="fas fa-smile"></i>
             @TempData["WelcomeMessage"]
         </div>

@@ -15,9 +15,9 @@
 @if (!String.IsNullOrEmpty(TempData["SuccessMessage"] as string))
 {
     <div class="overlay" id="overlay">
-        <div class="alert alert-success success-message" id="successMessage">
+        <div class="alert alert-success  custom-welcome-message success-message" id="successMessage">
             @TempData["SuccessMessage"]
-            <button type="button" class="bottone1" onclick="closeMessage()">OK</button>
+            <button type="button" class="bottone" onclick="closeMessage()">OK</button>
         </div>
     </div>
 }

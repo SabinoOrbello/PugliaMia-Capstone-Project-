@@ -138,6 +138,8 @@ namespace PugliaMia.Controllers
         [HttpGet]
         public async Task<ActionResult> GetNumeroProdotti()
         {
+            int numeroProdotti = 0; // Inizializza il numero di prodotti a 0
+
             if (User.Identity.IsAuthenticated)
             {
                 string currentUsername = User.Identity.Name;
@@ -145,13 +147,18 @@ namespace PugliaMia.Controllers
 
                 if (currentUser != null)
                 {
-                    int numeroProdotti = await db.Carrello.CountAsync(c => c.UserID == currentUser.UserID);
-                    return Json(numeroProdotti, JsonRequestBehavior.AllowGet);
+                    // Somma la quantità di ogni prodotto nel carrello dell'utente corrente
+                    numeroProdotti = (int)await db.Carrello
+                        .Where(c => c.UserID == currentUser.UserID)
+                        .SumAsync(c => c.Quantita);
                 }
             }
 
-            return Json(0, JsonRequestBehavior.AllowGet);
+            // Restituisci il numero di prodotti come JSON
+            return Json(numeroProdotti, JsonRequestBehavior.AllowGet);
         }
+
+
 
 
         [HttpGet]
