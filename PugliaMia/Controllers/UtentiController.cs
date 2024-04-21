@@ -150,12 +150,16 @@ namespace PugliaMia.Controllers
                 db.Utenti.Add(model);
                 db.SaveChanges();
 
-                return RedirectToAction("Index", "Home");
+                // Imposta un messaggio di registrazione effettuata con successo
+                ViewBag.SuccessMessage = "Registrazione effettuata con successo!";
+
+                return View(model);
             }
 
             //  significa che qualcosa non ha funzionato, quindi visualizza nuovamente il modulo
             return View(model);
         }
+
 
 
         [HttpGet]
@@ -206,7 +210,7 @@ namespace PugliaMia.Controllers
                         db.Carrello.Add(nuovoCarrello);
                         db.SaveChanges();
                     }
-
+                    TempData["WelcomeMessage"] = $"Benvenuto {user.Nome}!";
                     // Reindirizza l'utente alla pagina principale
                     return RedirectToAction("Index", "Home");
                 }

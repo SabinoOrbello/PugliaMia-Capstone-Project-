@@ -13,7 +13,7 @@
 
 @if (!string.IsNullOrEmpty(TempData["Message"] as string))
 {
-    <div class="alert alert-warning" role="alert">
+    <div class="alert mess alert-warning" role="alert">
         @TempData["Message"]
     </div>
 }
@@ -75,8 +75,6 @@
                     </div>
                 </div>
             </div>
-
-
 
 
 
@@ -199,7 +197,7 @@ else
 
     function nascondiMessaggio() {
         setTimeout(function () {
-            $('.alert').fadeOut('slow'); // Nasconde gradualmente il messaggio
+            $('.mess').fadeOut('slow'); // Nasconde gradualmente il messaggio
         }, 3000); // Nasconde il messaggio dopo 3 secondi (3000 millisecondi)
     }
 

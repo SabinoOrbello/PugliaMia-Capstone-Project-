@@ -135,6 +135,24 @@ namespace PugliaMia.Controllers
             return Json(costoSpedizione);
         }
 
+        [HttpGet]
+        public async Task<ActionResult> GetNumeroProdotti()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                string currentUsername = User.Identity.Name;
+                Utenti currentUser = await db.Utenti.FirstOrDefaultAsync(u => u.Nome == currentUsername);
+
+                if (currentUser != null)
+                {
+                    int numeroProdotti = await db.Carrello.CountAsync(c => c.UserID == currentUser.UserID);
+                    return Json(numeroProdotti, JsonRequestBehavior.AllowGet);
+                }
+            }
+
+            return Json(0, JsonRequestBehavior.AllowGet);
+        }
+
 
         [HttpGet]
 

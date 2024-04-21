@@ -218,6 +218,8 @@ namespace PugliaMia.Controllers
                     // Salva i cambiamenti nel database
                     await db.SaveChangesAsync();
 
+                    TempData["SuccessMessage"] = "Ordine confermato con successo!";
+
                     // Reindirizza alla pagina dei prodotti o al carrello
                     return RedirectToAction("RiepilogoOrdine", new { ordineId = ordine.OrdineID });
                 }

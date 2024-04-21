@@ -12,6 +12,18 @@
 </div>
 
 
+@if (!String.IsNullOrEmpty(TempData["SuccessMessage"] as string))
+{
+    <div class="overlay" id="overlay">
+        <div class="alert alert-success success-message" id="successMessage">
+            @TempData["SuccessMessage"]
+            <button type="button" class="bottone1" onclick="closeMessage()">OK</button>
+        </div>
+    </div>
+}
+
+
+
 <div class="container login-form my-4">
     <h2>Riepilogo dell'Ordine</h2>
 
@@ -75,3 +87,10 @@
     <p>@Html.ActionLink("Modifica Ordine", "ModificaOrdine", "Ordini", new { ordineId = Model.Ordine.OrdineID }, new { @class = "bottone1" })</p>
 
 </div>
+
+<script>
+    function closeMessage() {
+        document.getElementById('successMessage').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    }
+</script>

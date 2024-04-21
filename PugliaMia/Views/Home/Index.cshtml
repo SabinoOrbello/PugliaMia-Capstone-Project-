@@ -1,5 +1,5 @@
 ﻿
-<div id="logo-animation"> 
+<div id="logo-animation">
     <div class="container text-center">
         <video id="logo-video" width="700px" height="450px" autoplay muted>
             <source src="~/Content/Images/PUGLIA.mp4" type="video/mp4">
@@ -7,6 +7,18 @@
         </video>
     </div>
 </div>
+
+@if (!String.IsNullOrEmpty(TempData["WelcomeMessage"] as string))
+{
+    <div class="overlay" id="overlay">
+        <div class="alert alert-success  custom-welcome-message" id="welcomeMessage">
+            <i class="fas fa-smile"></i>
+            @TempData["WelcomeMessage"]
+        </div>
+    </div>
+}
+
+
 <div class="hiden-content">
     <div class="container-fluid p-2 bgContainer">
         <div class="container hero">
@@ -174,8 +186,16 @@
 
 
     $(document).ready(function () {
-        $(window).scrollTop(300); 
+        $(window).scrollTop(300);
     });
+
+    // Imposta un timer per nascondere il messaggio di benvenuto dopo 2 secondi
+    // Imposta un timer per nascondere il messaggio di benvenuto e l'overlay dopo 2 secondi
+    setTimeout(function () {
+        $('#welcomeMessage').fadeIn('slow');
+        $('#welcomeMessage').fadeOut('slow');
+        $('#overlay').fadeOut('slow');
+    }, 2000); // 2000 millisecondi = 2 secondi
 </script>
 
 

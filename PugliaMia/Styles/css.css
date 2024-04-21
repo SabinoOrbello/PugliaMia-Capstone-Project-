@@ -636,3 +636,41 @@ textarea {
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    font-family: 'Comic Sans MS';
+}
+
+.success-message {
+    background: #dff0d8;
+    color: #3c763d;
+    padding: 40px;
+    border-radius: 4px;
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+    font-family: 'Comic Sans MS';
+}
+
+    .success-message .bottone1 {
+        position: absolute;
+        bottom: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+.custom-welcome-message {
+    font-family: 'Comic Sans MS';
+    color: #ff0000; /* colore del testo */
+    background-color: #ffff00;
+}

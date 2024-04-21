@@ -30,6 +30,13 @@
         </div>
     </div>
 
+    <div id="carrello">
+        <a href="/Carrello/Index">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="numeroProdottiCarrello">...</span>
+        </a>
+    </div>
+
     <div class="container-fluid pt-4">
         <div class="row">
             <div class="col-md-3 sidebar">
@@ -59,7 +66,7 @@
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-   
+
     <script>
 
 
@@ -167,6 +174,23 @@
                 }
             });
         });
+
+        $(document).ready(function () {
+            aggiornaNumeroProdottiCarrello();
+        });
+
+        function aggiornaNumeroProdottiCarrello() {
+            $.ajax({
+                url: '/Carrello/GetNumeroProdotti',
+                type: 'GET',
+                success: function (data) {
+                    $('#numeroProdottiCarrello').text(data);
+                },
+                error: function () {
+                    console.error('Errore durante il recupero del numero di prodotti nel carrello.');
+                }
+            });
+        }
 
 
     </script>

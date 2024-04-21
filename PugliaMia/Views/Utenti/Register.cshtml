@@ -10,6 +10,16 @@
     </div>
 </div>
 
+@if (!String.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <div class="overlay">
+        <div class="success-message">
+            @ViewBag.SuccessMessage
+            @Html.ActionLink("Vai alla Home", "Index", "Home", null, new { @class = "bottone1" })
+        </div>
+    </div>
+}
+
 <div class="container text-center py-4">
     <div class="text-center">
         <h2 class="titPage">Effettua la Registrazione</h2>
@@ -34,7 +44,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Email" } })
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Email" } })
                     @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -55,3 +65,4 @@
         </div>
     }
 </div>
+
