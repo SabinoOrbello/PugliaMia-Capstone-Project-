@@ -63,14 +63,20 @@
                     <!-- Totale della spesa e costo di spedizione -->
                     <div class="row mt-4">
                         <div class="col-lg-12">
-                            <h4>Totale della Spesa:</h4>
-                            <h4><span id="totaleSpesa">@ViewBag.TotaleSpesa €</span></h4>
+                            <h4>SubTotale:</h4>
+                            <h4><span id="totaleSpesa"> €</span></h4>
                         </div>
                     </div>
                     <div class="row mt-4">
                         <div class="col-lg-12">
                             <h4>Costo di Spedizione:</h4>
                             <h4><span id="costoSpedizione"> €</span></h4>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-lg-12">
+                            <h4>Totale:</h4>
+                            <h4><span id="totaleSpesaSpedizione"> €</span></h4>
                         </div>
                     </div>
                 </div>
@@ -201,76 +207,60 @@ else
         }, 3000); // Nasconde il messaggio dopo 3 secondi (3000 millisecondi)
     }
 
-    // Chiama la funzione per nascondere il messaggio quando la pagina è pronta
-$(document).ready(function () {
-    nascondiMessaggio();
-    calcolaCostoSpedizione(); // Calcola il costo di spedizione non appena la pagina viene caricata
-})
-
-$('.quantita-prodotto').on('change', calcolaCostoSpedizione);
-
-function calcolaCostoSpedizione() {
-    // Calcola il peso totale del carrello
-    var pesoTotale = 0;
-    $('.quantita-prodotto').each(function () {
-        var quantita = parseInt($(this).val());
-        var peso = parseFloat($(this).data('peso')); // Assumendo che ogni input abbia un attributo data-peso
-        pesoTotale += quantita * peso;
+    // Chiamata alla funzione per nascondere il messaggio quando la pagina è pronta
+    $(document).ready(function () {
+        nascondiMessaggio();
+        calcolaEAggiornaTotali(); // Calcola il costo di spedizione e aggiorna i totali quando la pagina è pronta
     });
 
-    // Fai una richiesta AJAX al metodo CalcolaCostoSpedizione
-    $.post('@Url.Action("CalcolaCostoSpedizioneInterno", "Carrello")', { pesoTotale: pesoTotale }, function(data) {
-        // Aggiorna il costo di spedizione visualizzato con la risposta
-        $('#costoSpedizione').text(data + ' €');
-    });
-}
+    // Chiamata alla funzione per calcolare il costo di spedizione e aggiornare i totali
+    function calcolaEAggiornaTotali() {
+        calcolaCostoSpedizione();
+        aggiornaTotaleSpesa();
+        aggiornaTotaleSpesaSpedizione();
+    }
 
+    // Funzione per calcolare il costo di spedizione
+    function calcolaCostoSpedizione() {
+        // Calcola il peso totale del carrello
+        var pesoTotale = 0;
+        $('.quantita-prodotto').each(function () {
+            var quantita = parseInt($(this).val());
+            var peso = parseFloat($(this).data('peso'));
+            pesoTotale += quantita * peso;
+        });
 
-    // Inizializza il totale della spesa
-    var totaleSpesa = 0;
-
-    // Inizializza un flag per tracciare se il costo di spedizione è stato aggiunto
-    var costoSpedizioneAggiunto = false;
+        // Fai una richiesta AJAX per calcolare il costo di spedizione
+        $.post('@Url.Action("CalcolaCostoSpedizioneInterno", "Carrello")', { pesoTotale: pesoTotale }, function(data) {
+            // Aggiorna il costo di spedizione visualizzato
+            $('#costoSpedizione').text(data + ' €');
+            // Aggiorna i totali dopo aver ottenuto il costo di spedizione
+            aggiornaTotaleSpesa();
+            aggiornaTotaleSpesaSpedizione();
+        });
+    }
 
     // Funzione per aggiornare il totale della spesa
     function aggiornaTotaleSpesa() {
-        totaleSpesa = 0;
-        costoSpedizioneAggiunto = false;
-
-        // Itera su ogni campo di input del prodotto
+        var totaleSpesa = 0;
         $('.quantita-prodotto').each(function () {
-            // Preleva la quantità aggiornata
             var quantita = parseInt($(this).val());
-
-            // Preleva il prezzo del prodotto e il costo di spedizione per unità
             var prezzo = parseFloat($(this).data('prezzo'));
-            var costoSpedizione = parseFloat($(this).data('costo-spedizione'));
-
-            // Calcola il costo totale per questo prodotto (quantità * prezzo)
-            var costoProdotto = quantita * prezzo;
-
-            // Aggiungi il costo totale per questo prodotto al totale generale
-            totaleSpesa += costoProdotto;
-
-            // Aggiungi il costo di spedizione solo una volta
-            if (!costoSpedizioneAggiunto) {
-                totaleSpesa += costoSpedizione;
-                costoSpedizioneAggiunto = true;
-            }
+            totaleSpesa += quantita * prezzo;
         });
-
         // Aggiorna il totale della spesa visualizzato
         $('#totaleSpesa').text(totaleSpesa.toFixed(2) + ' €');
     }
 
-    // Chiama la funzione aggiornaTotaleSpesa quando la pagina viene caricata
-    aggiornaTotaleSpesa();
+    // Funzione per aggiornare il totale della spesa includendo il costo di spedizione
+    function aggiornaTotaleSpesaSpedizione() {
+        var costoSpedizione = parseFloat($('#costoSpedizione').text().replace(' €', ''));
+        var totaleSpesa = parseFloat($('#totaleSpesa').text().replace(' €', ''));
+        $('#totaleSpesaSpedizione').text((totaleSpesa + costoSpedizione).toFixed(2) + ' €');
+    }
 
-    // Aggiungi un gestore di eventi 'change' a ogni campo di input della quantità del prodotto
-    $('.quantita-prodotto').on('change', aggiornaTotaleSpesa);
-
-    // Il resto del tuo codice JavaScript...
-
+    // Chiamate alle funzioni di calcolo quando si cambia la quantità di un prodotto
+    $('.quantita-prodotto').on('change', calcolaEAggiornaTotali);
 
     // Inizializza Stripe con la tua chiave pubblica
     var stripe = Stripe('pk_test_51P3eZiCzdPBqLcmGk82gXFVY9jj8AbIxB1DOjsxNv8ljuaVbJmmQE50awCqX3NubkbXfqWZjdNipltSxJGC9Tcet00fZB6ogt9');
@@ -313,9 +303,8 @@ function calcolaCostoSpedizione() {
         document.getElementById("formFatturazione").style.display = "block";
     }
 
-    // Il resto del tuo codice JavaScript...
-
-             function rimuoviProdotto(prodottoId) {
+    // Funzione per rimuovere un prodotto dal carrello
+    function rimuoviProdotto(prodottoId) {
         // Fai una richiesta AJAX per rimuovere il prodotto dal carrello
         $.ajax({
             url: '@Url.Action("Rimuovi", "Carrello")',
@@ -332,15 +321,15 @@ function calcolaCostoSpedizione() {
             }
         });
     }
-            document.getElementById("dataScadenzaCarta").addEventListener("blur", function () {
-                var inputDate = this.value;
-                var pattern = /^(0[1-9]|1[0-2])\/\d{2}$/; // Formato MM/AA
-                if (!pattern.test(inputDate)) {
-                    alert("Formato data non valido. Inserisci la data nel formato MM/AA.");
-                    this.value = ""; // Cancella il campo
-                }
-            });
 
-
+    // Controllo del formato della data di scadenza della carta
+    document.getElementById("dataScadenzaCarta").addEventListener("blur", function () {
+        var inputDate = this.value;
+        var pattern = /^(0[1-9]|1[0-2])\/\d{2}$/; // Formato MM/AA
+        if (!pattern.test(inputDate)) {
+            alert("Formato data non valido. Inserisci la data nel formato MM/AA.");
+            this.value = ""; // Cancella il campo
+        }
+    });
 
 </script>

@@ -52,10 +52,7 @@ namespace PugliaMia.Controllers
                     // Aggiorna la ViewBag con il nuovo costo di spedizione
                     ViewBag.CostoSpedizione = costoSpedizione;
 
-                    // Inizializza una variabile per tenere traccia se il costo di spedizione è stato già aggiunto
-                    bool costoSpedizioneAggiunto = false;
 
-                    // Calcola il totale della spesa considerando il costo di spedizione totale
                     decimal totaleSpesa = 0;
                     foreach (var prodotto in prodottiInCarrello)
                     {
@@ -64,19 +61,11 @@ namespace PugliaMia.Controllers
                         {
                             decimal costoProdotto = (decimal)(prodotto.Prezzo * carrelloProdotto.Quantita.Value);
                             totaleSpesa += costoProdotto;
-
-                            // Aggiungi il costo di spedizione solo una volta
-                            if (!costoSpedizioneAggiunto)
-                            {
-                                totaleSpesa += costoSpedizione;
-                                costoSpedizioneAggiunto = false;
-                            }
                         }
                     }
 
                     // Passa il totale della spesa alla vista
                     ViewBag.TotaleSpesa = totaleSpesa;
-
                     // Ottieni i prodotti correlati (i primi 5 prodotti delle stesse categorie)
                     var categorieProdotto = prodottiInCarrello.Select(p => p.CategoriaID).Distinct();
                     var prodottiCorrelati = await db.Prodotti
@@ -115,13 +104,6 @@ namespace PugliaMia.Controllers
                     costoSpedizione = tariffeSpedizione[i];
                     break; // Esci dal ciclo una volta trovato l'intervallo corretto
                 }
-            }
-
-            // Se il peso totale è esattamente uguale al limite superiore di un intervallo di peso,
-            // utilizza la tariffa di spedizione del prossimo intervallo di peso
-            if (intervalliPeso.Contains(pesoTotale) && intervalliPeso.ToList().IndexOf(pesoTotale) < tariffeSpedizione.Length - 1)
-            {
-                costoSpedizione = tariffeSpedizione[intervalliPeso.ToList().IndexOf(pesoTotale) + 1];
             }
 
             return costoSpedizione;
