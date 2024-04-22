@@ -104,8 +104,8 @@ namespace PugliaMia.Controllers
             decimal costoSpedizione = 0;
 
             // Definisci i tuoi intervalli di peso e le relative tariffe di spedizione
-            decimal[] intervalliPeso = { 5, 10, 20 }; // Pesi in kg
-            decimal[] tariffeSpedizione = { 5, 7, 10 }; // Tariffe di spedizione in euro
+            decimal[] intervalliPeso = { 5, 10, 20, 400 }; // Pesi in kg
+            decimal[] tariffeSpedizione = { 5, 7, 10, 0 }; // Tariffe di spedizione in euro
 
             // Controlla in quale intervallo di peso rientra il peso totale
             for (int i = 0; i < intervalliPeso.Length; i++)
@@ -162,7 +162,6 @@ namespace PugliaMia.Controllers
 
 
         [HttpGet]
-
         public async Task<ActionResult> Aggiungi(int? prodottoId)
         {
             // Verifica se l'utente è autenticato
@@ -176,7 +175,7 @@ namespace PugliaMia.Controllers
                 if (currentUser == null)
                 {
                     // Se l'utente non esiste, gestisci questo caso in modo appropriato
-                    return RedirectToAction("Error", "Home");
+                    return Json(new { success = false, message = "Utente non trovato" });
                 }
 
                 // Verifica se il prodotto esiste già nel carrello dell'utente
@@ -184,32 +183,30 @@ namespace PugliaMia.Controllers
 
                 if (carrelloItem != null)
                 {
-                    // Il prodotto esiste già nel carrello, restituisci un messaggio o esegui un'azione appropriata
-                    TempData["Message"] = "Il prodotto è già presente nel carrello.";
+                    // Il prodotto esiste già nel carrello
+                    return Json(new { success = false, message = "Il prodotto è già nel carrello" });
                 }
-                else
+
+                // Il prodotto non esiste nel carrello, aggiungi un nuovo elemento
+                Carrello nuovoItem = new Carrello
                 {
-                    // Il prodotto non esiste nel carrello, aggiungi un nuovo elemento
-                    Carrello nuovoItem = new Carrello
-                    {
-                        UserID = currentUser.UserID,
-                        ProdottoID = prodottoId,
-                        Quantita = 1
-                    };
+                    UserID = currentUser.UserID,
+                    ProdottoID = prodottoId,
+                    Quantita = 1
+                };
 
-                    db.Carrello.Add(nuovoItem);
+                db.Carrello.Add(nuovoItem);
 
-                    // Salva i cambiamenti nel database in modo asincrono
-                    await db.SaveChangesAsync();
-                }
+                // Salva i cambiamenti nel database in modo asincrono
+                await db.SaveChangesAsync();
 
-                // Reindirizza alla pagina del carrello
-                return RedirectToAction("Index", "Carrello");
+                // Restituisci un messaggio di successo
+                return Json(new { success = true, message = "Prodotto aggiunto al carrello" });
             }
             else
             {
-                // L'utente non è autenticato, reindirizza alla pagina di accesso
-                return RedirectToAction("Login", "Utenti");
+                // L'utente non è autenticato
+                return Json(new { success = false, message = "Utente non autenticato" });
             }
         }
 
@@ -228,7 +225,7 @@ namespace PugliaMia.Controllers
                 if (currentUser == null)
                 {
                     // Se l'utente non esiste, gestisci questo caso in modo appropriato
-                    return RedirectToAction("Error", "Home");
+                    return Json(new { success = false, message = "Utente non trovato" });
                 }
 
                 // Verifica se il prodotto esiste già nel carrello dell'utente
@@ -236,33 +233,30 @@ namespace PugliaMia.Controllers
 
                 if (carrelloItem != null)
                 {
-                    // Il prodotto esiste già nel carrello, restituisci un messaggio o esegui un'azione appropriata
-                    TempData["Message"] = "Il prodotto è già presente nel carrello.";
+                    // Il prodotto esiste già nel carrello
+                    return Json(new { success = false, message = "Il prodotto è già nel carrello" });
                 }
-                else
+
+                // Il prodotto non esiste nel carrello, aggiungi un nuovo elemento
+                Carrello nuovoItem = new Carrello
                 {
-                    // Il prodotto non esiste nel carrello, aggiungi un nuovo elemento
-                    Carrello nuovoItem = new Carrello
-                    {
-                        UserID = currentUser.UserID,
-                        ProdottoID = prodottoId,
-                        Quantita = 1
-                    };
+                    UserID = currentUser.UserID,
+                    ProdottoID = prodottoId,
+                    Quantita = 1
+                };
 
-                    db.Carrello.Add(nuovoItem);
+                db.Carrello.Add(nuovoItem);
 
+                // Salva i cambiamenti nel database in modo asincrono
+                await db.SaveChangesAsync();
 
-                    // Salva i cambiamenti nel database in modo asincrono
-                    await db.SaveChangesAsync();
-                }
-
-                // Reindirizza alla pagina del carrello
-                return RedirectToAction("Index", "Carrello");
+                // Restituisci un messaggio di successo
+                return Json(new { success = true, message = "Prodotto aggiunto al carrello" });
             }
             else
             {
-                // L'utente non è autenticato, reindirizza alla pagina di accesso
-                return RedirectToAction("Login", "Utenti");
+                // L'utente non è autenticato
+                return Json(new { success = false, message = "Utente non autenticato" });
             }
         }
 

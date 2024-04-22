@@ -6,29 +6,68 @@
 
 <div class="container pt-4 mb-5">
     <h2 class="titPage fw-bold mb-4">Prodotti</h2>
-    <hr  class="border border-danger border-2 opacity-50 mb-4" />
-    <div class="row row-cols-1 row-cols-md-3 g-4">
+    <hr class="border border-danger border-2 opacity-50 mb-4" />
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 
         @foreach (var item in Model)
         {
             <div class="col titShop">
                 <a href="@Url.Action("Details", "Prodotti", new { id = item.ProdottoID })" class="text-decoration-none">
-                    <div class="product" style="width: 18rem;">
-                        <div class=" product" style="width: 18rem;">
-                            <img src="@Url.Content(string.IsNullOrEmpty(item.Immagine) ? "~/Content/Images/hotel.jpg" : item.Immagine)" class="card-img-top" alt="...">
-                            <div class="card-body text-center">
-                                <h5 class="card-title txCard">@Html.DisplayFor(modelItem => item.Nome)</h5>
-                                <p class="card-text txCard">€@Html.DisplayFor(modelItem => item.Prezzo)</p>
-                                <!-- Aggiungi al carrello -->
-
-                                @Html.ActionLink("Aggiungi al carrello", "Aggiungi", "Carrello", new { prodottoId = item.ProdottoID }, new { @class = "bottone1 mt-2" })
-                            
-                            </div>                          
-                        </div>                        
+                    <div class="card product">
+                        <img src="@Url.Content(string.IsNullOrEmpty(item.Immagine) ? "~/Content/Images/hotel.jpg" : item.Immagine)" class="card-img-top" alt="...">
+                        <div class="card-body text-center">
+                            <h5 class="card-title txCard">@Html.DisplayFor(modelItem => item.Nome)</h5>
+                            <p class="card-text txCard">€@Html.DisplayFor(modelItem => item.Prezzo)</p>
+                            <!-- Aggiungi al carrello -->
+                            <button class="btn btn-primary aggiungiAlCarrelloButton" data-prodotto-id="@item.ProdottoID">Aggiungi al carrello</button>
+                        </div>
                     </div>
-                    </a>
-                </div>
-                    }
+                </a>
             </div>
+        }
+    </div>
 </div>
 
+<script>
+    $('.aggiungiAlCarrelloButton').click(function (event) {
+        event.preventDefault();
+        var prodottoId = $(this).data('prodotto-id');
+
+        $.ajax({
+            url: '/Carrello/Aggiungi',
+            type: 'POST',
+            data: { prodottoId: prodottoId },
+            success: function (response) {
+                if (response.success) {
+                    alert(response.message); // Messaggio di successo
+                    aggiornaNumeroProdottiCarrello(); // Aggiorna il numero di prodotti nel carrello
+                    // Puoi aggiornare ulteriormente l'interfaccia utente qui se necessario
+                } else {
+                    alert(response.message); // Messaggio di errore
+                }
+            },
+            error: function () {
+                alert('Errore durante l\'aggiunta al carrello');
+            }
+        });
+    });
+
+    function aggiornaNumeroProdottiCarrello() {
+        // Verifica se l'utente è autenticato
+        var isUserAuthenticated = @(User.Identity.IsAuthenticated.ToString().ToLower());
+
+        // Esegue la chiamata AJAX solo se l'utente è autenticato
+        if (isUserAuthenticated) {
+            $.ajax({
+                url: '/Carrello/GetNumeroProdotti',
+                type: 'GET',
+                success: function (data) {
+                    $('#numeroProdottiCarrello').text(data);
+                },
+                error: function () {
+                    console.error('Errore durante il recupero del numero di prodotti nel carrello.');
+                }
+            });
+        }
+    }
+</script>

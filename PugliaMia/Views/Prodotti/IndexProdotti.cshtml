@@ -3,28 +3,25 @@
 <div class="container pt-4 mb-5">
     <h2 class="titPage fw-bold mb-4">Prodotti</h2>
     <hr class="border border-danger border-2 opacity-50 mb-4" />
-    <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
 
         @if (Model.Any())
         {
-
             foreach (var prodotto in Model)
             {
                 <div class="col titShop">
                     <a href="@Url.Action("Details", "Prodotti", new { id = prodotto.ProdottoID })" class="text-decoration-none">
-                        <div class="product" style="width: 18rem;">
+                        <div class="card product h-100">
                             <img src="@Url.Content(string.IsNullOrEmpty(prodotto.Immagine) ? "~/Content/Images/hotel.jpg" : prodotto.Immagine)" class="card-img-top" alt="...">
                             <div class="card-body text-center">
                                 <h5 class="card-title txCard">@prodotto.Nome</h5>
                                 <p class="card-text txCard">@prodotto.Prezzo</p>
-                                @Html.ActionLink("Aggiungi al carrello", "Aggiungi", "Carrello", new { prodottoId = prodotto.ProdottoID }, new { @class = "bottone1 mt-2" })
-                              
+                                <button class="btn btn-primary aggiungiAlCarrelloButton mt-2" data-prodotto-id="@prodotto.ProdottoID">Aggiungi al carrello</button>
                             </div>
                         </div>
                     </a>
                 </div>
             }
-
         }
         else
         {
@@ -33,3 +30,46 @@
     </div>
 </div>
 
+<script>
+    $('.aggiungiAlCarrelloButton').click(function (event) {
+        event.preventDefault();
+        var prodottoId = $(this).data('prodotto-id');
+
+        $.ajax({
+            url: '/Carrello/Aggiungi',
+            type: 'POST',
+            data: { prodottoId: prodottoId },
+            success: function (response) {
+                if (response.success) {
+                    alert(response.message); // Messaggio di successo
+                    aggiornaNumeroProdottiCarrello(); // Aggiorna il numero di prodotti nel carrello
+                    // Puoi aggiornare ulteriormente l'interfaccia utente qui se necessario
+                } else {
+                    alert(response.message); // Messaggio di errore
+                }
+            },
+            error: function () {
+                alert('Errore durante l\'aggiunta al carrello');
+            }
+        });
+    });
+
+    function aggiornaNumeroProdottiCarrello() {
+        // Verifica se l'utente è autenticato
+        var isUserAuthenticated = @(User.Identity.IsAuthenticated.ToString().ToLower());
+
+        // Esegue la chiamata AJAX solo se l'utente è autenticato
+        if (isUserAuthenticated) {
+            $.ajax({
+                url: '/Carrello/GetNumeroProdotti',
+                type: 'GET',
+                success: function (data) {
+                    $('#numeroProdottiCarrello').text(data);
+                },
+                error: function () {
+                    console.error('Errore durante il recupero del numero di prodotti nel carrello.');
+                }
+            });
+        }
+    }
+</script>

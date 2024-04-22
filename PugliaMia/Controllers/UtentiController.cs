@@ -210,7 +210,7 @@ namespace PugliaMia.Controllers
                         db.Carrello.Add(nuovoCarrello);
                         db.SaveChanges();
                     }
-                    TempData["WelcomeMessage"] = $"Benvenuto {user.Nome}!";
+                    TempData["WelcomeMessage"] = $"Benvenuto/a {user.Nome}!";
                     // Reindirizza l'utente alla pagina principale
                     return RedirectToAction("Index", "Home");
                 }

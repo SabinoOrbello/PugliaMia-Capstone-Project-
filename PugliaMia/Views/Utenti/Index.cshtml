@@ -20,6 +20,7 @@
     <p>
         @Html.ActionLink("Create New", "Create", new { area = "" }, new { @class = "bottone1" })
     </p>
+    <p>  @Html.ActionLink("Torna indietro", "BackOffice", "Home", new { area = "" }, new { @class = "bottone1" })</p>
     <table class="table table-success table-striped">
         <tr>
             <th>
@@ -59,10 +60,10 @@
                     @Html.DisplayFor(modelItem => item.Role)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.UserID }, new { @class = "btn bnt-success" }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.UserID }, new { @class = "btn bnt-success" }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.UserID }, new { @class = "btn bnt-danger" })
-                    @Html.ActionLink("Rendi Admin", "AssignAdminRole", new { id = item.UserID }, new { @class = "btn bnt-Success" })
+                    @Html.ActionLink("Edit", "Edit", new { id = item.UserID }, new { @class = "btn btn-success" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.UserID }, new { @class = "btn btn-success" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.UserID }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Rendi Admin", "AssignAdminRole", new { id = item.UserID }, new { @class = "btn btn-success" })
                 </td>
             </tr>
         }
@@ -70,4 +71,4 @@
     </table>
 </div>
 
-<div class="bottone1">  @Html.ActionLink("Back to List", "Index", "Home")</div>
+<p>  @Html.ActionLink("Torna indietro", "BackOffice", "Home", new { area = "" }, new { @class = "bottone1" })</p>

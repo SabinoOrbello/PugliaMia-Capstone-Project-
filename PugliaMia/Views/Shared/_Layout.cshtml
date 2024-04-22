@@ -25,7 +25,7 @@
 </head>
 <body class="@(ViewContext.RouteData.Values["controller"].ToString() == "Home" && ViewContext.RouteData.Values["action"].ToString() == "Index" ? "home-page" : "")">
 
-    <nav id="mainNavbar" class="navbar navbar-expand-sm navbar-toggleable-sm py-4 fw-bold fixed-top hiden-content">
+    <nav id="mainNavbar" class="navbar navbar-expand-sm navbar-toggleable-sm mt-0 py-4 fw-bold fixed-top hiden-content">
         <div class="container">
             <img src="~/Content/Images/PUGLIA2.png" class="img-fluid logo" />
             <h3 class="titLogo"> @Html.ActionLink("Puglia", "Index", "Home", new { area = "" }, new { @class = "navbar-brand titLogo" })</h3>
@@ -79,17 +79,12 @@
                         </ul>
                     </li>
                 </ul>
-
-
-
-
-
             </div>
         </div>
     </nav>
 
 
-    <div>
+    <div class="p-0 m-0">
         @RenderBody()
     </div>
 

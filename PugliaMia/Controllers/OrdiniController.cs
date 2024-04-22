@@ -43,10 +43,12 @@ namespace PugliaMia.Controllers
                     return RedirectToAction("Error", "Home");
                 }
 
-                // Ottieni gli ordini dell'utente
-                var ordini = db.Ordini.Where(o => o.UserID == currentUser.UserID);
+                // Ottieni gli ordini dell'utente ordinati per data in ordine decrescente
+                var ordini = db.Ordini
+                    .Where(o => o.UserID == currentUser.UserID)
+                    .OrderByDescending(o => o.DataOrdine);
 
-                // Passa gli ordini alla vista
+                // Passa gli ordini ordinati alla vista
                 return View(ordini.ToList());
             }
             else
@@ -55,6 +57,7 @@ namespace PugliaMia.Controllers
                 return RedirectToAction("Login", "Utenti");
             }
         }
+
 
         public ActionResult ConfermaOrdine()
         {
@@ -318,8 +321,8 @@ namespace PugliaMia.Controllers
             decimal costoSpedizione = 0;
 
             // Definisci i tuoi intervalli di peso e le relative tariffe di spedizione
-            decimal[] intervalliPeso = { 5, 10, 20 }; // Pesi in kg
-            decimal[] tariffeSpedizione = { 5, 7, 10 }; // Tariffe di spedizione in euro
+            decimal[] intervalliPeso = { 5, 10, 20, 400 }; // Pesi in kg
+            decimal[] tariffeSpedizione = { 5, 7, 10, 0 }; // Tariffe di spedizione in euro
 
             // Controlla in quale intervallo di peso rientra il peso totale
             for (int i = 0; i < intervalliPeso.Length; i++)
@@ -329,6 +332,11 @@ namespace PugliaMia.Controllers
                     costoSpedizione = tariffeSpedizione[i];
                     break; // Esci dal ciclo una volta trovato l'intervallo corretto
                 }
+            }
+
+            if (intervalliPeso.Contains(pesoTotale) && intervalliPeso.ToList().IndexOf(pesoTotale) < tariffeSpedizione.Length - 1)
+            {
+                costoSpedizione = tariffeSpedizione[intervalliPeso.ToList().IndexOf(pesoTotale) + 1];
             }
 
 

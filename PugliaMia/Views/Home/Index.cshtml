@@ -1,11 +1,8 @@
-﻿
-<div id="logo-animation">
-    <div class="container text-center">
-        <video id="logo-video" width="700px" height="450px" autoplay muted>
-            <source src="~/Content/Images/PUGLIA.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
+﻿<div id="logo-animation" class="container text-center">
+    <video id="logo-video" width="50%" height="auto" autoplay muted>
+        <source src="~/Content/Images/PUGLIA.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
 </div>
 
 @if (!String.IsNullOrEmpty(TempData["WelcomeMessage"] as string))
@@ -18,150 +15,102 @@
     </div>
 }
 
+<div class="container-fluid bgContainer hiden-content">
+    <div class="container hero text-center pt-5">
+        <div class="lh-4 titShop pt-5">
+           
+            <h1 class="text-white title fw-bold dancing">Puglia dolce sensazione</h1>
+            <div class="d-flex justify-content-center gap-3 py-4">
+                @if (Request.IsAuthenticated)
+                {
+                    <p>@Html.ActionLink("Registrati", "Register", "Utenti", new { area = "" }, new { @class = "bottone" })</p>
+                    <p>@Html.ActionLink("Logout", "Logout", "Utenti", new { area = "" }, new { @class = "bottone" })</p>
+                }
+                else
+                {
+                    <p>@Html.ActionLink("Registrati", "Register", "Utenti", new { area = "" }, new { @class = "bottone" })</p>
+                    <p>@Html.ActionLink("Accedi", "Login", "Utenti", new { area = "" }, new { @class = "bottone" })</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
 
-<div class="hiden-content">
-    <div class="container-fluid p-2 bgContainer">
-        <div class="container hero">
-            <div class="row pt-5">
-                <div class="text-center lh-4 titShop">
-                    <p class=" fw-bold st">FRESH & ORGANIC</p>
-                    <h1 class="text-white title fw-bold dancing">Puglia dolce sensazione</h1>
-                    <div class="d-flex justify-content-center gap-3 py-4">
-                        @if (Request.IsAuthenticated)
-                        {
-                            <p>@Html.ActionLink("Registrati", "Register", "Utenti", new { area = "" }, new { @class = "bottone" })</p>
-                            <p>@Html.ActionLink("Logout", "Logout", "Utenti", new { area = "" }, new { @class = "bottone" })</p>
-                        }
-                        else
-                        {
-                            <p>@Html.ActionLink("Registrati", "Register", "Utenti", new { area = "" }, new { @class = "bottone" })</p>
-                            <p>@Html.ActionLink("Accedi", "Login", "Utenti", new { area = "" }, new { @class = "bottone" })</p>
-                        }
+<div class="container py-5 text-center hiden-content">
+    <h2 class="fw-bold fs-1 title2">Benvenuti in Puglia</h2>
+    <p class="py-4 lineaHome">
+        Dall’amore per il territorio pugliese, ricco di fascino, tradizioni e cultura, nasce Pugliami, lo store online di prodotti tipici pugliesi,<br />
+        enogastronomia, cosmesi naturale, artigianato locale e idee regalo. Chi ha scoperto la Puglia la porta per sempre con sé dentro il <br />
+        cuore ed è per questo che Pugliami offre l’opportunità di acquistare comodamente da casa i prodotti tipici pugliesi e salentini <br />
+        degustati e scoperti durante una vacanza estiva o un soggiorno nella nostra amata terra. E per chi non ha ancora avuto modo di <br />
+        conoscerla, Pugliami può rappresentare l’inizio del viaggio alla scoperta di sapori e di uno stile di vita apprezzato in tutto il mondo.
+    </p>
+    <hr class="border border-danger border-2 opacity-50 mb-4" />
+</div>
 
-                    </div>
+<div class="container-fluid p-0 my-5 mb-5 hiden-content">
+    <div class="row align-items-start">
+        <div class="col-md-8 h-100">
+            <img src="~/Content/Images/legumi big.jpg" class="img-fluid w-100" style="height: auto;" />
+        </div>
+        <div class="col-md-4 d-flex flex-column lineaHome justify-content-center align-items-center py-4 h-100">
+            <h2 class="text-center mb-4 titPage">Prodotti tipici Pugliesi</h2>
+            <hr />
+            <p class="text-center">
+                La Puglia, terra baciata dal sole e ricca di tradizioni millenarie, incanta con la sua cucina genuina e autentica. Le ricette pugliesi, tramandate di generazione in generazione, sono un vero e proprioscrigno di sapori mediterranei. <br />
+                Dai piatti di mare, come il famoso "riso, patate e cozze", alle prelibatezze contadine come la "focaccia barese" e la "frisella", ogni boccone racconta la storia di questa terra.
+            </p>
+            <p class="text-center">
+                @Html.ActionLink("Blog", "Ricette", "Home", new { area = "" }, new { @class = "bottone1" })
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="container py-5 mb-5 hiden-content">
+    <div class="row">
+        <div class="col-md">
+            <video width="100%" height="auto" controls>
+                <source src="~/Content/Images/frutta e verdura.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="col-md">
+            <h2>
+                We are <span>Puglia</span>
+            </h2>
+            <p class="lineaHome">
+                La Puglia è storicamente una terra ricca di tradizioni e devozione. <br />
+                Ogni piccolo paese ha una propria storia che oggi racconta attraverso le tradizioni che riporta in vita e che sono diventate dei veri e propri rituali. <br />
+                Oggi queste tradizioni sono degli aspetti folkloristici che attirano molti curiosi e turisti da tutto il mondo. <br />
+                Sono tratti peculiari, unici e autentici di una terra antica come la Puglia.
+            </p>
+            <a href="#" class="bottone text-dark"> know more</a>
+        </div>
+    </div>
+</div>
+
+<div id="carouselExampleControls" class="carousel hiden-content slide logos mt-5 py-3" data-bs-ride="carousel" data-bs-interval="3000">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="row d-flex justify-content-center align-items-center">
+                <div class="col">
+                    <img src="~/Content/Images/alimentare-logo.png" class="d-block w-50 mx-auto" alt="...">
+                </div>
+                <div class="col">
+                    <img src="~/Content/Images/bakery-logo.png" class="d-block w-50 mx-auto" alt="...">
+                </div>
+                <div class="col">
+                    <img src="~/Content/Images/forno-logo.png" class="d-block w-50 mx-auto" alt="...">
+                </div>
+                <div class="col">
+                    <img src="~/Content/Images/company-logo.png" class="d-block w-50 mx-auto" alt="...">
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="hiden-content">
-    <div class="container py-5 text-center">
-        <h2 class="fw-bold fs-1 title2">Benvenuti in Puglia</h2>
-        <p class="py-4 lineaHome">
-            Dall’amore per il territorio pugliese, ricco di fascino, tradizioni e cultura, nasce Pugliami, lo store online di prodotti tipici pugliesi,<br />
-            enogastronomia, cosmesi naturale, artigianato locale e idee regalo. Chi ha scoperto la Puglia la porta per sempre con sé dentro il <br />
-            cuore ed è per questo che Pugliami offre l’opportunità di acquistare comodamente da casa i prodotti tipici pugliesi e salentini <br />
-            degustati e scoperti durante una vacanza estiva o un soggiorno nella nostra amata terra. E per chi non ha ancora avuto modo di <br />
-            conoscerla, Pugliami può rappresentare l’inizio del viaggio alla scoperta di sapori e di uno stile di vita apprezzato in tutto il mondo.
-        </p>
-        <hr class="border border-danger border-2 opacity-50 mb-4" />
-    </div>
-    <div class="container-fluid p-0 my-5 mb-5">
-        <div class="row align-items-start">
-            <div class="col col-8 h-100">
-                <img src="~/Content/Images/legumi big.jpg" class="img-fluid w-100" style="height: 462px;" />
-            </div>
-            <div class="col col-4 d-flex flex-column lineaHome justify-content-center align-items-center py-4 h-100">
-                <h2 class="text-center mb-4 titPage">Prodotti tipici Pugliesi</h2>
-                <hr />
-                <p class="text-center">
-                    La Puglia, terra baciata dal sole e ricca di tradizioni millenarie, incanta con la sua cucina genuina e
-                    autentica. Le ricette pugliesi, tramandate di generazione in generazione, sono un vero e proprioscrigno di sapori mediterranei. <br />
-                    Dai piatti di mare, come il famoso "riso, patate e cozze", alle
-                    prelibatezze contadine come la "focaccia barese" e la "frisella", ogni boccone racconta la storia di <br />
-                    questa terra.
-                </p>
-                <p class="text-center">
-                    @Html.ActionLink("Blog", "Ricette", "Home", new { area = "" }, new { @class = "bottone1" })
-                </p>
-            </div>
-        </div>
-    </div>
 
-
-
-
-    <div class="container text-center mb-5">
-        <div class="row">
-            <div class="col">
-                <div>
-                    <ion-icon name="airplane-outline" style="font-size: 48px;"></ion-icon>
-                    <h5 class="title2 fw-bold">Corriere Espresso</h5>
-                    <p>Consegna in 48H</p>
-                </div>
-
-            </div>
-            <div class="col">
-                <div>
-                    <ion-icon name="cart-outline" style="font-size: 48px;"></ion-icon>
-                    <h5 class="title2 fw-bold">Spedizione Gratuita</h5>
-                    <p>Da 39,90€ di spesa</p>
-                </div>
-            </div>
-            <div class="col">
-                <div>
-                    <ion-icon name="logo-paypal" style="font-size: 48px;"></ion-icon>
-                    <h5 class="title2 fw-bold">Pagamenti Sicuri</h5>
-                    <p>Carta, bonifico, contrassegno</p>
-                </div>
-            </div>
-            <div class="col">
-                <div>
-                    <ion-icon name="people-outline" style="font-size: 48px;"></ion-icon>
-                    <h5 class="title2 fw-bold">Assistenza Clienti</h5>
-                    <p>Assistenza 24h</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container py-5 mb-5">
-        <div class="row">
-            <div class="col">
-                <video width="640" height="360" controls>
-                    <source src="~/Content/Images/frutta e verdura.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-            <div class="col">
-                <h2>
-                    We are <span>Puglia</span>
-                </h2>
-                <p class="lineaHome">
-                    La Puglia è storicamente una terra ricca di tradizioni e devozione. <br />
-                    Ogni piccolo paese ha una propria storia che oggi racconta attraverso <br />
-                    le tradizioni che riporta in vita e che sono diventate dei veri e propri rituali. <br />
-                    Oggi queste tradizioni sono degli aspetti folkloristici che attirano molti curiosi e turisti da tutto il mondo. <br />
-                    Sono tratti peculiari, unici e autentici di una terra antica come la Puglia.
-                </p>
-                <a href="#" class="bottone text-dark"> know more</a>
-            </div>
-        </div>
-    </div>
-
-
-
-    <div id="carouselExampleControls" class="carousel slide logos mt-5 py-3" data-bs-ride="carousel" data-bs-interval="3000">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="row d-flex justify-content-center align-items-center">
-                    <div class="col">
-                        <img src="~/Content/Images/alimentare-logo.png" class="d-block w-50 mx-auto" alt="...">
-                    </div>
-                    <div class="col">
-                        <img src="~/Content/Images/bakery-logo.png" class="d-block w-50 mx-auto" alt="...">
-                    </div>
-                    <div class="col">
-                        <img src="~/Content/Images/forno-logo.png" class="d-block w-50 mx-auto" alt="...">
-                    </div>
-                    <div class="col">
-                        <img src="~/Content/Images/company-logo.png" class="d-block w-50 mx-auto" alt="...">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script>
     $(document).ready(function () {
