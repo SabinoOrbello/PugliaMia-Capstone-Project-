@@ -1,5 +1,4 @@
-﻿﻿﻿﻿@model List<PugliaMia.Models.Prodotti>
-
+﻿@model List<PugliaMia.Models.Prodotti>
 
 <div class="container-fluid bgChisiamo4">
     <div class="container hero">
@@ -24,140 +23,129 @@
         <div class="container py-4">
             <h2 class="mb-4">Il tuo Carrello</h2>
             <div class="row">
-                <div class="col-lg-6">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Immagine</th>
-                                <th>Nome</th>
-                                <th>Prezzo</th>
-                                <th>Ingredienti</th>
-                                <th>Quantità</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var prodotto in Model)
-                            {
+                <div class="col-lg-8">
+                    <div class="table-responsive">
+                        <!-- Aggiunto per rendere la tabella scrollabile su dispositivi mobili -->
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                    <td><img src="@Url.Content(string.IsNullOrEmpty(prodotto.Immagine) ? "~/Content/Images/default-product-image.jpg" : prodotto.Immagine)" class="img-thumbnail w-50" alt="@prodotto.Nome"></td>
-                                    <td>@prodotto.Nome</td>
-                                    <td>@prodotto.Prezzo €</td>
-                                    <td>@prodotto.Ingredienti</td>
-
-
-                                    <td>
-                                        <input type="number" name="quantita_@prodotto.ProdottoID" id="quantita_@prodotto.ProdottoID" min="1" value="1" class="form-control  quantita-prodotto" data-peso="@prodotto.Peso" data-prezzo="@prodotto.Prezzo " data-costo-spedizione="@ViewBag.CostoSpedizione">
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-danger" onclick="rimuoviProdotto(@prodotto.ProdottoID)">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    </td>
+                                    <th>Immagine</th>
+                                    <th>Nome</th>
+                                    <th>Prezzo</th>
+                                    <th>Ingredienti</th>
+                                    <th>Quantità</th>
+                                    <th></th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach (var prodotto in Model)
+                                {
+                                    <tr>
+                                        <td><img src="@Url.Content(string.IsNullOrEmpty(prodotto.Immagine) ? "~/Content/Images/default-product-image.jpg" : prodotto.Immagine)" class="img-thumbnail w-100" alt="@prodotto.Nome"></td>
+                                        <td>@prodotto.Nome</td>
+                                        <td>@prodotto.Prezzo €</td>
+                                        <td>@prodotto.Ingredienti</td>
+                                        <td>
+                                            <input type="number" name="quantita_@prodotto.ProdottoID" id="quantita_@prodotto.ProdottoID" min="1" value="1" class="form-control quantita-prodotto" data-peso="@prodotto.Peso" data-prezzo="@prodotto.Prezzo" data-costo-spedizione="@ViewBag.CostoSpedizione">
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-danger" onclick="rimuoviProdotto(@prodotto.ProdottoID)">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="col-lg-6 login-form w-25 text-center">
-                    <!-- Totale della spesa e costo di spedizione -->
+                <div class="col-lg-4 login-form text-center">
                     <div class="row mt-4">
-                        <div class="col-lg-12">
+                        <div class="col-md-12">
                             <h4>SubTotale:</h4>
                             <h4><span id="totaleSpesa"> €</span></h4>
                         </div>
                     </div>
                     <div class="row mt-4">
-                        <div class="col-lg-12">
+                        <div class="col-md-12">
                             <h4>Costo di Spedizione:</h4>
                             <h4><span id="costoSpedizione"> €</span></h4>
                         </div>
                     </div>
                     <div class="row mt-4">
-                        <div class="col-lg-12">
+                        <div class="col-md-12">
                             <h4>Totale:</h4>
                             <h4><span id="totaleSpesaSpedizione"> €</span></h4>
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
             <div class="row mt-4">
-                <div class="col-lg-6">
+                <div class="col-md-6 my-2">
                     <button type="button" class="bottone1 btn-block" onclick="mostraForm()">Procedi con l'Acquisto</button>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-md-6">
                     @Html.ActionLink("Continua gli Acquisti", "Index", "Categorie", null, new { @class = "bottone1" })
                 </div>
             </div>
-
-            <div class="d-flex gap-5">
-                <div class="row mt-4 w-100 login-form" id="formSpedizione" style="display: none;">
-                    <!-- Dati Spedizione (Colonna sinistra) -->
-                    <div class="col-lg-6 w-100 d-flex flex-column">
-                        <h3>Dati Spedizione</h3>
-                        <hr class="border border-danger border-2 opacity-50 mb-4" />
-                        <div class="mb-3">
-                            <label for="indirizzoSpedizione" class="form-label"></label>
-                            <input type="text" class="form-control" id="indirizzoSpedizione" name="indirizzoSpedizione" placeholder="Indirizzo" required>
-
-                            <label for="citta" class="form-label"></label>
-                            <input type="text" class="form-control" id="citta" name="citta" placeholder="Città" required>
-
-                            <label for="regione" class="form-label"></label>
-                            <input type="text" class="form-control" id="regione" name="regione" placeholder="regione" required>
-
-                            <label for="provincia" class="form-label"></label>
-                            <input type="text" class="form-control" id="provincia" name="provincia" placeholder="provincia" required>
-
-                        </div>
-                        <div class="mb-3">
-                            <label for="corriere" class="form-label"></label>
-                            <select class="form-select" id="corriere" name="corriere" required>
-                                <option value="">Seleziona un Corriere</option>
-                                <option value="Fedex">Fedex</option>
-                                <option value="SDA">SDA</option>
-                                <option value="GLS">GLS</option>
-                                <option value="DHL">DHL</option>
-                            </select>
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="row mt-4 login-form" id="formSpedizione" style="display: none;">
+                        <div class="col-md-12">
+                            <h3>Dati Spedizione</h3>
+                            <hr class="border border-danger border-2 opacity-50 mb-4" />
+                            <div class="mb-3">
+                                <label for="indirizzoSpedizione" class="form-label">Indirizzo</label>
+                                <input type="text" class="form-control" id="indirizzoSpedizione" name="indirizzoSpedizione" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="citta" class="form-label">Città</label>
+                                <input type="text" class="form-control" id="citta" name="citta" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="regione" class="form-label">Regione</label>
+                                <input type="text" class="form-control" id="regione" name="regione" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="provincia" class="form-label">Provincia</label>
+                                <input type="text" class="form-control" id="provincia" name="provincia" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="corriere" class="form-label">Corriere</label>
+                                <select class="form-select" id="corriere" name="corriere" required>
+                                    <option value="">Seleziona un Corriere</option>
+                                    <option value="Fedex">Fedex</option>
+                                    <option value="SDA">SDA</option>
+                                    <option value="GLS">GLS</option>
+                                    <option value="DHL">DHL</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-
-
-                <div class="row mt-4 w-100 login-form" id="formFatturazione" style="display: none;">
-                    <!-- Dati Fatturazione (Colonna destra) -->
-                    <div class="col-lg-6 w-100 d-flex flex-column">
-                        <h3>Dati Fatturazione</h3>
-                        <hr class="border border-danger border-2 opacity-50 mb-4" />
-
-                        <!-- Metodo di Pagamento -->
-                        <div class="mb-3 fw-bold">
-                            <label class="form-label">Metodo di Pagamento:</label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="metodoPagamento" id="metodoPagamentoCarta" value="carta" checked>
-                                <label class="form-check-label" for="metodoPagamentoCarta">
-                                    Carta di Credito
-                                </label>
+                <div class="col-md-6">
+                    <div class="row mt-4 login-form" id="formFatturazione" style="display: none;">
+                        <div class="col-md-12">
+                            <h3>Dati Fatturazione</h3>
+                            <hr class="border border-danger border-2 opacity-50 mb-4" />
+                            <div class="mb-3">
+                                <label class="form-label">Metodo di Pagamento:</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="metodoPagamento" id="metodoPagamentoCarta" value="carta" checked>
+                                    <label class="form-check-label" for="metodoPagamentoCarta">Carta di Credito</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="metodoPagamento" id="metodoPagamentoPaypal" value="paypal">
+                                    <label class="form-check-label" for="metodoPagamentoPaypal">PayPal</label>
+                                </div>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="metodoPagamento" id="metodoPagamentoPaypal" value="paypal">
-                                <label class="form-check-label" for="metodoPagamentoPaypal">
-                                    PayPal
-                                </label>
+                            <div id="card-element" class="py-3 mb-5">
+                                <!-- L'elemento della carta Stripe sarà inserito qui -->
                             </div>
+                            <button id="confermaOrdineBtn" type="button" class="bottone1 btn-block mt-5">Conferma Ordine</button>
                         </div>
-
-                        <div id="card-element" class="py-3 mb-5">
-                            <!-- L'elemento della carta Stripe sarà inserito qui -->
-                        </div>
-                        <button id="confermaOrdineBtn" type="button" class="bottone1 btn-block mt-5">Conferma Ordine</button>
                     </div>
                 </div>
-
             </div>
         </div>
     }
@@ -178,7 +166,8 @@ else
         <div class="row">
             @foreach (var prodotto in ViewBag.ProdottiCorrelati)
             {
-                <div class="col-lg-2">
+                <div class="col-lg-2 col-md-4 col-sm-6">
+                    <!-- Aggiunto per rendere le card dei prodotti responsive -->
                     <a href="@Url.Action("Details", "Prodotti", new { id = prodotto.ProdottoID })" class="text-decoration-none text-dark">
                         <div class="card h-100">
                             <img src="@Url.Content(string.IsNullOrEmpty(prodotto.Immagine) ? "~/Content/Images/default-product-image.jpg" : prodotto.Immagine)" class="card-img-top" alt="@prodotto.Nome">
@@ -189,11 +178,11 @@ else
                         </div>
                     </a>
                 </div>
-
             }
         </div>
     </div>
 }
+
 
 
 <script src="https://js.stripe.com/v3/"></script>
