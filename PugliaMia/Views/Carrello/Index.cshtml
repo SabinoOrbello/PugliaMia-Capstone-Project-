@@ -41,7 +41,7 @@
                                 @foreach (var prodotto in Model)
                                 {
                                     <tr>
-                                        <td><img src="@Url.Content(string.IsNullOrEmpty(prodotto.Immagine) ? "~/Content/Images/default-product-image.jpg" : prodotto.Immagine)" class="img-thumbnail w-100" alt="@prodotto.Nome"></td>
+                                        <td><img src="@Url.Content(string.IsNullOrEmpty(prodotto.Immagine) ? "~/Content/Images/default-product-image.jpg" : prodotto.Immagine)" class="img-thumbnail w-50" alt="@prodotto.Nome"></td>
                                         <td>@prodotto.Nome</td>
                                         <td>@prodotto.Prezzo €</td>
                                         <td>@prodotto.Ingredienti</td>

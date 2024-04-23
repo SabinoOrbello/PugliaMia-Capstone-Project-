@@ -55,6 +55,26 @@ body.home-page .hiden-content {
         font-weight: bold;
     }
 
+.bottone2 {
+    font-family: 'Poppins', sans-serif;
+    display: inline-block;
+    color: #fff;
+    border: 2px solid #F28123;
+    padding: 7px 20px;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    background-color: #F28123;
+}
+
+    .bottone2:hover {
+        background-color: #F28123;
+        color: black;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
 .title {
     font-size: 4.5rem;
 }
@@ -313,31 +333,50 @@ span {
 }
 
 /* Login */
+/* Stile del Form */
 .login-form {
-    max-width: 391px;
+    max-width: 400px;
     margin: 0 auto;
-    padding: 50px;
-    border: 1px solid #ddd;
+    padding: 20px;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #b9cdd7;
-    color: white;
+    background-color: #fff;
 }
 
-    .login-form .form-group {
-        margin-bottom: 20px;
+    /* Stile degli Input */
+    .login-form input[type="email"],
+    .login-form input[type="tel"],
+    .login-form input[type="text"],
+    .login-form input[type="url"],
+    .login-form input[type="password"] {
+        border: 1px solid #ccc;
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
+        color: #333;
+        line-height: 1.5;
+        font-weight: 400;
+        padding: 10px;
+        margin-bottom: 15px;
+        width: 100%;
     }
 
-    .login-form .control-label {
-        font-weight: bold;
-    }
-
-    .login-form .form-control {
-        height: 40px;
-    }
-
+    /* Stile del Bottone */
     .login-form button[type="submit"] {
-        height: 40px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
     }
+
+        /* Hover del Bottone */
+        .login-form button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
 
 .badg {
     background-color: #F28123;
@@ -371,7 +410,9 @@ span {
     }
 
 .bgOffice {
-    background-color: #ff6f91 !important;
+    background-image: url('../Content/Images/sfondobello.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .bgOffice1 {

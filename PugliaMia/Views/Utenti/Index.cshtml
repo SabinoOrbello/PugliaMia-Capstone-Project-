@@ -21,54 +21,38 @@
         @Html.ActionLink("Create New", "Create", new { area = "" }, new { @class = "bottone1" })
     </p>
     <p>  @Html.ActionLink("Torna indietro", "BackOffice", "Home", new { area = "" }, new { @class = "bottone1" })</p>
-    <table class="table table-success table-striped">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IndirizzoSpedizione)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Role)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Password)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IndirizzoSpedizione)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Role)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.UserID }, new { @class = "btn btn-success" }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.UserID }, new { @class = "btn btn-success" }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.UserID }, new { @class = "btn btn-danger" })
-                    @Html.ActionLink("Rendi Admin", "AssignAdminRole", new { id = item.UserID }, new { @class = "btn btn-success" })
-                </td>
-            </tr>
-        }
-
-    </table>
+    <div class="table-responsive">
+        <table class="table table-success table-striped">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Nome)</th>
+                    <th>@Html.DisplayNameFor(model => model.Email)</th>
+                    <th>@Html.DisplayNameFor(model => model.Password)</th>
+                    <th>@Html.DisplayNameFor(model => model.IndirizzoSpedizione)</th>
+                    <th>@Html.DisplayNameFor(model => model.Role)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Password)</td>
+                        <td>@Html.DisplayFor(modelItem => item.IndirizzoSpedizione)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Role)</td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.UserID }, new { @class = "btn btn-success" }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.UserID }, new { @class = "btn btn-success" }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.UserID }, new { @class = "btn btn-danger" })
+                            @Html.ActionLink("Rendi Admin", "AssignAdminRole", new { id = item.UserID }, new { @class = "btn btn-success" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <p>  @Html.ActionLink("Torna indietro", "BackOffice", "Home", new { area = "" }, new { @class = "bottone1" })</p>

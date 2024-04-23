@@ -1,9 +1,5 @@
 ﻿@model IEnumerable<PugliaMia.Models.Ordini>
 
-@{
-    ViewBag.Title = "Index";
-}
-
 <div class="container-fluid bgChisiamo9">
     <div class="container hero">
         <div class="row pt-5">
@@ -15,22 +11,20 @@
 </div>
 
 <div class="container py-3">
-    <h2 class="titPage">Ordini</h2>
+    <h2 class="titPage">Ordini Confermati</h2>
     <hr class="border border-danger border-2 opacity-50 mb-4" />
 
     <p>
-        @Html.ActionLink("Crea Ordine", "Create", "", new { @class = "bottone1" })
+        @Html.ActionLink("Create New", "Create")
     </p>
-    <p>  @Html.ActionLink("Torna indietro", "BackOffice", "Home", new { area = "" }, new { @class = "bottone1" })</p>
     <div class="table-responsive">
         <table class="table table-warning table-striped">
             <thead>
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.OrdineID)</th>
-                    <th>@Html.DisplayNameFor(model => model.Utenti.Nome)</th>
-                    <th>@Html.DisplayNameFor(model => model.DataOrdine)</th>
-                    <th>@Html.DisplayNameFor(model => model.StatoOrdine)</th>
-                    <th>@Html.DisplayNameFor(model => model.Totale)</th>
+                    <th>Nome Utente</th>
+                    <th>Data Ordine</th>
+                    <th>Stato Ordine</th>
+                    <th>Totale</th>
                     <th></th>
                 </tr>
             </thead>
@@ -38,7 +32,6 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>@Html.DisplayFor(modelItem => item.OrdineID)</td>
                         <td>@Html.DisplayFor(modelItem => item.Utenti.Nome)</td>
                         <td>@Html.DisplayFor(modelItem => item.DataOrdine)</td>
                         <td>@Html.DisplayFor(modelItem => item.StatoOrdine)</td>
@@ -47,11 +40,6 @@
                             @Html.ActionLink("Edit", "Edit", new { id = item.OrdineID }, new { @class = "btn btn-success" }) |
                             @Html.ActionLink("Details", "Details", new { id = item.OrdineID }, new { @class = "btn btn-success" }) |
                             @Html.ActionLink("Delete", "Delete", new { id = item.OrdineID }, new { @class = "btn btn-danger" })
-                            @using (Html.BeginForm("ConfermaOrdine", "Ordini", FormMethod.Post))
-                            {
-                                @Html.Hidden("id", item.OrdineID)
-                                <button type="submit" class="btn btn-primary" onclick="return confirm('Sei sicuro di voler confermare questo ordine?')">Check-out</button>
-                            }
                         </td>
                     </tr>
                 }

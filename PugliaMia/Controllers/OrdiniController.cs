@@ -22,9 +22,47 @@ namespace PugliaMia.Controllers
         // GET: Ordini
         public ActionResult Index()
         {
-            var ordiniElaborazione = db.Ordini.Where(o => o.StatoOrdine == "Confermato").ToList();
+            var ordiniElaborazione = db.Ordini
+                                      .Where(o => o.StatoOrdine == "In elaborazione")
+                                      .OrderBy(o => o.DataOrdine)
+                                      .ToList();
 
             return View(ordiniElaborazione);
+        }
+
+
+        public ActionResult IndexConfermato()
+        {
+            var ordiniElaborazione = db.Ordini
+                                      .Where(o => o.StatoOrdine == "Confermato")
+                                      .OrderByDescending(o => o.DataOrdine)
+                                      .ToList();
+
+            return View(ordiniElaborazione);
+        }
+
+
+
+        // Azione per la conferma dell'ordine tramite metodo GET
+        [HttpGet]
+        public ActionResult ConfermaOrdine(int? id)
+        {
+            // Puoi implementare qui la logica per mostrare una vista di conferma
+            // o semplicemente reindirizzare all'azione Index
+            return RedirectToAction("Index");
+        }
+
+        // Azione per la conferma dell'ordine tramite metodo POST
+        [HttpPost]
+        public ActionResult ConfermaOrdine(int id)
+        {
+            var ordine = db.Ordini.Find(id);
+            if (ordine != null)
+            {
+                ordine.StatoOrdine = "Confermato";
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");
         }
 
         public ActionResult OrdiniUtente()
@@ -59,10 +97,7 @@ namespace PugliaMia.Controllers
         }
 
 
-        public ActionResult ConfermaOrdine()
-        {
-            return View();
-        }
+
 
         public ActionResult CreaOrdine()
         {
@@ -154,7 +189,7 @@ namespace PugliaMia.Controllers
                     {
                         UserID = currentUser.UserID,
                         DataOrdine = DateTime.Now,
-                        StatoOrdine = "Confermato",
+                        StatoOrdine = "In elaborazione",
                         Totale = totalePagamento + costoSpedizione
                     };
 

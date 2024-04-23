@@ -25,19 +25,19 @@
         <div class="login-form my-2">
             <div class="form-group">
                 @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label" })
-                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", placeholder = "Nome" } })
+                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control mx-auto", placeholder = "Nome" } })
                 @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Email" } })
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control mx-auto", placeholder = "Email" } })
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password", type = "password" } })
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control mx-auto", placeholder = "Password", type = "password" } })
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
 
@@ -45,6 +45,7 @@
                 <button type="submit" class="btn btn-primary btn-block">Login</button>
             </div>
         </div>
+
     }
 </div>
 @section Scripts {

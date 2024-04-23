@@ -18,7 +18,7 @@
 <div class="container-fluid bgContainer hiden-content">
     <div class="container hero text-center pt-5">
         <div class="lh-4 titShop pt-5">
-           
+
             <h1 class="text-white title fw-bold dancing">Puglia dolce sensazione</h1>
             <div class="d-flex justify-content-center gap-3 py-4">
                 @if (Request.IsAuthenticated)
@@ -48,21 +48,23 @@
     <hr class="border border-danger border-2 opacity-50 mb-4" />
 </div>
 
-<div class="container-fluid p-0 my-5 mb-5 hiden-content">
-    <div class="row align-items-start">
-        <div class="col-md-8 h-100">
+<div class="container-fluid p-0 my-5 mb-5 hiden-content ">
+    <div class="row align-items-center">
+        <div class="col-md-8">
             <img src="~/Content/Images/legumi big.jpg" class="img-fluid w-100" style="height: auto;" />
         </div>
-        <div class="col-md-4 d-flex flex-column lineaHome justify-content-center align-items-center py-4 h-100">
-            <h2 class="text-center mb-4 titPage">Prodotti tipici Pugliesi</h2>
-            <hr />
-            <p class="text-center">
-                La Puglia, terra baciata dal sole e ricca di tradizioni millenarie, incanta con la sua cucina genuina e autentica. Le ricette pugliesi, tramandate di generazione in generazione, sono un vero e proprioscrigno di sapori mediterranei. <br />
-                Dai piatti di mare, come il famoso "riso, patate e cozze", alle prelibatezze contadine come la "focaccia barese" e la "frisella", ogni boccone racconta la storia di questa terra.
-            </p>
-            <p class="text-center">
-                @Html.ActionLink("Blog", "Ricette", "Home", new { area = "" }, new { @class = "bottone1" })
-            </p>
+        <div class="col-md-4 py-4">
+            <div class="d-flex flex-column justify-content-center align-items-center">
+                <h2 class="text-center mb-4 titPage">Prodotti tipici Pugliesi</h2>
+                <hr />
+                <p class="text-center">
+                    La Puglia, terra baciata dal sole e ricca di tradizioni millenarie, incanta con la sua cucina genuina e autentica. Le ricette pugliesi, tramandate di generazione in generazione, sono un vero e proprioscrigno di sapori mediterranei. <br />
+                    Dai piatti di mare, come il famoso "riso, patate e cozze", alle prelibatezze contadine come la "focaccia barese" e la "frisella", ogni boccone racconta la storia di questa terra.
+                </p>
+                <p class="text-center">
+                    @Html.ActionLink("Blog", "Ricette", "Home", new { area = "" }, new { @class = "bottone1" })
+                </p>
+            </div>
         </div>
     </div>
 </div>
@@ -113,6 +115,7 @@
 
 
 <script>
+
     $(document).ready(function () {
         var video = document.getElementById('logo-video');
 
@@ -145,6 +148,9 @@
         $('#welcomeMessage').fadeOut('slow');
         $('#overlay').fadeOut('slow');
     }, 2000); // 2000 millisecondi = 2 secondi
+
+
+
 </script>
 
 

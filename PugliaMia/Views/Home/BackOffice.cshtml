@@ -1,9 +1,6 @@
-﻿
-
-@{
+﻿@{
     ViewBag.Title = "BackOffice";
 }
-
 
 <div class="container-fluid bgChisiamo9">
     <div class="container hero">
@@ -18,68 +15,54 @@
 <div class="container login-form my-4 text-center">
     <h2 class="titPage">BackOffice</h2>
     <hr class="border border-danger border-2 opacity-50 mb-4" />
-    <div class="row g-4">
-        <div class="col-3">
-            <div class="card h-100 bgOffice text-center" style="width: 18rem;">
-                <span class="badge rounded-pill text-bg-light mx-2 py-2 my-3">Visualizza i Prodotti</span>
-                <img src="~/Content/Images/marmellata1.png" class="card-img-top" alt="...">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <div class="col">
+            <div class="card h-100 bgOffice text-center">
                 <div class="card-body">
-
-                    <p>@Html.ActionLink("Lista Prodotti", "IndexAdmin", "Prodotti", new { area = "" }, new { @class = "bottone1" })</p>
+                    <p>@Html.ActionLink("Lista Prodotti", "IndexAdmin", "Prodotti", new { area = "" }, new { @class = "bottone2" })</p>
                 </div>
             </div>
         </div>
-        <div class="col-3">
-            <div class="card p-2 bgOffice1 text-center" style="width: 18rem;">
-                <span class="badge rounded-pill text-bg-light mx-2 py-2 my-3">Ordini Effettuati</span>
-                <img src="~/Content/Images/strascinati.png" class="card-img-top" alt="...">
+        <!-- Ripeti questa struttura per gli altri elementi -->
+        <div class="col">
+            <div class="card h-100 bgOffice text-center">
                 <div class="card-body">
-
-                    <p> @Html.ActionLink("Ordini Effettuati", "Index", "Ordini", new { area = "" }, new { @class = "bottone1" })</p>
+                    <p> @Html.ActionLink("Ordini In elaborazione", "Index", "Ordini", new { area = "" }, new { @class = "bottone2" })</p>
                 </div>
             </div>
         </div>
-
-        <div class="col-3">
-            <div class="card p-2 bgOffice2 text-center" style="width: 18rem;">
-                <span class="badge rounded-pill text-bg-light mx-2 py-2 my-3">Utenti Registrati</span>
-                <img src="~/Content/Images/taralli classic.png" class="card-img-top" alt="...">
+        <div class="col">
+            <div class="card h-100 bgOffice text-center">
                 <div class="card-body">
-
-                    <p> @Html.ActionLink("Utenti registrati", "Index", "Utenti", new { area = "" }, new { @class = "bottone1" })</p>
+                    <p> @Html.ActionLink("Utenti registrati", "Index", "Utenti", new { area = "" }, new { @class = "bottone2" })</p>
                 </div>
             </div>
         </div>
-
-        <div class="col-3">
-            <div class="card p-2 bgOffice4 text-center" style="width: 18rem;">
-                <span class="badge rounded-pill text-bg-light mx-2 py-2 my-3">Dettagli Ordini</span>
-                <img src="~/Content/Images/olio olivò 5l.png" class="card-img-top" alt="...">
+        <div class="col">
+            <div class="card h-100 bgOffice text-center">
                 <div class="card-body">
-
-                    <p> @Html.ActionLink("Ordini Dettaglio", "Index", "DettagliOrdine", new { area = "" }, new { @class = "bottone1" })</p>
+                    <p> @Html.ActionLink("Ordini Dettaglio", "Index", "DettagliOrdine", new { area = "" }, new { @class = "bottone2" })</p>
                 </div>
             </div>
         </div>
-
-        <div class="col-3">
-            <div class="card p-2 bgOffice5 text-center" style="width: 18rem;">
-                <span class="badge rounded-pill text-bg-light mx-2 py-2 my-3">Spedizioni In Transito</span>
-                <img src="~/Content/Images/olio olivò 5l.png" class="card-img-top" alt="...">
+        <div class="col">
+            <div class="card h-100 bgOffice text-center">
                 <div class="card-body">
-
-                    <p> @Html.ActionLink("Spedizioni in Transito", "Index", "Spedizioni", new { area = "" }, new { @class = "bottone1" })</p>
+                    <p> @Html.ActionLink("Spedizioni in Transito", "Index", "Spedizioni", new { area = "" }, new { @class = "bottone2" })</p>
                 </div>
             </div>
         </div>
-
-        <div class="col-3">
-            <div class="card p-2 bgOffice6 text-center" style="width: 18rem;">
-                <span class="badge rounded-pill text-bg-light mx-2 py-2 my-3">Prodotti più Venduti</span>
-                <img src="~/Content/Images/olio olivò 5l.png" class="card-img-top" alt="...">
+        <div class="col">
+            <div class="card h-100 bgOffice text-center">
                 <div class="card-body">
-
-                    <p> @Html.ActionLink("Prodotti più Venduti", "ProdottiPiuVenduti", "Home", new { area = "" }, new { @class = "bottone1" })</p>
+                    <p> @Html.ActionLink("Prodotti più Venduti", "ProdottiPiuVenduti", "Home", new { area = "" }, new { @class = "bottone2" })</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 bgOffice text-center">
+                <div class="card-body">
+                    <p> @Html.ActionLink("Ordini Confermati", "IndexConfermato", "Ordini", new { area = "" }, new { @class = "bottone2" })</p>
                 </div>
             </div>
         </div>

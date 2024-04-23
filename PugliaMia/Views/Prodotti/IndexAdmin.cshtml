@@ -15,11 +15,9 @@
 </div>
 
 <div class="container py-3">
-   
-
-    <p class="pt-4">
-        @Html.ActionLink("Createun nuovo prodotto", "Create", new { area = "" }, new { @class = "bottone1" })
-    </p>
+    <div class="pt-4">
+        @Html.ActionLink("Crea un nuovo prodotto", "Create", new { area = "" }, new { @class = "bottone1" })
+    </div>
     <div class="container pt-4">
         <h2>Prodotti</h2>
         <hr class="border border-danger border-2 opacity-50 mb-4" />
@@ -28,17 +26,15 @@
             @foreach (var item in Model)
             {
                 <div class="col">
-                    <div class="product p-2" style="width: 18rem;">
+                    <div class="product p-2">
                         <img src="@Url.Content(string.IsNullOrEmpty(item.Immagine) ? "~/Content/Images/hotel.jpg" : item.Immagine)" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">@Html.DisplayFor(modelItem => item.Nome)</h5>
                             <p class="card-text">@Html.DisplayFor(modelItem => item.Prezzo)</p>
-
-
                             <div>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.ProdottoID }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.ProdottoID }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.ProdottoID })
+                                @Html.ActionLink("Edit", "Edit", new { id = item.ProdottoID }, new { @class = "btn btn-success me-2" })
+                                @Html.ActionLink("Details", "Details", new { id = item.ProdottoID }, new { @class = "btn btn-primary me-2" })
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ProdottoID }, new { @class = "btn btn-danger" })
                             </div>
                         </div>
                     </div>
@@ -49,4 +45,4 @@
     </div>
 </div>
 
-<p>  @Html.ActionLink("Torna indietro", "BackOffice", "Home", new { area = "" }, new { @class = "bottone1" })</p>
+<p>@Html.ActionLink("Torna indietro", "BackOffice", "Home", new { area = "" }, new { @class = "bottone1" })</p>

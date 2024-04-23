@@ -41,6 +41,7 @@ namespace PugliaMia.Controllers
 
 
 
+
         // GET: Recensioni/Details/5
         public ActionResult Details(int? id)
         {
@@ -89,11 +90,13 @@ namespace PugliaMia.Controllers
                 recensioni.DataRecensione = DateTime.Today;
                 db.Recensioni.Add(recensioni);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Details", "Prodotti");
+                return RedirectToAction("Details", "Prodotti", new { id = recensioni.ProdottoID });
             }
 
-            return Json(recensioni, JsonRequestBehavior.AllowGet);
+            // Se il modello non è valido, restituisci la vista Create con il modello invalido
+            return View(recensioni);
         }
+
 
 
         // GET: Recensioni/Edit/5

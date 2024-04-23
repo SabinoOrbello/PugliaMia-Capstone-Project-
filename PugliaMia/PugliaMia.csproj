@@ -371,6 +371,7 @@
     <Content Include="Content\Images\PUGLIA.mp4" />
     <Content Include="Content\Images\PUGLIA.png" />
     <Content Include="Content\Images\PUGLIA2.png" />
+    <Content Include="Content\Images\sfondobello.jpg" />
     <Content Include="Content\Images\spaghetti.jpg" />
     <Content Include="Content\Images\strascinati.png" />
     <Content Include="Content\Images\taralli 1.jpg" />
@@ -506,7 +507,6 @@
     <Content Include="Views\Ordini\Details.cshtml" />
     <Content Include="Views\Ordini\Edit.cshtml" />
     <Content Include="Views\Ordini\Index.cshtml" />
-    <Content Include="Views\Ordini\ConfermaOrdine.cshtml" />
     <Content Include="Views\Ordini\RiepilogoOrdine.cshtml" />
     <Content Include="Views\Ordini\OrdiniUtente.cshtml" />
     <Content Include="Views\DettagliOrdine\Create.cshtml" />
@@ -537,6 +537,7 @@
     <Content Include="Views\Home\ChiSiamo.cshtml" />
     <Content Include="Views\Home\Ricette.cshtml" />
     <Content Include="Views\Home\Contattaci.cshtml" />
+    <Content Include="Views\Ordini\IndexConfermato.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

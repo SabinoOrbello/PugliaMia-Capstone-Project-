@@ -14,23 +14,24 @@
     <h2 class="titPage">Prodotti più Venduti</h2>
     <hr class="border border-danger border-2 opacity-50 mb-4" />
 
-    <table class="table table-success table-striped">
-        <thead>
-            <tr>
-                <th>Nome Prodotto</th>
-                <th>Quantità Venduta</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var prodotto in Model)
-            {
+    <div class="table-responsive">
+        <table class="table table-success table-striped">
+            <thead>
                 <tr>
-                    <td>@prodotto.Nome</td>
-                    <td>@prodotto.QuantitaVenduta</td>
+                    <th>Nome Prodotto</th>
+                    <th>Quantità Venduta</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-    <p>  @Html.ActionLink("Torna indietro", "BackOffice", "Home", new { area = "" }, new { @class = "bottone1" })</p>
+            </thead>
+            <tbody>
+                @foreach (var prodotto in Model)
+                {
+                    <tr>
+                        <td>@prodotto.Nome</td>
+                        <td>@prodotto.QuantitaVenduta</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <p>@Html.ActionLink("Torna indietro", "BackOffice", "Home", new { area = "" }, new { @class = "bottone1" })</p>
 </div>
-
