@@ -29,19 +29,22 @@ namespace PugliaMia.Controllers
             return View(prodotti.ToList());
         }
         // GET: Prodotti/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Prodotti prodotti = db.Prodotti.Find(id);
-            if (prodotti == null)
+            var prodotto = db.Prodotti.Find(id);
+            if (prodotto == null)
             {
                 return HttpNotFound();
             }
-            return View(prodotti);
+
+            // Ottieni il punteggio medio delle recensioni associate al prodotto
+            double? punteggioMedio = db.Recensioni.Where(r => r.ProdottoID == id).Average(r => (double?)r.Punteggio);
+
+            ViewBag.PunteggioMedio = punteggioMedio;
+
+            return View(prodotto);
         }
+
 
         // GET: Prodotti/Create
         public ActionResult Create()

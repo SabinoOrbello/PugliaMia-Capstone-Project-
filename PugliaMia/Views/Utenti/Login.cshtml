@@ -1,4 +1,4 @@
-﻿@model PugliaMia.Models.Utenti
+﻿﻿@model PugliaMia.Models.Utenti
 
 @{
     ViewBag.Title = "Login";
@@ -22,24 +22,29 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="login-form my-2">
-            <div class="form-group">
-                @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label" })
-                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control mx-auto", placeholder = "Nome" } })
-                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
-            </div>
+<div class="login-form my-2">
+    <div class="form-group">
+        @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control mx-auto", placeholder = "Nome" } })
+        @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+    </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control mx-auto", placeholder = "Email" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control mx-auto", placeholder = "Email" } })
+        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+    </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control mx-auto", placeholder = "Password", type = "password" } })
-                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group">
+    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })
+    <div class="input-group">
+        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control mx-auto password-toggle", placeholder = "Password", type = "password" } })
+        <div class="input-group-append">
+
+        </div>
+    </div>
+    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+</div>
 
             <div class="form-group">
                 <button type="submit" class="btn btn-primary btn-block">Login</button>
@@ -51,3 +56,17 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<script>
+    function togglePasswordVisibility(icon) {
+        var passwordInput = icon.parentElement.parentElement.querySelector(".password-toggle");
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            icon.innerHTML = '<i class="fa fa-eye-slash" aria-hidden="true"></i>';
+        } else {
+            passwordInput.type = "password";
+            icon.innerHTML = '<i class="fa fa-eye" aria-hidden="true"></i>';
+        }
+    }
+</script>

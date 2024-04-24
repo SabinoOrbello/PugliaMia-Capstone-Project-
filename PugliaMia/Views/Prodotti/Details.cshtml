@@ -25,12 +25,24 @@
             <div class="card border-0">
                 <div class="card-body">
                     <div class="row h-100 my-4 lineaHome">
-
-
-
                         <div class="col-sm-9 fw-bold size">
+                            @if (ViewBag.PunteggioMedio != null)
+                            {
+                                <p>Punteggio:</p>
+                                <p>
+                                    @for (int i = 0; i < ViewBag.PunteggioMedio; i++)
+                                    {
+                                        <i class="fas fa-star stella"></i>
+                                    }
+                                </p>
+                            }
+                            else
+                            {
+                                <p>Nessuna valutazione disponibile</p>
+                            }
                             <h1>@Html.DisplayFor(model => model.Nome)</h1>
                         </div>
+
 
 
                         <div class="col-sm-9 fs-2 fw-bold">
@@ -42,13 +54,13 @@
                         </div>
 
                         <div class="col-sm-9 text-secondary">
-                        <p>@Html.DisplayFor(model => model.Descrizione)</p>
+                            <p>@Html.DisplayFor(model => model.Descrizione)</p>
                         </div>
 
 
 
                         <div class="col-sm-9 text-secondary">
-                        <p>Ingredienti: @Html.DisplayFor(model => model.Ingredienti)</p> 
+                            <p>Ingredienti: @Html.DisplayFor(model => model.Ingredienti)</p>
                         </div>
                     </div>
                     <div>

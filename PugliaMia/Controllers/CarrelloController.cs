@@ -35,6 +35,14 @@ namespace PugliaMia.Controllers
                     var prodottoIDs = carrello.Select(c => c.ProdottoID).ToList();
                     var prodottiInCarrello = await db.Prodotti.Where(p => prodottoIDs.Contains(p.ProdottoID)).ToListAsync();
 
+                    var recensioniInCarrello = await db.Recensioni.Where(r => prodottoIDs.Contains(r.ProdottoID)).ToListAsync();
+
+                    // Calcola il punteggio medio delle recensioni
+                    double punteggioMedio = CalcolaPunteggioMedio(recensioniInCarrello);
+
+                    // Passa il punteggio medio alla vista
+                    ViewBag.PunteggioMedio = punteggioMedio;
+
                     // Calcola il peso totale del carrello
                     decimal pesoTotale = 0;
                     foreach (var prodotto in prodottiInCarrello)
@@ -115,6 +123,23 @@ namespace PugliaMia.Controllers
         {
             decimal costoSpedizione = CalcolaCostoSpedizione(pesoTotale);
             return Json(costoSpedizione);
+        }
+
+        private double CalcolaPunteggioMedio(List<Recensioni> recensioni)
+        {
+            if (recensioni != null && recensioni.Count > 0)
+            {
+                double sommaPunteggi = 0;
+                foreach (var recensione in recensioni)
+                {
+                    sommaPunteggi += (double)recensione.Punteggio;
+                }
+                return sommaPunteggi / recensioni.Count;
+            }
+            else
+            {
+                return 0; // Se non ci sono recensioni, restituisci 0 come punteggio medio
+            }
         }
 
         [HttpGet]

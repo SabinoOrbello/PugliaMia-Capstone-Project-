@@ -8,6 +8,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using PugliaMia.Models;
+using BCrypt.Net;
+using System.Security.Cryptography;
+using System.Text;
+
 
 namespace PugliaMia.Controllers
 {
@@ -223,6 +227,7 @@ namespace PugliaMia.Controllers
             return View(model);
         }
 
+
         public ActionResult AssignAdminRole(int id)
         {
             var user = db.Utenti.FirstOrDefault(u => u.UserID == id);
@@ -244,5 +249,10 @@ namespace PugliaMia.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Login", "Utenti");
         }
+
+
+
+
     }
 }
+

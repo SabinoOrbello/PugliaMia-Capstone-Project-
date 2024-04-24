@@ -410,9 +410,7 @@ span {
     }
 
 .bgOffice {
-    background-image: url('../Content/Images/sfondobello.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
+    background-color: #4B4453 !important;
 }
 
 .bgOffice1 {

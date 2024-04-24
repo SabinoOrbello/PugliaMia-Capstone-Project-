@@ -25,10 +25,14 @@ namespace PugliaMia.Models
         public string Nome { get; set; }
 
         [StringLength(100)]
+        [EmailAddress(ErrorMessage = "Inserisci un'email valida")]
         public string Email { get; set; }
 
-        [StringLength(100)]
+        [Required(ErrorMessage = "Il campo Password è obbligatorio")]
+        [StringLength(100, MinimumLength = 6, ErrorMessage = "La lunghezza della password deve essere compresa tra 6 e 100 caratteri")]
         public string Password { get; set; }
+
+        public string Salt { get; set; }
 
         [StringLength(255)]
         public string IndirizzoSpedizione { get; set; }
@@ -46,5 +50,6 @@ namespace PugliaMia.Models
         public virtual ICollection<Recensioni> Recensioni { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Roles> Roles { get; set; }
+        public string TokenRecuperoPassword { get; internal set; }
     }
 }

@@ -22,6 +22,10 @@ namespace PugliaMia
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
+            "~/Scripts/jquery.validate*"));
+
         }
     }
 }

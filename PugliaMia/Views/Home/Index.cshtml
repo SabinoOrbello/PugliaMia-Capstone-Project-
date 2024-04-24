@@ -62,7 +62,7 @@
                     Dai piatti di mare, come il famoso "riso, patate e cozze", alle prelibatezze contadine come la "focaccia barese" e la "frisella", ogni boccone racconta la storia di questa terra.
                 </p>
                 <p class="text-center">
-                    @Html.ActionLink("Blog", "Ricette", "Home", new { area = "" }, new { @class = "bottone1" })
+                    @Html.ActionLink("Contatti", "Ricette", "Home", new { area = "" }, new { @class = "bottone1" })
                 </p>
             </div>
         </div>
@@ -87,7 +87,7 @@
                 Oggi queste tradizioni sono degli aspetti folkloristici che attirano molti curiosi e turisti da tutto il mondo. <br />
                 Sono tratti peculiari, unici e autentici di una terra antica come la Puglia.
             </p>
-            <a href="#" class="bottone text-dark"> know more</a>
+            @Html.ActionLink("Chi Siamo", "ChiSiamo", "Home", new { area = "" }, new { @class = "bottone1" })
         </div>
     </div>
 </div>
