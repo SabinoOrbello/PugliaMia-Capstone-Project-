@@ -2,7 +2,7 @@
 PugliaFood è un progetto di e-commerce sviluppato come parte del mio corso di studi utilizzando .NET MVC, C#, Entity Framework e Bootstrap. L'obiettivo di questo progetto è creare una piattaforma online per la vendita di prodotti tipici pugliesi, offrendo agli utenti un'esperienza di shopping intuitiva e sicura.
 
 Caratteristiche principali:
-Vendita di Prodotti Tipici Pugliesi: PugliaMarket offre una vasta gamma di prodotti autentici provenienti dalla splendida regione della Puglia, tra cui alimenti, bevande, artigianato locale e molto altro ancora.
+Vendita di Prodotti Tipici Pugliesi: PugliaFood offre una vasta gamma di prodotti autentici provenienti dalla splendida regione della Puglia, tra cui alimenti, bevande, artigianato locale e molto altro ancora.
 Pagamenti Sicuri con Stripe: Abbiamo implementato un sistema di pagamento sicuro utilizzando Stripe, consentendo agli utenti di effettuare transazioni in modo rapido e protetto.
 Dashboard Admin: Abbiamo incluso una dashboard per gli amministratori del sito per gestire facilmente il catalogo dei prodotti, gli ordini degli utenti e altro ancora.
 Come utilizzare il progetto:
