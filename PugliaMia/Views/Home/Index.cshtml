@@ -63,7 +63,7 @@
                     Dai piatti di mare, come il famoso "riso, patate e cozze", alle prelibatezze contadine come la "focaccia barese" e la "frisella", ogni boccone racconta la storia di questa terra.
                 </p>
                 <p class="text-center">
-                    @Html.ActionLink("Contatti", "Ricette", "Home", new { area = "" }, new { @class = "bottone1" })
+                    @Html.ActionLink("Contatti", "Contattaci", "Home", new { area = "" }, new { @class = "bottone1" })
                 </p>
             </div>
         </div>
@@ -157,7 +157,7 @@
             var scrollPosition = $(this).scrollTop();
 
             // Se la posizione dello scroll è maggiore o uguale a 800px
-            if (scrollPosition >= 400) {
+            if (scrollPosition >= 300) {
                 // Animazione per mostrare le sezioni con opacità graduale
                 $('.show-on-scroll').stop().fadeTo(500, 1);
             } else {

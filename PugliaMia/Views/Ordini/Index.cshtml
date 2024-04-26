@@ -50,7 +50,7 @@
                             @using (Html.BeginForm("ConfermaOrdine", "Ordini", FormMethod.Post))
                             {
                                 @Html.Hidden("id", item.OrdineID)
-                                <button type="submit" class="btn btn-primary" onclick="return confirm('Sei sicuro di voler confermare questo ordine?')">Check-out</button>
+                                <button type="submit" class="btn btn-primary mt-2" onclick="return confirm('Sei sicuro di voler confermare questo ordine?')">Check-out</button>
                             }
                         </td>
                     </tr>

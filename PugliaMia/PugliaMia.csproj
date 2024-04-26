@@ -387,6 +387,7 @@
     <Content Include="Content\Images\burrata.jpg" />
     <Content Include="Content\Images\cacioricotta salento.png" />
     <Content Include="Content\Images\cavatelli.png" />
+    <Content Include="Content\Images\cimedirapa.png" />
     <Content Include="Content\Images\company-logo.png" />
     <Content Include="Content\Images\confettura albi.png" />
     <Content Include="Content\Images\cozzegratinate.jpg" />
@@ -414,10 +415,12 @@
     <Content Include="Content\Images\orecchiette.jpg" />
     <Content Include="Content\Images\orecchiette1.png" />
     <Content Include="Content\Images\orecchiettegranoarso.png" />
+    <Content Include="Content\Images\patate-rosmarino.png" />
     <Content Include="Content\Images\pomodori.jpg" />
     <Content Include="Content\Images\PUGLIA.mp4" />
     <Content Include="Content\Images\PUGLIA.png" />
     <Content Include="Content\Images\PUGLIA2.png" />
+    <Content Include="Content\Images\semi-finocchio.png" />
     <Content Include="Content\Images\sfondobello.jpg" />
     <Content Include="Content\Images\spaghetti.jpg" />
     <Content Include="Content\Images\strascinati.png" />
@@ -426,9 +429,11 @@
     <Content Include="Content\Images\taralli classic.png" />
     <Content Include="Content\Images\taralli fin.png" />
     <Content Include="Content\Images\taralli pat e rosma.png" />
+    <Content Include="Content\Images\taralligr.png" />
     <Content Include="Content\Images\treccia vg.png" />
     <Content Include="Content\Images\trulli.jpg" />
     <Content Include="Content\Images\trullino.jpg" />
+    <Content Include="Content\Images\uvetta-cipolla.png" />
     <Content Include="Content\Images\vigna.jpg" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
@@ -584,7 +589,6 @@
     <Content Include="Views\Ordini\OrdiniCompletati.cshtml" />
     <Content Include="Views\Home\ProdottiPiuVenduti.cshtml" />
     <Content Include="Views\Home\ChiSiamo.cshtml" />
-    <Content Include="Views\Home\Ricette.cshtml" />
     <Content Include="Views\Home\Contattaci.cshtml" />
     <Content Include="Views\Ordini\IndexConfermato.cshtml" />
   </ItemGroup>
