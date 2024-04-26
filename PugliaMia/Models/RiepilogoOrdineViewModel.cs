@@ -14,5 +14,6 @@ namespace PugliaMia.Models
         public List<DettagliOrdine> DettagliOrdine { get; set; }
         public decimal TotaleOrdine { get; set; } // Aggiungi questo campo per il totale dell'ordine
         public decimal CostoSpedizioneTotale { get; set; }
+        public DateTime DataConsegnaPrevista { get; internal set; }
     }
 }

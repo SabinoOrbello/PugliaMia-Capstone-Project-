@@ -8,7 +8,9 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 using PugliaMia.Models;
+
 
 namespace PugliaMia.Controllers
 {
@@ -22,6 +24,11 @@ namespace PugliaMia.Controllers
             var prodotti = await db.Prodotti.Include(p => p.Categorie).ToListAsync();
             return PartialView(prodotti);
         }
+
+
+
+
+
 
         public ActionResult IndexAdmin()
         {

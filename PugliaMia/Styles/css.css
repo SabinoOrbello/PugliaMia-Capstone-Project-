@@ -751,3 +751,21 @@ textarea {
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
     z-index: 1;
 }
+
+.normativa {
+    font-size: 0.8rem !important;
+}
+
+@media (max-width: 768px) {
+    #fixedSidebar.fixed-sidebar-mobile {
+        position: fixed;
+        top: 100px;
+        bottom: 0;
+        overflow-y: auto;
+        margin-top: 15px; /* Aggiunto margine superiore per evitare sovrapposizioni */
+    }
+
+    #productsContainer {
+        margin-right: 60px;
+    }
+}

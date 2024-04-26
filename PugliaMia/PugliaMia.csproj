@@ -77,6 +77,12 @@
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="Stripe.net, Version=43.23.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Stripe.net.43.23.0\lib\net461\Stripe.net.dll</HintPath>
     </Reference>
@@ -220,6 +226,7 @@
     <Compile Include="Controllers\ProdottiController.cs" />
     <Compile Include="Controllers\RecensioniController.cs" />
     <Compile Include="Controllers\SpedizioniController.cs" />
+    <Compile Include="Controllers\StaticPagedList.cs" />
     <Compile Include="Controllers\StripeCustomerService.cs" />
     <Compile Include="Controllers\UtentiController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -262,9 +269,14 @@
     <Compile Include="Migrations\202404240819384_salt.Designer.cs">
       <DependentUpon>202404240819384_salt.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202404250630154_Time.cs" />
+    <Compile Include="Migrations\202404250630154_Time.Designer.cs">
+      <DependentUpon>202404250630154_Time.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Carrello.cs" />
     <Compile Include="Models\Categorie.cs" />
+    <Compile Include="Models\CategorieViewModel.cs" />
     <Compile Include="Models\DettagliOrdine.cs" />
     <Compile Include="Models\ModelDbContext.cs" />
     <Compile Include="Models\ModificaOrdineViewModel.cs" />
@@ -374,24 +386,34 @@
     <Content Include="Content\Images\burrata igp andria.png" />
     <Content Include="Content\Images\burrata.jpg" />
     <Content Include="Content\Images\cacioricotta salento.png" />
+    <Content Include="Content\Images\cavatelli.png" />
     <Content Include="Content\Images\company-logo.png" />
+    <Content Include="Content\Images\confettura albi.png" />
     <Content Include="Content\Images\cozzegratinate.jpg" />
+    <Content Include="Content\Images\denocciolato.png" />
     <Content Include="Content\Images\forno-logo.png" />
     <Content Include="Content\Images\frutta e verdura.mp4" />
+    <Content Include="Content\Images\fruttato-intenso.png" />
+    <Content Include="Content\Images\fruttato-leggero.png" />
     <Content Include="Content\Images\grill-logo.png" />
     <Content Include="Content\Images\lampascioni la terra di puglia.png" />
     <Content Include="Content\Images\legumi big.jpg" />
     <Content Include="Content\Images\mare.jpeg" />
+    <Content Include="Content\Images\marmellata arance.png" />
+    <Content Include="Content\Images\marmellata clementine.png" />
+    <Content Include="Content\Images\marmellata limoni.png" />
     <Content Include="Content\Images\marmellata1.png" />
     <Content Include="Content\Images\Melanzane-ripiene0.jpg" />
     <Content Include="Content\Images\mozza bomba di latte.png" />
     <Content Include="Content\Images\mozzarella deliziosa.png" />
     <Content Include="Content\Images\olio devo.jpg" />
     <Content Include="Content\Images\olio olivò 5l.png" />
+    <Content Include="Content\Images\olio-bio.png" />
     <Content Include="Content\Images\olio.jpg" />
     <Content Include="Content\Images\orecchiette-al-pomodoro-e-cacioricotta.jpg" />
     <Content Include="Content\Images\orecchiette.jpg" />
     <Content Include="Content\Images\orecchiette1.png" />
+    <Content Include="Content\Images\orecchiettegranoarso.png" />
     <Content Include="Content\Images\pomodori.jpg" />
     <Content Include="Content\Images\PUGLIA.mp4" />
     <Content Include="Content\Images\PUGLIA.png" />
@@ -399,6 +421,7 @@
     <Content Include="Content\Images\sfondobello.jpg" />
     <Content Include="Content\Images\spaghetti.jpg" />
     <Content Include="Content\Images\strascinati.png" />
+    <Content Include="Content\Images\strozzapretlim.png" />
     <Content Include="Content\Images\taralli 1.jpg" />
     <Content Include="Content\Images\taralli classic.png" />
     <Content Include="Content\Images\taralli fin.png" />
@@ -407,6 +430,7 @@
     <Content Include="Content\Images\trulli.jpg" />
     <Content Include="Content\Images\trullino.jpg" />
     <Content Include="Content\Images\vigna.jpg" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -665,6 +689,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202404240819384_salt.resx">
       <DependentUpon>202404240819384_salt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404250630154_Time.resx">
+      <DependentUpon>202404250630154_Time.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

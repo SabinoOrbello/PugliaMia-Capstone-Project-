@@ -22,7 +22,7 @@ namespace PugliaMia.Models
 
         public int? UserID { get; set; }
 
-        public DateTime? DataOrdine { get; set; }
+        public DateTime DataOrdine { get; set; }
 
         [StringLength(50)]
         public string StatoOrdine { get; set; }

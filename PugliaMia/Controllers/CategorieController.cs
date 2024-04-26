@@ -14,11 +14,15 @@ namespace PugliaMia.Controllers
     {
         private ModelDbContext db = new ModelDbContext();
 
+
+
+
         // GET: Categorie
         public ActionResult Index()
         {
             return View(db.Categorie.ToList());
         }
+
 
         // GET: Categorie/Details/5
         public ActionResult Details(int? id)

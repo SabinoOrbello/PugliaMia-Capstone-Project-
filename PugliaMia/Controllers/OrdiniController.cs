@@ -319,6 +319,11 @@ namespace PugliaMia.Controllers
             // Calcola il costo di spedizione basato sul peso totale dell'ordine
             decimal costoSpedizione = CalcolaCostoSpedizione(pesoTotaleOrdine);
 
+            // Calcola la data di consegna prevista in base alla data dell'ordine e a un intervallo di tempo stimato
+            // Ad esempio, possiamo aggiungere 3 giorni lavorativi alla data dell'ordine per ottenere la data di consegna prevista
+            DateTime dataConsegnaPrevista = ordine.DataOrdine.AddDays(3);
+
+
             // Inizializza il totale dell'ordine
             decimal totaleOrdine = 0;
 
@@ -332,7 +337,7 @@ namespace PugliaMia.Controllers
             // Aggiungi il costo di spedizione al totale dell'ordine
             totaleOrdine += costoSpedizione;
 
-            // Popola un view model con i dati dell'ordine, la spedizione, il pagamento e il costo di spedizione totale
+            // Popola un view model con i dati dell'ordine, la spedizione, il pagamento, la data di consegna prevista e il costo di spedizione totale
             var viewModel = new RiepilogoOrdineViewModel
             {
                 Ordine = ordine,
@@ -340,11 +345,13 @@ namespace PugliaMia.Controllers
                 Pagamento = pagamento,
                 DettagliOrdine = ordine.DettagliOrdine.ToList(),
                 TotaleOrdine = totaleOrdine,
-                CostoSpedizioneTotale = costoSpedizione
+                CostoSpedizioneTotale = costoSpedizione,
+                DataConsegnaPrevista = dataConsegnaPrevista
             };
 
             return View(viewModel);
         }
+
 
 
 
