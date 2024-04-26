@@ -4,6 +4,7 @@ PugliaFood è un progetto di e-commerce sviluppato come parte del mio corso di s
 Caratteristiche principali:
 Vendita di Prodotti Tipici Pugliesi: PugliaFood offre una vasta gamma di prodotti autentici provenienti dalla splendida regione della Puglia, tra cui alimenti, bevande, artigianato locale e molto altro ancora.
 Pagamenti Sicuri con Stripe: Abbiamo implementato un sistema di pagamento sicuro utilizzando Stripe, consentendo agli utenti di effettuare transazioni in modo rapido e protetto.
+Inoltre ho aggiunto la possibilità di rilasciare una valutazione(punteggio) e recensione per ogni prodotto.
 Dashboard Admin: Abbiamo incluso una dashboard per gli amministratori del sito per gestire facilmente il catalogo dei prodotti, gli ordini degli utenti e altro ancora.
 Come utilizzare il progetto:
 Clonare il repository: Clone il repository su GitHub sul tuo computer locale utilizzando il comando git clone.
