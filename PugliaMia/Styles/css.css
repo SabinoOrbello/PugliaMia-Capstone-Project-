@@ -769,3 +769,11 @@ textarea {
         margin-right: 60px;
     }
 }
+
+.show-on-scroll {
+    opacity: 0;
+}
+
+.show-on-scroll2 {
+    opacity: 0;
+}

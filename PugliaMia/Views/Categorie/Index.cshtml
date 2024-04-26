@@ -42,6 +42,20 @@
             <div id="listaProdotti">
                 <!-- Qui verrà inserita la lista dei prodotti tramite AJAX -->
             </div>
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item">
+                        <a class="page-link prev-page" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link next-page" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -51,23 +65,40 @@
 
 <script>
     $(document).ready(function () {
-        // Carica tutti i prodotti di default
-        $.ajax({
-            url: '/Prodotti/Index',
-            type: 'GET',
-            success: function (data) {
-                // Se la chiamata AJAX ha successo, aggiorna il contenuto della lista dei prodotti
-                $('#listaProdotti').html(data);
-                // Scorri automaticamente la pagina verso il basso di 50 pixel
-                $('html, body').animate({
-                    scrollTop: '+=400px'
-                }, 'slow');
-            },
-            error: function () {
-                // Gestisci gli errori se la chiamata AJAX fallisce
-                $('#listaProdotti').html('<p>Errore durante il recupero dei prodotti.</p>');
+        var numeroPaginaCorrente = 1; // Definisci il numero di pagina corrente
+
+        // Carica i prodotti della prima pagina di default
+        caricaProdotti(numeroPaginaCorrente);
+
+        $('.prev-page').click(function (event) {
+            event.preventDefault();
+            if (numeroPaginaCorrente > 1) { // Se non siamo già alla prima pagina
+                numeroPaginaCorrente--; // Decrementa il numero di pagina corrente
+                caricaProdotti(numeroPaginaCorrente); // Carica i prodotti per la nuova pagina
             }
         });
+
+        $('.next-page').click(function (event) {
+            event.preventDefault();
+            numeroPaginaCorrente++; // Incrementa il numero di pagina corrente
+            caricaProdotti(numeroPaginaCorrente); // Carica i prodotti per la nuova pagina
+        });
+
+        function caricaProdotti(pageNumber) {
+            // Effettua una chiamata AJAX per caricare i prodotti della pagina specificata
+            $.ajax({
+                url: '/Prodotti/Index',
+                type: 'GET',
+                data: { page: pageNumber },
+                success: function (data) {
+                    $('#listaProdotti').html(data);
+                    // Puoi anche aggiornare altre parti della tua pagina qui, come l'indicatore di pagina corrente
+                },
+                error: function () {
+                    $('#listaProdotti').html('<p>Errore durante il recupero dei prodotti.</p>');
+                }
+            });
+        }
 
         // Aggiungi un gestore di eventi clic per ogni bottone categoria
         $('.categoriaButton').click(function (event) {
@@ -107,6 +138,9 @@
                 }
             });
         });
+
+        // Codice aggiuntivo può andare qui se necessario
+
     });
 
     $(document).ready(function () {
@@ -165,20 +199,23 @@
     $(document).ready(function () {
         $(window).scroll(function () {
             var scroll = $(window).scrollTop();
+            var maxHeight = 2000;
             if ($(window).width() < 768) { // Aggiunta della condizione per dispositivi mobili
-                if (scroll >= 420) {
+                if (scroll >= 420 && scroll <= maxHeight) {
                     $('#fixedSidebar').addClass('fixed-sidebar-mobile'); // Aggiungi classe per dispositivi mobili
                     $('#productsContainer').css({
-                        marginLeft: '25%' // Riduce il margine sinistro per fare spazio alla sidebar fissa
+                       
+                       // Riduce il margine sinistro per fare spazio alla sidebar fissa
                     });
                 } else {
                     $('#fixedSidebar').removeClass('fixed-sidebar-mobile'); // Rimuovi classe per dispositivi mobili
                     $('#productsContainer').css({
-                        marginLeft: 0 // Ripristina il margine sinistro originale
+                       
+                       // Ripristina il margine sinistro originale
                     });
                 }
             } else { // Comportamento per dispositivi desktop
-                if (scroll >= 420) {
+                if (scroll >= 420 && scroll <= maxHeight) {
                     $('#fixedSidebar').css({
                         position: 'fixed',
                         top: '100px',

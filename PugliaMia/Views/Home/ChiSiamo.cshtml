@@ -7,7 +7,7 @@
         </div>
     </div>
 </div>
-<div class="container py-5 text-center">
+<div class="container py-5 text-center ">
     <img src="~/Content/Images/PUGLIA.png" class="img-fluid w-25" />
     <h3 class="dancing">Un viaggio gastronomico della tradizione e dell’eccellenza</h3>
     <p>
@@ -17,8 +17,8 @@
     </p>
 </div>
 
-<
-<div class="container hero bgChisiamo2 mb-5">
+
+<div class="container hero bgChisiamo2 mb-5  show-on-scroll">
     <div class="row pt-5">
         <div class="text-center lh-4">
             <h1 class=" fw-bold titShop dancing2">Il sapore di <br /> Puglia</h1>
@@ -26,7 +26,7 @@
     </div>
 </div>
 
-<div class="container text-center pt-5">
+<div class="container text-center pt-5  show-on-scroll2">
     <h1 class="fw-bold">Cos'è The Puglia e perchè <br /> è nato</h1>
     <p class="text-secondary">
         <b>Puglia</b> insomma è uno stile di vita, quello che vorremmo portare sulla vostra tavola, accompagnandovi in un viaggio del gusto che tocca le eccellenze offerte da questa terra, condividendo con voi i prodotti che, <br />
@@ -40,7 +40,7 @@
     <p class="text-secondary">  Voi lasciatevi ispirare da questo viaggio gastronomico della tradizione e dell’eccellenza. Noi ci impegneremo al massimo perché la vostra ispirazione diventi realtà.</p>
 </div>
 
-<div class="container text-center bgChisiamo3 py-5 my-4">
+<div class="container text-center bgChisiamo3 py-5 my-4 show-on-scroll2">
     <div class="d-flex flex-column justify-content-center py-5">
         <h4 class="dancing3">Newsletter</h4>
         <h2 class="pb-4 fw-bold">Iscriviti per ricevere sconti!</h2>
@@ -54,5 +54,40 @@
     </div>
 </div>
 
+<script>
+    $(document).ready(function () {
+        // Gestisci lo scroll della finestra
+        $(window).scroll(function () {
+            // Ottieni la posizione dello scroll
+            var scrollPosition = $(this).scrollTop();
 
+            // Se la posizione dello scroll è maggiore o uguale a 800px
+            if (scrollPosition >= 200) {
+                // Animazione per mostrare le sezioni con opacità graduale
+                $('.show-on-scroll').stop().fadeTo(500, 1);
+            } else {
+                // Animazione per nascondere le sezioni con opacità graduale
+                $('.show-on-scroll').stop().fadeTo(500, 0);
+            }
+        }).scroll(); // Esegui lo scroll handler all'inizio per garantire che l'opacità venga impostata correttamente
+    });
+
+    $(document).ready(function () {
+        // Gestisci lo scroll della finestra
+        $(window).scroll(function () {
+            // Ottieni la posizione dello scroll
+            var scrollPosition = $(this).scrollTop();
+
+            // Se la posizione dello scroll è maggiore o uguale a 800px
+            if (scrollPosition >= 850) {
+                // Animazione per mostrare le sezioni con opacità graduale
+                $('.show-on-scroll2').stop().fadeTo(500, 1);
+            } else {
+                // Animazione per nascondere le sezioni con opacità graduale
+                $('.show-on-scroll2').stop().fadeTo(500, 0);
+            }
+        }).scroll(); // Esegui lo scroll handler all'inizio per garantire che l'opacità venga impostata correttamente
+    });
+
+</script>
 

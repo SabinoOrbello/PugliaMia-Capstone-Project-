@@ -49,7 +49,7 @@
     <hr class="border border-danger border-2 opacity-50 mb-4" />
 </div>
 
-<div class="container-fluid p-0 my-5 mb-5 hiden-content ">
+<div class="container-fluid p-0 my-5 mb-5 hiden-content  show-on-scroll">
     <div class="row align-items-center">
         <div class="col-md-8">
             <img src="~/Content/Images/legumi big.jpg" class="img-fluid w-100" style="height: auto;" />
@@ -70,7 +70,7 @@
     </div>
 </div>
 
-<div class="container py-5 mb-5 hiden-content">
+<div class="container py-5 mb-5 hiden-content  show-on-scroll2">
     <div class="row">
         <div class="col-md">
             <video width="100%" height="auto" controls>
@@ -150,6 +150,39 @@
         $('#overlay').fadeOut('slow');
     }, 2000); // 2000 millisecondi = 2 secondi
 
+    $(document).ready(function () {
+        // Gestisci lo scroll della finestra
+        $(window).scroll(function () {
+            // Ottieni la posizione dello scroll
+            var scrollPosition = $(this).scrollTop();
+
+            // Se la posizione dello scroll è maggiore o uguale a 800px
+            if (scrollPosition >= 400) {
+                // Animazione per mostrare le sezioni con opacità graduale
+                $('.show-on-scroll').stop().fadeTo(500, 1);
+            } else {
+                // Animazione per nascondere le sezioni con opacità graduale
+                $('.show-on-scroll').stop().fadeTo(500, 0);
+            }
+        }).scroll(); // Esegui lo scroll handler all'inizio per garantire che l'opacità venga impostata correttamente
+    });
+
+    $(document).ready(function () {
+        // Gestisci lo scroll della finestra
+        $(window).scroll(function () {
+            // Ottieni la posizione dello scroll
+            var scrollPosition = $(this).scrollTop();
+
+            // Se la posizione dello scroll è maggiore o uguale a 800px
+            if (scrollPosition >= 800) {
+                // Animazione per mostrare le sezioni con opacità graduale
+                $('.show-on-scroll2').stop().fadeTo(500, 1);
+            } else {
+                // Animazione per nascondere le sezioni con opacità graduale
+                $('.show-on-scroll2').stop().fadeTo(500, 0);
+            }
+        }).scroll(); // Esegui lo scroll handler all'inizio per garantire che l'opacità venga impostata correttamente
+    });
 
 
 </script>

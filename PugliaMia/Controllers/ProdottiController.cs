@@ -19,9 +19,13 @@ namespace PugliaMia.Controllers
         private ModelDbContext db = new ModelDbContext();
 
         // GET: Prodotti
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int page = 1)
         {
-            var prodotti = await db.Prodotti.Include(p => p.Categorie).ToListAsync();
+            int pageSize = 9;
+            var prodotti = await db.Prodotti.OrderBy(p => p.ProdottoID)
+                                            .Skip((page - 1) * pageSize)
+                                            .Take(pageSize)
+                                            .ToListAsync();
             return PartialView(prodotti);
         }
 
