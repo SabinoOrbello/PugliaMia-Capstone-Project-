@@ -121,13 +121,13 @@ namespace PugliaMia.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RecensioneID,ProdottoID,UserID,Punteggio,Commento,DataRecensione")] Recensioni recensioni)
+        public ActionResult Edit([Bind(Include = "RecensioneID,ProdottoID,UserID,Punteggio,Commento")] Recensioni recensioni)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(recensioni).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Prodotti", new { id = recensioni.ProdottoID });
             }
             ViewBag.ProdottoID = new SelectList(db.Prodotti, "ProdottoID", "Nome", recensioni.ProdottoID);
             ViewBag.UserID = new SelectList(db.Utenti, "UserID", "Nome", recensioni.UserID);
@@ -149,16 +149,33 @@ namespace PugliaMia.Controllers
             return View(recensioni);
         }
 
-        // POST: Recensioni/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Recensioni recensioni = db.Recensioni.Find(id);
+            if (recensioni == null)
+            {
+                return HttpNotFound(); // Gestisci il caso in cui la recensione non esista
+            }
+
+            // Recupera l'ID dell'utente autenticato
+            string currentUsername = User.Identity.Name;
+            Utenti currentUser = db.Utenti.FirstOrDefault(u => u.Nome == currentUsername);
+
+            // Verifica se l'utente corrente è lo stesso che ha creato la recensione
+            if (currentUser.UserID != recensioni.UserID)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden); // Restituisci un errore 403 se l'utente non è autorizzato
+            }
+
+            int prodottoId = (int)recensioni.ProdottoID;
+
             db.Recensioni.Remove(recensioni);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Prodotti", new { id = prodottoId });
         }
+
 
         protected override void Dispose(bool disposing)
         {
