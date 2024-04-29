@@ -18,7 +18,7 @@
     <h2 class="titPage">Effettua il Login</h2>
     <hr class="border border-danger border-2 opacity-50 mb-4" />
 
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Login", "Utenti", FormMethod.Post, new { id = "loginForm" }))
     {
         @Html.AntiForgeryToken()
 
@@ -64,6 +64,7 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     function togglePasswordVisibility(icon) {
         var passwordInput = icon.parentElement.parentElement.querySelector(".password-toggle");
@@ -76,4 +77,45 @@
             icon.innerHTML = '<i class="fa fa-eye" aria-hidden="true"></i>';
         }
     }
+
+    $(document).ready(function () {
+        $('#loginForm').submit(function (event) {
+            event.preventDefault(); // Previeni il comportamento di default del form
+
+            $.ajax({
+                url: $(this).attr('action'),
+                type: $(this).attr('method'),
+                data: $(this).serialize(),
+                success: function (response) {
+                    if (response.success) {
+                        // Mostra il messaggio di benvenuto utilizzando SweetAlert
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Benvenuto!',
+                            text: response.message
+                        }).then(function () {
+                            // Reindirizza l'utente alla pagina principale dopo aver chiuso l'alert
+                            window.location.href = '/Home/Index';
+                        });
+                    } else {
+                        // Se l'autenticazione non ha avuto successo, mostra un messaggio di errore
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Errore!',
+                            text: response.message
+                        });
+                    }
+                },
+                error: function () {
+                    // In caso di errore nella richiesta AJAX, mostra un messaggio di errore generico
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Errore!',
+                        text: 'Si è verificato un errore durante il tentativo di login. Si prega di riprovare.'
+                    });
+                }
+            });
+        });
+    });
+
 </script>

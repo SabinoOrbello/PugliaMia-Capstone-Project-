@@ -5,15 +5,7 @@
     </video>
 </div>
 
-@if (!String.IsNullOrEmpty(TempData["WelcomeMessage"] as string))
-{
-    <div class="overlay" id="overlay">
-        <div class="alert alert-success custom-welcome-message" id="welcomeMessage">
-            <i class="fas fa-smile"></i>
-            @TempData["WelcomeMessage"]
-        </div>
-    </div>
-}
+
 
 <div class="container-fluid bgContainer hiden-content">
     <div class="container hero text-center pt-5 position-relative">
@@ -115,6 +107,7 @@
 </div>
 
 
+
 <script>
 
     $(document).ready(function () {
@@ -183,6 +176,7 @@
             }
         }).scroll(); // Esegui lo scroll handler all'inizio per garantire che l'opacità venga impostata correttamente
     });
+
 
 
 </script>

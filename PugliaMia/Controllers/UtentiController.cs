@@ -146,22 +146,20 @@ namespace PugliaMia.Controllers
                 if (existingUser != null)
                 {
                     ModelState.AddModelError("Nome", "Nome already in use");
-                    return View(model);
+                    return Json(new { success = false, message = "Nome utente già in uso" });
                 }
-                model.Role = "Cliente"; // Imposta il ruolo predefinito su "Cliente
+                model.Role = "Cliente"; // Imposta il ruolo predefinito su "Cliente"
 
                 // Crea un nuovo utente
                 db.Utenti.Add(model);
                 db.SaveChanges();
 
-                // Imposta un messaggio di registrazione effettuata con successo
-                ViewBag.SuccessMessage = "Registrazione effettuata con successo!";
-
-                return View(model);
+                // Ritorna un messaggio di registrazione effettuata con successo sotto forma di JSON
+                return Json(new { success = true, message = "Registrazione effettuata con successo!" });
             }
 
-            //  significa che qualcosa non ha funzionato, quindi visualizza nuovamente il modulo
-            return View(model);
+            // Qualcosa è andato storto, quindi ritorna un errore sotto forma di JSON
+            return Json(new { success = false, message = "Si è verificato un errore durante il tentativo di registrazione. Si prega di riprovare." });
         }
 
 
@@ -214,9 +212,9 @@ namespace PugliaMia.Controllers
                         db.Carrello.Add(nuovoCarrello);
                         db.SaveChanges();
                     }
-                    TempData["WelcomeMessage"] = $"Benvenuto/a {user.Nome}!";
-                    // Reindirizza l'utente alla pagina principale
-                    return RedirectToAction("Index", "Home");
+
+                    // Ritorna un messaggio di benvenuto sotto forma di JSON
+                    return Json(new { success = true, message = $"Benvenuto/a {user.Nome}!" });
                 }
                 else
                 {
@@ -224,7 +222,8 @@ namespace PugliaMia.Controllers
                 }
             }
 
-            return View(model);
+            // Se l'autenticazione non ha avuto successo, ritorna un errore sotto forma di JSON
+            return Json(new { success = false, message = "Nome utente o password non validi" });
         }
 
 

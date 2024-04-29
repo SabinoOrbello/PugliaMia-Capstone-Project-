@@ -10,75 +10,70 @@
     </div>
 </div>
 
-@if (!String.IsNullOrEmpty(ViewBag.SuccessMessage))
-{
-    <div class="overlay">
-        <div class="success-message">
-            @ViewBag.SuccessMessage
-            @Html.ActionLink("Vai alla Home", "Index", "Home", null, new { @class = "bottone" })
-        </div>
-    </div>
-}
 
 <div class="container text-center py-4">
     <h2 class="titPage">Effettua la Registrazione</h2>
     <hr class="border border-danger border-2 opacity-50 mb-4" />
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Register", "Utenti", FormMethod.Post, new { id = "registerForm" }))
     {
         @Html.AntiForgeryToken()
 
 
-<div class="login-form">
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="login-form">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label" })
-        <div class="text-center">
-            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control mx-auto", placeholder = "Nome" } })
-            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label" })
+                <div class="text-center">
+                    @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control mx-auto", placeholder = "Nome" } })
+                    @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
-        <div>
-            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control mx-auto", placeholder = "Email" } })
-            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control mx-auto", placeholder = "Email" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })
-        <div class="input-group">
-            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control mx-auto password-toggle", placeholder = "Password", type = "password" } })
-            <div class="input-group-append">
-               
+            <div class="form-group">
+                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })
+                <div class="input-group">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control mx-auto password-toggle", placeholder = "Password", type = "password" } })
+                    <div class="input-group-append">
+
+                    </div>
+                </div>
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+
+
+            <div>
+                <p class="normativa">
+                    Creando un account accetti le Condizioni d’uso e vendita di Puglia Food. Consulta la nostra <br />
+                    Informativa sulla privacy,<a href="#">l’Informativa sui cookie e l’Informativa </a>
+                    sulla pubblicità definita in base agli interessi.
+                </p>
+            </div>
+
+
+
+            <div class="form-group">
+                <div>
+                    <input type="submit" value="Crea" class="btn btn-primary btn-block" />
+                </div>
             </div>
         </div>
-        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-    </div>
-
-
-    <div>
-        <p class="normativa">Creando un account accetti le Condizioni d’uso e vendita di Puglia Food. Consulta la nostra <br />
-        Informativa sulla privacy,<a href="#">l’Informativa sui cookie e l’Informativa </a>
-        sulla pubblicità definita in base agli interessi.</p>
-    </div>
-
-
-
-    <div class="form-group">
-        <div>
-            <input type="submit" value="Crea" class="btn btn-primary btn-block" />
-        </div>
-    </div>
-</div>
 
     }
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+    // Script per la gestione della visibilità della password
     function togglePasswordVisibility(icon) {
         var passwordInput = icon.parentElement.parentElement.querySelector(".password-toggle");
 
@@ -90,4 +85,45 @@
             icon.innerHTML = '<i class="fa fa-eye" aria-hidden="true"></i>';
         }
     }
+
+    // Funzione per la gestione della registrazione con SweetAlert
+    $(document).ready(function () {
+        $('#registerForm').submit(function (event) {
+            event.preventDefault(); // Previeni il comportamento di default del form
+
+            $.ajax({
+                url: $(this).attr('action'),
+                type: $(this).attr('method'),
+                data: $(this).serialize(),
+                success: function (response) {
+                    if (response.success) {
+                        // Mostra il messaggio di registrazione effettuata con successo utilizzando SweetAlert
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Registrazione effettuata!',
+                            text: response.message
+                        }).then(function () {
+                            // Reindirizza l'utente alla pagina principale dopo aver chiuso l'alert
+                            window.location.href = '/Home/Index';
+                        });
+                    } else {
+                        // Se la registrazione non ha avuto successo, mostra un messaggio di errore
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Errore!',
+                            text: response.message
+                        });
+                    }
+                },
+                error: function () {
+                    // In caso di errore nella richiesta AJAX, mostra un messaggio di errore generico
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Errore!',
+                        text: 'Si è verificato un errore durante il tentativo di registrazione. Si prega di riprovare.'
+                    });
+                }
+            });
+        });
+    });
 </script>

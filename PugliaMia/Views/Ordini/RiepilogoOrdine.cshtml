@@ -12,18 +12,6 @@
 </div>
 
 
-@if (!String.IsNullOrEmpty(TempData["SuccessMessage"] as string))
-{
-    <div class="overlay" id="overlay">
-        <div class="alert alert-success  custom-welcome-message success-message" id="successMessage">
-            @TempData["SuccessMessage"]
-            <button type="button" class="bottone" onclick="closeMessage()">OK</button>
-        </div>
-    </div>
-}
-
-
-
 <div class="container login-form my-4">
     <h2>Riepilogo dell'Ordine</h2>
 
@@ -89,9 +77,19 @@
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 <script>
-    function closeMessage() {
-        document.getElementById('successMessage').style.display = 'none';
-        document.getElementById('overlay').style.display = 'none';
-    }
+        $(document).ready(function () {
+            var successMessage = '@Html.Raw(Json.Encode(TempData["SuccessMessage"]))';
+            if (successMessage) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Ordine confermato!',
+                    text: successMessage,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
 </script>

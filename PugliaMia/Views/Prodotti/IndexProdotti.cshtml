@@ -30,6 +30,8 @@
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
     $('.aggiungiAlCarrelloButton').click(function (event) {
         event.preventDefault();
@@ -41,18 +43,36 @@
             data: { prodottoId: prodottoId },
             success: function (response) {
                 if (response.success) {
-                    alert(response.message); // Messaggio di successo
+                    // Utilizza SweetAlert per mostrare un messaggio personalizzato di successo
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Prodotto aggiunto al carrello!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+
                     aggiornaNumeroProdottiCarrello(); // Aggiorna il numero di prodotti nel carrello
                     // Puoi aggiornare ulteriormente l'interfaccia utente qui se necessario
                 } else {
-                    alert(response.message); // Messaggio di errore
+                    // Utilizza SweetAlert per mostrare un messaggio personalizzato di errore
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: response.message
+                    });
                 }
             },
             error: function () {
-                alert('Errore durante l\'aggiunta al carrello');
+                // Utilizza SweetAlert per mostrare un messaggio personalizzato di errore
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Errore durante l\'aggiunta al carrello'
+                });
             }
         });
     });
+
 
     function aggiornaNumeroProdottiCarrello() {
         // Verifica se l'utente è autenticato
