@@ -756,19 +756,21 @@ textarea {
     font-size: 0.8rem !important;
 }
 
-@media (max-width: 768px) {
-    #fixedSidebar.fixed-sidebar-mobile {
-        position: fixed;
-        top: 100px;
-        bottom: 0;
-        overflow-y: auto;
-        margin-top: 15px; /* Aggiunto margine superiore per evitare sovrapposizioni */
+@media (max-width: 767px) {
+    /* Stili per dispositivi mobili */
+    #fixedSidebar {
+        
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000; /* Assicura che la sidebar sia sovrapposta ai contenuti */
     }
 
     #productsContainer {
-        margin-right: 60px;
+        padding-top: 100px; /* Altezza della sidebar */
     }
 }
+
 
 .show-on-scroll {
     opacity: 0;

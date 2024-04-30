@@ -205,13 +205,15 @@
                     $('#fixedSidebar').addClass('fixed-sidebar-mobile'); // Aggiungi classe per dispositivi mobili
                     $('#productsContainer').css({
                        
-                       // Riduce il margine sinistro per fare spazio alla sidebar fissa
+                        // Riduce il margine sinistro per fare spazio alla sidebar fissa
+                        marginLeft: '0',
                     });
                 } else {
                     $('#fixedSidebar').removeClass('fixed-sidebar-mobile'); // Rimuovi classe per dispositivi mobili
                     $('#productsContainer').css({
                        
-                       // Ripristina il margine sinistro originale
+                        // Ripristina il margine sinistro originale
+                        marginLeft: '0',
                     });
                 }
             } else { // Comportamento per dispositivi desktop
